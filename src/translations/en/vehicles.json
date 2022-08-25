@@ -1,0 +1,13 @@
+{
+  "vehicle_form": {
+    "fields": {
+      "fromYear": "From Year",
+      "toYear": "To Year",
+      "family": "Family",
+      "line": "Line",
+      "series": "Series",
+      "style": "Style",
+      "bodyDescription": "Body Description"
+    }
+  }
+}

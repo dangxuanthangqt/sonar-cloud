@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render top bar snapshot 1`] = `
+Array [
+  <div
+    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular makeStyles-header-2 css-129dask-MuiToolbar-root"
+  >
+    <div
+      className="makeStyles-appName-1"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        focusable="false"
+        height="28"
+        viewBox="0 0 28 28"
+        width="28"
+      />
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-16w2zvr-MuiTypography-root"
+      >
+        Request management
+      </p>
+    </div>
+    <div
+      className="makeStyles-personalHeader-3"
+    >
+      <span
+        className="BaseBadge-root MuiBadge-root css-1c32n2y-MuiBadge-root"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="MailIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+          />
+        </svg>
+        <span
+          className="BaseBadge-badge MuiBadge-badge MuiBadge-standard MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-colorError css-5unsm3-MuiBadge-badge"
+        >
+          4
+        </span>
+      </span>
+      <span
+        className="BaseBadge-root notification MuiBadge-root css-1c32n2y-MuiBadge-root"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="NotificationsIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+          />
+        </svg>
+        <span
+          className="BaseBadge-badge MuiBadge-badge MuiBadge-standard MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-colorError css-5unsm3-MuiBadge-badge"
+        >
+          4
+        </span>
+      </span>
+      <div
+        className="avatar"
+        onClick={[Function]}
+        role="button"
+      >
+        <span
+          className="BaseBadge-root MuiBadge-root css-1c32n2y-MuiBadge-root"
+        >
+          <div
+            className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-75jfsf-MuiAvatar-root"
+          >
+            ND
+          </div>
+          <span
+            className="BaseBadge-badge ForwardRef(Badge)-badge-8 MuiBadge-badge MuiBadge-dot MuiBadge-anchorOriginBottomRight MuiBadge-anchorOriginBottomRightCircular MuiBadge-overlapCircular css-13fkb3h-MuiBadge-badge"
+          />
+        </span>
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m7 10 5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular makeStyles-tabToolbar-4 css-129dask-MuiToolbar-root"
+  >
+    <div
+      className="makeStyles-tabs-5 MuiTabs-root css-16fol8f-MuiTabs-root"
+    >
+      <div
+        className="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+        onScroll={[Function]}
+        style={
+          Object {
+            "marginBottom": -0,
+            "overflow": "hidden",
+          }
+        }
+      >
+        <div
+          aria-orientation={null}
+          className="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+          onKeyDown={[Function]}
+          role="tablist"
+        >
+          <button
+            aria-selected={true}
+            className="MuiButtonBase-root MuiTab-root MuiTab-labelIcon MuiTab-textColorPrimary Mui-selected css-cyx6yj-MuiButtonBase-root-MuiTab-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex={0}
+            type="button"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium MuiTab-iconWrapper css-ci3i4m-MuiSvgIcon-root"
+              data-testid="AutoAwesomeMosaicIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 5v14c0 1.1.89 2 2 2h6V3H5c-1.11 0-2 .9-2 2zm16-2h-6v8h8V5c0-1.1-.9-2-2-2zm-6 18h6c1.1 0 2-.9 2-2v-6h-8v8z"
+              />
+            </svg>
+            top_bar.dashboard
+            <span
+              className="MuiTabs-indicator css-19lbbtv-MuiTabs-indicator"
+              style={Object {}}
+            />
+          </button>
+          <button
+            aria-selected={false}
+            className="MuiButtonBase-root MuiTab-root MuiTab-labelIcon MuiTab-textColorPrimary css-cyx6yj-MuiButtonBase-root-MuiTab-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex={-1}
+            type="button"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium MuiTab-iconWrapper css-ci3i4m-MuiSvgIcon-root"
+              data-testid="DriveFileMoveIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 12v-3h-4v-4h4V8l5 5-5 5z"
+              />
+            </svg>
+            top_bar.data_request
+          </button>
+          <button
+            aria-selected={false}
+            className="MuiButtonBase-root MuiTab-root MuiTab-labelIcon MuiTab-textColorPrimary css-cyx6yj-MuiButtonBase-root-MuiTab-root"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            role="tab"
+            tabIndex={-1}
+            type="button"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium MuiTab-iconWrapper css-ci3i4m-MuiSvgIcon-root"
+              data-testid="SummarizeIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M15 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V9l-6-6zM8 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 1V4.5l5.5 5.5H14z"
+              />
+            </svg>
+            top_bar.categorization
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="makeStyles-viewerContainer-6"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-16w2zvr-MuiTypography-root"
+      >
+        Current viewers :
+      </p>
+      <div
+        className="MuiAvatarGroup-root css-1ytufz-MuiAvatarGroup-root"
+      >
+        <div
+          className="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault MuiAvatarGroup-avatar css-1lasomx-MuiAvatar-root-MuiAvatarGroup-avatar"
+          style={
+            Object {
+              "marginLeft": null,
+            }
+          }
+        >
+          +
+          2
+        </div>
+        <div
+          className="MuiAvatar-root MuiAvatar-circular MuiAvatarGroup-avatar css-hnaldq-MuiAvatar-root"
+          style={
+            Object {
+              "marginLeft": null,
+            }
+          }
+        >
+          <img
+            alt="Cindy Baker"
+            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="/static/images/avatar/3.jpg"
+          />
+        </div>
+        <div
+          className="MuiAvatar-root MuiAvatar-circular MuiAvatarGroup-avatar css-hnaldq-MuiAvatar-root"
+          style={
+            Object {
+              "marginLeft": null,
+            }
+          }
+        >
+          <img
+            alt="Travis Howard"
+            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="/static/images/avatar/2.jpg"
+          />
+        </div>
+        <div
+          className="MuiAvatar-root MuiAvatar-circular MuiAvatarGroup-avatar css-hnaldq-MuiAvatar-root"
+          style={
+            Object {
+              "marginLeft": undefined,
+            }
+          }
+        >
+          <img
+            alt="Remy Sharp"
+            className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+            src="/static/images/avatar/1.jpg"
+          />
+        </div>
+      </div>
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        data-testid="ArrowDropDownIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="m7 10 5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>,
+]
+`;

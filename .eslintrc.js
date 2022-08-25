@@ -1,0 +1,43 @@
+module.exports = {
+  env: {
+    browser: true,
+    es2022: true,
+    jest: true,
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['react'],
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'eslint:recommended',
+    'prettier',
+    'react-app',
+    'plugin:prettier/recommended',
+  ],
+  rules: {
+    semi: 0,
+    'comma-dangle': 0,
+    'import/extensions': 'off',
+    'no-use-before-define': 'off',
+    'no-unused-vars': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'no-unsafe-optional-chaining': 'off',
+    'react/prop-types': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx'] }],
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/interactive-supports-focus': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+  },
+};

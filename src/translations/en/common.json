@@ -1,0 +1,39 @@
+{
+  "welcome": {
+    "title": "Welcome to {{framework}}",
+    "intro": "To get started, edit <1><0></0></1> and save to reload."
+  },
+  "sidebar": {
+    "data_sources": "Data sources",
+    "keyword": "Keywords",
+    "vehicle": "Vehicles",
+    "sale_codes": "Sale codes",
+    "dates": "Dates",
+    "lops_and_parts": "LOPs and Parts",
+    "summary": "Summary",
+    "others": "Others",
+    "request_parameters": "Request Parameters"
+  },
+  "top_bar": {
+    "dashboard": "Dashboard",
+    "data_request": "Data Request",
+    "categorization": "Categorization",
+    "summary_request": "Summary",
+    "reports": "Reports"
+  },
+  "profile": "Profile",
+  "logout": "Logout",
+  "setting": "Setting",
+  "subscriptions": "Subscriptions",
+  "breadcrumbs": {
+    "create_new_request": "Create New Request"
+  },
+  "buttons": {
+    "select_all": "Select All",
+    "unselect_all": "Unselect All",
+    "save_parameters": "Save Parameters",
+    "next": "Next",
+    "submit": "Submit",
+    "in_progress": "In Progress"
+  }
+}

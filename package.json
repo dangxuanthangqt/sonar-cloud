@@ -1,0 +1,119 @@
+{
+  "name": "stellantis",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@date-io/date-fns": "^2.14.0",
+    "@date-io/moment": "^2.14.0",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@hookform/resolvers": "^2.8.8",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/lab": "^5.0.0-alpha.86",
+    "@mui/material": "^5.8.4",
+    "@mui/styles": "^5.8.4",
+    "@mui/system": "^5.8.4",
+    "@mui/x-data-grid": "^5.12.2",
+    "@mui/x-data-grid-generator": "^5.12.2",
+    "@mui/x-data-grid-pro": "^5.14.0",
+    "@sentry/react": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.28.0",
+    "humps": "^2.0.1",
+    "i18next": "^21.6.16",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "react": "^18.1.0",
+    "react-date-range": "^1.4.0",
+    "react-dom": "^18.1.0",
+    "react-hook-form": "^7.30.0",
+    "react-i18next": "^11.16.8",
+    "react-query": "^3.38.1",
+    "react-router-dom": "6",
+    "react-scripts": "5.0.1",
+    "react-smooth-dnd": "^0.11.1",
+    "recoil": "^0.7.3-alpha.2",
+    "use-react-router-breadcrumbs": "^3.2.1",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "jest --config=jest.config.js",
+    "test:watchAll": "yarn test --watchAll",
+    "eject": "react-scripts eject",
+    "prepare": "husky install",
+    "lint": "eslint src/**/*.js{,x}",
+    "pretty": "prettier --write ."
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "npm run lint",
+      "prettier --write"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.17.12",
+    "@babel/preset-env": "^7.18.0",
+    "@faker-js/faker": "^7.3.0",
+    "@svgr/webpack": "^6.2.1",
+    "autoprefixer": "^10.4.7",
+    "axios-mock-adapter": "^1.20.0",
+    "babel-jest": "^28.1.0",
+    "babel-plugin-import": "^1.13.5",
+    "dotenv": "^16.0.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "jest-svg-transformer": "^1.0.0",
+    "jest-transformer-svg": "^1.0.2",
+    "lint-staged": "^12.4.1",
+    "msw": "^0.39.2",
+    "postcss": "^8.4.14",
+    "prettier": "^2.6.2",
+    "react-test-renderer": "^18.1.0",
+    "stylelint": "^14.8.2",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "tailwindcss": "^3.0.24",
+    "url-loader": "^4.1.1",
+    "uuid": "^8.3.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}
