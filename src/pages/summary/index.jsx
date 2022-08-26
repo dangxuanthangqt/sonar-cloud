@@ -5,11 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@mui/styles';
 import { ChevronLeft } from '@mui/icons-material';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { isEmpty } from 'lodash';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
+import { useNavigate } from 'react-router-dom';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import MainLayout from '@/components/main-layout';
 import RequestTitle from './components/RequestTitle';
 import AdditionalOptionalField from './components/AdditionalOptionalFields';
@@ -21,6 +24,7 @@ import LOPParts from './components/LOPParts';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import DataSourceSummary from '@/components/data-source-summary';
+import { steps } from '@/components/horizontal-stepper/constant';
 
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -124,6 +128,7 @@ function Summary({ isLoading }) {
   const { t } = useTranslation();
   const [completed, setCompleted] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(8);
+  const navigate = useNavigate();
 
   const classes = useStyles();
 
@@ -145,13 +150,45 @@ function Summary({ isLoading }) {
       <SalesCode />
       <Dates />
       <LOPParts />
-      <LoadingButton
-        variant="contained"
-        color="primary"
-        className={classes.next_button}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          mb: '70px',
+          mt: '30px',
+        }}
       >
-        {t('buttons.submit')}
-      </LoadingButton>
+        <Button
+          onClick={() => {
+            setActiveStep((prevActiveStep) => {
+              navigate(steps[activeStep - 1].path);
+              return prevActiveStep - 1;
+            });
+          }}
+          sx={{
+            width: '123px',
+            height: '40px',
+            color: '#0F81C0',
+            mt: '30px',
+            border: '1px solid #0F81C0',
+            '&:hover': {
+              border: '1px solid #0F81C0',
+            },
+          }}
+          variant="outlined"
+          startIcon={<SkipPreviousRoundedIcon />}
+        >
+          Previous
+        </Button>
+        <LoadingButton
+          variant="contained"
+          color="primary"
+          className={classes.next_button}
+          endIcon={<SaveRoundedIcon />}
+        >
+          Save
+        </LoadingButton>
+      </Box>
     </MainLayout>
   );
 }

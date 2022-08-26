@@ -10,6 +10,9 @@ import { useMutation } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { updateDataRequest } from 'services/data-request-service';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/system';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import MainLayout from '@/components/main-layout';
@@ -18,6 +21,7 @@ import FormGroup from './components/FormGroup';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
+import RequestTitle from '../summary/components/RequestTitle';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -169,6 +173,7 @@ function DataSources({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
+      <RequestTitle title="Create New Request" />
       <StepperInfo step={1} name="Data Sources" />
       <Grid container className={classes.body} spacing={3}>
         {!isLoading &&
@@ -192,25 +197,58 @@ function DataSources({ isLoading }) {
             </Grid>
           ))}
       </Grid>
-      <Button
-        onClick={() => {
-          setDataSourceState(getValues());
-          setActiveStep((prevActiveStep) => {
-            navigate(steps[activeStep + 1].path);
-            return prevActiveStep + 1;
-          });
-        }}
+      <Box
         sx={{
-          width: '123px',
-          height: '40px',
-          backgroundColor: '#0F81C0',
-          color: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'space-between',
+          mb: '70px',
           mt: '30px',
         }}
-        variant="contained"
       >
-        Next
-      </Button>
+        <Button
+          onClick={() => {
+            // setDataSourceState({ formGroups: [] });
+            reset({ formGroups: dataSourceSection.dataSourceGroups });
+            setDataSourceState({
+              formGroups: dataSourceSection.dataSourceGroups,
+            });
+          }}
+          sx={{
+            width: '123px',
+            height: '40px',
+            color: '#FD4747',
+            mt: '30px',
+            border: '1px solid #FD4747',
+            '&:hover': {
+              border: '1px solid #FD4747',
+            },
+          }}
+          variant="outlined"
+          startIcon={<CancelOutlinedIcon />}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            setDataSourceState(getValues());
+            setActiveStep((prevActiveStep) => {
+              navigate(steps[activeStep + 1].path);
+              return prevActiveStep + 1;
+            });
+          }}
+          sx={{
+            width: '123px',
+            height: '40px',
+            backgroundColor: '#0F81C0',
+            color: '#FFFFFF',
+            mt: '30px',
+          }}
+          variant="contained"
+          endIcon={<SkipNextRoundedIcon />}
+        >
+          Next
+        </Button>
+      </Box>
     </MainLayout>
   );
 }

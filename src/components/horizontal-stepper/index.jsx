@@ -113,13 +113,29 @@ export default function HorizontalLinearStepper({
   }, [pathname]);
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => {
-      if (prevActiveStep > 0) {
-        return prevActiveStep - 1;
-      }
-      return prevActiveStep;
-    });
-    navigate(steps[activeStep - 1].path);
+    if (handleSubmit)
+      /** Handle submit when onclick next button */
+      handleSubmit((values) => {
+        /** When click next button -> set value to recoil store */
+        setDataToRecoilStore && setDataToRecoilStore(values);
+
+        setActiveStep((prevActiveStep) => {
+          if (prevActiveStep > 0) {
+            return prevActiveStep - 1;
+          }
+          return prevActiveStep;
+        });
+        navigate(steps[activeStep - 1].path);
+      })();
+    else {
+      setActiveStep((prevActiveStep) => {
+        if (prevActiveStep > 0) {
+          return prevActiveStep - 1;
+        }
+        return prevActiveStep;
+      });
+      navigate(steps[activeStep - 1].path);
+    }
   };
 
   const handleOnClickStep = (index) => {
@@ -154,6 +170,7 @@ export default function HorizontalLinearStepper({
             width: '30px',
             height: '30px',
             backgroundColor: '#12293E',
+            display: activeStep === 0 ? 'none' : 'inline-flex',
             '&:hover': {
               backgroundColor: '#12293E',
             },
@@ -174,6 +191,7 @@ export default function HorizontalLinearStepper({
             color: '#12293E',
             marginTop: '3px',
             marginBottom: '0px',
+            display: activeStep === 0 ? 'none' : 'block',
           }}
         >
           Previous
@@ -225,11 +243,8 @@ export default function HorizontalLinearStepper({
         })}
       </Stepper>
       {activeStep === steps.length - 1 ? (
-        <Button
-          variant="contained"
-          sx={{ padding: '5px', textTransform: 'none' }}
-        >
-          Submit
+        <Button sx={{ pointerEvents: 'none' }}>
+          <span style={{ display: 'none' }}> </span>
         </Button>
       ) : dataSourceSummary?.required?.length || activeStep === 0 ? (
         <div>
@@ -242,11 +257,11 @@ export default function HorizontalLinearStepper({
               height: '30px',
               backgroundColor: !isEmpty(errors)
                 ? 'rgba(0, 0, 0, 0.38)'
-                : '#0F81C0',
+                : '#12293E',
               '&:hover': {
                 backgroundColor: !isEmpty(errors)
                   ? 'rgba(0, 0, 0, 0.38)'
-                  : '#0F81C0',
+                  : '#12293E',
                 cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
               },
             }}
@@ -262,7 +277,7 @@ export default function HorizontalLinearStepper({
             style={{
               fontSize: '14px',
               fontWeight: '500',
-              color: !isEmpty(errors) ? 'rgba(0, 0, 0, 0.6)' : '#0F81C0',
+              color: !isEmpty(errors) ? 'rgba(0, 0, 0, 0.6)' : '#12293E',
               marginTop: '3px',
               marginBottom: '0px',
             }}

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HelpOutline } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { isEmpty, last, omit } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
@@ -11,6 +11,8 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
@@ -21,6 +23,7 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
 import DataSourceSummary from '@/components/data-source-summary';
 import { salesCodeEnum } from './constant';
+import RequestTitle from '../summary/components/RequestTitle';
 
 const schema = yup.object().shape({
   matchAllSalesCode: yup.object().shape({
@@ -174,6 +177,7 @@ function SalesCodes({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
+      <RequestTitle />
       <StepperInfo step={4} name="Sales Codes" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       {!isLoading && (
@@ -212,36 +216,72 @@ function SalesCodes({ isLoading }) {
             isMatchAllSalesCodeDisabled={isMatchAllSalesCodeDisabled}
             matches={matches}
           />
-          <Button
-            onClick={() => {
-              handleSubmit(() => {
-                setSalesCodeStateValue(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
-              })();
-            }}
+          <Box
             sx={{
-              width: '123px',
-              height: '40px',
-              backgroundColor: !isEmpty(errors)
-                ? 'rgba(0, 0, 0, 0.38)'
-                : '#0F81C0',
-              color: '#FFFFFF',
+              display: 'flex',
+              justifyContent: 'space-between',
+              mb: '70px',
               mt: '30px',
-              mb: '20px',
-              textTransform: 'none',
-              '&:hover': {
-                cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
-              },
-              pointerEvents: 'all !important',
             }}
-            variant="contained"
-            disabled={!isEmpty(errors)}
           >
-            {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
-          </Button>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setSalesCodeStateValue(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep - 1].path);
+                    return prevActiveStep - 1;
+                  });
+                })();
+              }}
+              sx={{
+                width: '123px',
+                height: '40px',
+                color: '#0F81C0',
+                mt: '30px',
+                textTransform: 'none',
+                border: '1px solid #0F81C0',
+                '&:hover': {
+                  border: '1px solid #0F81C0',
+                },
+              }}
+              variant="outlined"
+              startIcon={<SkipPreviousRoundedIcon />}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setSalesCodeStateValue(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep + 1].path);
+                    return prevActiveStep + 1;
+                  });
+                })();
+              }}
+              sx={{
+                width: '123px',
+                height: '40px',
+                backgroundColor: !isEmpty(errors)
+                  ? 'rgba(0, 0, 0, 0.38)'
+                  : '#0F81C0',
+                color: '#FFFFFF',
+                mt: '30px',
+                mb: '20px',
+                textTransform: 'none',
+                '&:hover': {
+                  cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
+                },
+                pointerEvents: 'all !important',
+              }}
+              variant="contained"
+              disabled={!isEmpty(errors)}
+              endIcon={<SkipNextRoundedIcon />}
+            >
+              {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
+            </Button>
+          </Box>
         </>
       )}
     </MainLayout>

@@ -40,7 +40,18 @@ const useCriteriaStyles = makeStyles((theme) => ({
     fontWeight: 700,
     marginBlock: 12,
   },
-  input: { width: '100%', marginBlock: 8, fontSize: 16, fontWeight: 400 },
+  input: {
+    width: '100%',
+    marginBlock: 8,
+    fontSize: 16,
+    fontWeight: 400,
+    '&::before': {
+      borderBottom: '2px solid #0F81C0',
+    },
+    '&:hover:not(.Mui-disabled):before': {
+      borderBottom: '2px solid #0F81C0',
+    },
+  },
   data_source_1: {
     padding: 10,
     backgroundColor: theme.palette.secondary.tab_bg,
@@ -95,15 +106,15 @@ const useCriteriaStyles = makeStyles((theme) => ({
   },
 }));
 
-function RequestTitle({ control }) {
+function RequestTitle({ control, title = 'Request Title' }) {
   const classes = useCriteriaStyles();
   return (
     <div
       style={{
-        marginBottom: '30px',
+        marginBottom: '25px',
       }}
     >
-      <div className={classes.header1}>Request Title</div>
+      <div className={classes.header1}>{title}</div>
       <Input
         className={classes.input}
         control={control}

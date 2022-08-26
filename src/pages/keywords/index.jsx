@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form';
 import { findLast, forEach, isEmpty, last, omit, some } from 'lodash';
 import { HelpOutline } from '@mui/icons-material';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 import { LoadingButton } from '@mui/lab';
 import * as yup from 'yup';
@@ -21,6 +21,8 @@ import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { updateKeywordRequest } from 'mocks/keywords/response';
 import usePrevious from 'hooks/common/usePrevious';
 import { STEPS } from 'mocks/requests-view/mockData';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import Criteria from './components/Criteria';
@@ -33,6 +35,7 @@ import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
+import RequestTitle from '../summary/components/RequestTitle';
 
 const schema = yup.object().shape({
   criteriaGroup: yup.array().of(
@@ -290,6 +293,7 @@ function Keywords({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading || isFetching} />
+      <RequestTitle />
       <StepperInfo step={2} name="Keywords" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       {!isLoading && (
@@ -336,34 +340,70 @@ function Keywords({ isLoading }) {
           <Effective effective={effective} />
         </>
       )}
-      <Button
-        onClick={() => {
-          handleSubmit(() => {
-            setKeywordsStateValue(getValues());
-            setActiveStep((prevActiveStep) => {
-              navigate(steps[activeStep + 1].path);
-              return prevActiveStep + 1;
-            });
-          })();
-        }}
+      <Box
         sx={{
-          width: '123px',
-          height: '40px',
-          backgroundColor: !isEmpty(errors) ? 'rgba(0, 0, 0, 0.38)' : '#0F81C0',
-          color: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'space-between',
+          mb: '70px',
           mt: '30px',
-          mb: '20px',
-          textTransform: 'none',
-          '&:hover': {
-            cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
-          },
-          pointerEvents: 'all !important',
         }}
-        variant="contained"
-        disabled={!isEmpty(errors)}
       >
-        {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
-      </Button>
+        <Button
+          onClick={() => {
+            handleSubmit(() => {
+              setKeywordsStateValue(getValues());
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep - 1].path);
+                return prevActiveStep - 1;
+              });
+            })();
+          }}
+          sx={{
+            width: '123px',
+            height: '40px',
+            color: '#0F81C0',
+            mt: '30px',
+            border: '1px solid #0F81C0',
+            '&:hover': {
+              border: '1px solid #0F81C0',
+            },
+          }}
+          variant="outlined"
+          startIcon={<SkipPreviousRoundedIcon />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => {
+            handleSubmit(() => {
+              setKeywordsStateValue(getValues());
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep + 1].path);
+                return prevActiveStep + 1;
+              });
+            })();
+          }}
+          sx={{
+            width: '123px',
+            height: '40px',
+            backgroundColor: !isEmpty(errors)
+              ? 'rgba(0, 0, 0, 0.38)'
+              : '#0F81C0',
+            color: '#FFFFFF',
+            mt: '30px',
+            mb: '20px',
+            '&:hover': {
+              cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
+            },
+            pointerEvents: 'all !important',
+          }}
+          variant="contained"
+          disabled={!isEmpty(errors)}
+          endIcon={<SkipNextRoundedIcon />}
+        >
+          {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
+        </Button>
+      </Box>
     </MainLayout>
   );
 }
