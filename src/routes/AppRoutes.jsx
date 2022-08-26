@@ -11,14 +11,44 @@ import ReportsRoute from './ReportsRoute';
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <TopBar />
       <Routes>
         <Route path="sign-in" element={<SignIn />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="reports/*" element={<ReportsRoute />} />
+        <Route
+          path="dashboard"
+          element={
+            <>
+              <TopBar />
+              <Dashboard />
+            </>
+          }
+        />
+        <Route
+          path="reports/*"
+          element={
+            <>
+              <TopBar />
+              <ReportsRoute />
+            </>
+          }
+        />
         {/* <Route path="reports" element={<Reports />} /> */}
-        <Route path="summary" element={<Summary />} />
-        <Route path="data-request/*" element={<DataRequestRoutes />} />
+        <Route
+          path="summary"
+          element={
+            <TopBar>
+              <Summary />
+            </TopBar>
+          }
+        />
+        <Route
+          path="data-request/*"
+          element={
+            <>
+              <TopBar />
+              <DataRequestRoutes />
+            </>
+          }
+        />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>

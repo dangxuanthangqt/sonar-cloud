@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SvgIcon,
   Typography,
@@ -8,6 +8,9 @@ import {
   InputAdornment,
   Button,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { signIn } from 'services/sign-in';
+import { useMutation } from 'react-query';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import CloseIcon from '@mui/icons-material/Close';
@@ -63,11 +66,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const index = () => {
+  const navigate = useNavigate();
   const classes = useStyles();
+  const [userName, setUserName] = useState('');
+  const [passWord, setPassWord] = useState('');
+  const [isWrongPassWord, setIsWrongPassWord] = useState(false);
+  const handleChangeUserNmae = (value) => {
+    setUserName(value);
+  };
+  const handleChangePassWord = (value) => {
+    setPassWord(value);
+  };
+  const { data, mutate } = useMutation(['singIn'], () => signIn());
+  if (data?.data) {
+    navigate('/dashboard');
+  }
+  const submitSignIn = (e) => {
+    e.preventDefault();
+    if (passWord) {
+      mutate();
+    } else {
+      setIsWrongPassWord(true);
+      setTimeout(() => {
+        setIsWrongPassWord(false);
+      }, 2000);
+    }
+  };
   return (
     <div className={classes.wrapForm}>
       <Banner />
-      <Box className={classes.wrapRight}>
+      <form className={classes.wrapRight} onSubmit={(e) => submitSignIn(e)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
             <SvgIcon
@@ -87,8 +115,11 @@ const index = () => {
             </div>
           </div>
           <TextField
-            label="User name or email"
-            id="outlined-start-adornment"
+            id="outlined-basic"
+            variant="outlined"
+            placeholder="User name or email"
+            value={userName}
+            onChange={(e) => handleChangeUserNmae(e.target.value)}
             sx={{ m: 1, width: '100%' }}
             InputProps={{
               startAdornment: (
@@ -99,8 +130,11 @@ const index = () => {
             }}
           />
           <TextField
-            label="PassWord"
-            id="outlined-start-adornment"
+            id="outlined-basic"
+            variant="outlined"
+            placeholder="PassWord"
+            value={passWord}
+            onChange={(e) => handleChangePassWord(e.target.value)}
             sx={{ m: 1, width: '100%' }}
             InputProps={{
               startAdornment: (
@@ -110,22 +144,25 @@ const index = () => {
               ),
             }}
           />
-          <div className={classes.errorText}>
-            <CloseIcon className={classes.spaceText} />
-            <span>Icorrect password</span>
-          </div>
+          {isWrongPassWord && (
+            <div className={classes.errorText}>
+              <CloseIcon className={classes.spaceText} />
+              <span>Icorrect password</span>
+            </div>
+          )}
           <div className={classes.groupBottomform}>
             <div className={classes.recoveryPass}>Recovery Password</div>
             <Button
               variant="contained"
               size="large"
               endIcon={<ExitToAppIcon />}
+              type="submit"
             >
               Send
             </Button>
           </div>
         </div>
-      </Box>
+      </form>
     </div>
   );
 };

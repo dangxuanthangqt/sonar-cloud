@@ -7,6 +7,7 @@ import { requestReportsHandler } from './reports/response';
 import { keywordsHandler, updateKeywordRequest } from './keywords/response';
 import { requestsViewHandler } from './requests-view/response';
 import { getPlants, getVehicles, getVehicleSchema } from './vehicles/response';
+import { signIn } from './sign-in/response';
 
 export const handlers = [
   getVehicleSchema,
@@ -16,6 +17,7 @@ export const handlers = [
   getDataRequest,
   updateDataRequest,
   updateKeywordRequest,
+  signIn,
   ...requestsViewHandler,
   ...keywordsHandler,
   ...requestReportsHandler,
