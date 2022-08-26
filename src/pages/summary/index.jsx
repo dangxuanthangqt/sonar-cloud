@@ -19,6 +19,7 @@ import LOPParts from './components/LOPParts';
 
 import { steps } from '@/components/horizontal-stepper/constant';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
+import { StepperInfo } from '@/components/stepper-info';
 
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -135,8 +136,8 @@ function Summary({ isLoading }) {
         ],
       }}
     >
+      <StepperInfo step={7} name="Summary" />
       <RequestTitle />
-      <Typography className={classes.step}>Step 7</Typography>
       {/* <AdditionalOptionalField /> */}
       <Keyword />
       <Vehicle />
