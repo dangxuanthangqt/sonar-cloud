@@ -98,7 +98,11 @@ const useCriteriaStyles = makeStyles((theme) => ({
 function RequestTitle({ control }) {
   const classes = useCriteriaStyles();
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: '30px',
+      }}
+    >
       <div className={classes.header1}>Request Title</div>
       <Input
         className={classes.input}

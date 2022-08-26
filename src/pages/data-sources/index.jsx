@@ -49,10 +49,9 @@ function DataSources({ isLoading }) {
     data: { dataSourceSection, id: dataRequestId },
   } = dataRequestStateValue || {};
 
-  const { control, reset, getValues, setValue, handleSubmit, watch, trigger } =
-    useForm({
-      defaultValues: { formGroups: [] },
-    });
+  const { control, reset, getValues, setValue, handleSubmit, watch } = useForm({
+    defaultValues: { formGroups: [] },
+  });
 
   const { fields } = useFieldArray({ control, name: 'formGroups' });
 
@@ -74,14 +73,6 @@ function DataSources({ isLoading }) {
       reset({ formGroups: dataSourceSection.dataSourceGroups });
     }
   }, [dataSourceSection, dataSourceState]);
-
-  // useEffect(
-  //   () => () => {
-  //     setDataSourceState(getValues());
-  //     reset();
-  //   },
-  //   []
-  // );
 
   const { mutate, isLoading: updateDataRequestLoading } = useMutation(
     ['updateDataRequest'],

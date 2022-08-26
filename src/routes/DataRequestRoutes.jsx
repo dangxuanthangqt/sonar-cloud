@@ -1,7 +1,4 @@
-import {
-  useGetRequestViewData,
-  useGetRequestViewSchema,
-} from 'hooks/queries/use-requests-view';
+import { useGetRequestViewData } from 'hooks/queries/use-requests-view';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import DataSources from '@/pages/data-sources';
@@ -17,13 +14,6 @@ import { dataRequestRoutes } from './constants';
 
 function DataRequestRoutes() {
   const setDataRequestState = useSetRecoilState(dataRequestStateAtom);
-  const { isFetching: getRequestViewSchemaLoading } = useGetRequestViewSchema({
-    keyword: 'DataRequestRoutes',
-    options: {
-      onSuccess: (res) =>
-        setDataRequestState((prev) => ({ ...prev, dataSchema: res })),
-    },
-  });
 
   const { isFetching } = useGetRequestViewData({
     options: {
@@ -36,49 +26,35 @@ function DataRequestRoutes() {
     <Routes>
       <Route
         path={dataRequestRoutes.dataSources}
-        element={
-          <DataSources isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<DataSources isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.vehicles}
-        element={
-          <NewVehicle isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<NewVehicle isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.keywords}
-        element={
-          <Keywords isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<Keywords isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.saleCodes}
-        element={
-          <SalesCodes isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<SalesCodes isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.dates}
-        element={
-          <Dates isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<Dates isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.summary}
-        element={
-          <Summary isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<Summary isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.muiGrid}
-        element={
-          <MuiGrid isLoading={getRequestViewSchemaLoading || isFetching} />
-        }
+        element={<MuiGrid isLoading={isFetching} />}
       />
       <Route
         path={dataRequestRoutes.lops}
-        element={<Lops isLoading={getRequestViewSchemaLoading || isFetching} />}
+        element={<Lops isLoading={isFetching} />}
       />
       <Route path="*" element={<Navigate to="data-sources" replace />} />
     </Routes>

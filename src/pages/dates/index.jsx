@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@mui/styles';
 import { LoadingButton } from '@mui/lab';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { camelCase, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { HelpOutline } from '@mui/icons-material';
@@ -47,30 +47,8 @@ function Dates({ isLoading }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
   const {
-    dataSchema,
     data: { datesSection },
   } = dataRequestStateValue || {};
-
-  // eslint-disable-next-line no-unused-vars
-  const properties = useMemo(() => {
-    if (
-      isEmpty(datesSection) ||
-      isEmpty(dataSchema?.definitions?.datesSection?.properties)
-    )
-      return {};
-    return Object.keys(datesSection || {})?.reduce((acc, key) => {
-      acc[key] = {
-        ...(dataSchema?.definitions?.[
-          camelCase(
-            dataSchema?.definitions?.datesSection?.properties?.[key]
-              ?.originalRef
-          )
-        ]?.properties || {}),
-        ...dataSchema?.definitions?.datesSection?.properties?.[key],
-      };
-      return acc;
-    }, {});
-  }, [datesSection, dataSchema]);
 
   const { control, reset, handleSubmit, getValues } = useForm({
     defaultValues: {

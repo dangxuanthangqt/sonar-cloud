@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 import React, { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -138,7 +139,7 @@ function Summary({ isLoading }) {
     >
       <RequestTitle />
       <Typography className={classes.step}>Step 8</Typography>
-      <AdditionalOptionalField />
+      {/* <AdditionalOptionalField /> */}
       <Keyword />
       <Vehicle />
       <SalesCode />

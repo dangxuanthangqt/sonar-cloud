@@ -86,38 +86,9 @@ function Lops({ isLoading }) {
   const navigate = useNavigate();
 
   const {
-    dataSchema,
     data: { lopAndPartsSection },
   } = dataRequestStateValue || {};
 
-  // const lopsProperties = useMemo(() => {
-  //   if (isEmpty(dataSchema)) return {};
-  //   const {
-  //     definitions: {
-  //       lopCriteriaGroup,
-  //       lopCriteria,
-  //       lopAndPartsSection: lopAndPartsSectionSchema,
-  //       partGroup,
-  //     },
-  //   } = dataSchema;
-  //   return {
-  //     lopAndPartsSection: {
-  //       ...(lopAndPartsSectionSchema || {}),
-  //       partGroup: {
-  //         ...(partGroup || {}),
-  //       },
-  //       lopCriteriaGroup: {
-  //         ...(lopCriteriaGroup || {}),
-  //         lopCriteriaList: {
-  //           ...(lopCriteriaGroup?.lopCriteriaList || {}),
-  //           lopCriteria: {
-  //             ...(lopCriteria || {}),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   };
-  // }, [dataSchema]);
   const lopsProperties = lopsPartProperties;
 
   const requiredFields = ['parts', 'lop', 'failureCode'];
@@ -130,7 +101,6 @@ function Lops({ isLoading }) {
     handleSubmit,
     getValues,
     trigger,
-    watch,
   } = useForm({
     defaultValues: {
       partsGroup: {
@@ -167,14 +137,6 @@ function Lops({ isLoading }) {
       });
     }
   }, [lopAndPartsSection]);
-
-  // useEffect(
-  //   () => () => {
-  //     setLopsAndPartsState(getValues());
-  //     reset();
-  //   },
-  //   []
-  // );
 
   const lopsAndPartsSectionDisabled = useMemo(
     () => lopAndPartsSection?.permissions?.readOnlyControl,

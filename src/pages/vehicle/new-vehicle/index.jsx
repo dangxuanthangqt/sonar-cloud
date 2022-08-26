@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { camelCase, isEmpty, omit, last } from 'lodash';
+import { isEmpty, omit, last } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -29,36 +29,8 @@ function NewVehicle({ isLoading }) {
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [vehicleState, setVehicleState] = useRecoilState(vehicleStateAtom);
   const {
-    dataSchema,
     data: { vehicleSection },
   } = dataRequestStateValue || {};
-
-  const requiredFields = useMemo(
-    () => dataSchema?.definitions?.vehicleCriteria?.required || [],
-    [dataSchema]
-  );
-
-  const properties = useMemo(() => {
-    if (
-      isEmpty(vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList) ||
-      isEmpty(dataSchema?.definitions?.vehicleCriteria?.properties)
-    )
-      return {};
-    return Object.keys(
-      vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList?.[0] || {}
-    )?.reduce((acc, key) => {
-      acc[key] = {
-        ...(dataSchema?.definitions?.[
-          camelCase(
-            dataSchema?.definitions?.vehicleCriteria?.properties?.[key]
-              ?.originalRef
-          )
-        ]?.properties || {}),
-        ...dataSchema?.definitions?.vehicleCriteria?.properties?.[key],
-      };
-      return acc;
-    }, {});
-  }, [vehicleSection, dataSchema]);
 
   const { control, reset, setValue, handleSubmit, getValues, watch } = useForm({
     defaultValues: {

@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import DataSourceSummary from '@/components/data-source-summary';
 import { datesStateAtom } from '@/recoil/atom/dates-state';
+import { STEPS } from '@/common/constants';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -106,16 +107,10 @@ const useCriteriaStyles = makeStyles((theme) => ({
   },
 }));
 
-const dataSources1 = [
-  'Uncodable Claim Narrative (UCN)',
-  'Straight Time Claim Narrative (STN)',
-  'Quality Tracking Narratives (QTN)',
-];
-
 function Dates({ control }) {
   const classes = useCriteriaStyles();
 
-  const dataSourceSummary = useDataSourceSummary('keywords');
+  const dataSourceSummary = useDataSourceSummary(STEPS.DATES);
   const [datesState, setDatesState] = useRecoilState(datesStateAtom);
 
   const getDatetoDisplay = (date) => {
