@@ -136,7 +136,16 @@ function Summary({ isLoading }) {
         ],
       }}
     >
-      <StepperInfo step={7} name="Summary" />
+      <Typography
+        sx={{
+          fontSize: 16,
+          fontWeight: 700,
+          color: '#919191',
+          mb: '10px',
+        }}
+      >
+        Step 7 :
+      </Typography>
       <RequestTitle />
       {/* <AdditionalOptionalField /> */}
       <Keyword />

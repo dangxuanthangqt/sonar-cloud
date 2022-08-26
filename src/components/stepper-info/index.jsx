@@ -16,7 +16,7 @@ export function StepperInfo({ step, name, title }) {
           color: '#919191',
         }}
       >
-        Step {step}:
+        Step {step} :
       </Typography>
       <Typography
         sx={{
