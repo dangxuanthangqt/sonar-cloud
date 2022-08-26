@@ -1,30 +1,24 @@
 /* eslint-disable import/no-named-as-default-member */
 import React, { useEffect } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@mui/styles';
-import { ChevronLeft } from '@mui/icons-material';
 
-import { Box, Button, IconButton, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { isEmpty } from 'lodash';
-import { useDataSourceSummary } from 'hooks/use-data-source-summary';
+import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import MainLayout from '@/components/main-layout';
 import RequestTitle from './components/RequestTitle';
-import AdditionalOptionalField from './components/AdditionalOptionalFields';
 import Keyword from './components/Keywords';
 import Vehicle from './components/Vehicles';
 import SalesCode from './components/SalesCode';
 import Dates from './components/Dates';
 import LOPParts from './components/LOPParts';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
-import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
-import DataSourceSummary from '@/components/data-source-summary';
+
 import { steps } from '@/components/horizontal-stepper/constant';
+import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -126,8 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Summary({ isLoading }) {
   const { t } = useTranslation();
-  const [completed, setCompleted] = React.useState({});
-  const [activeStep, setActiveStep] = React.useState(8);
+  const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
 
   const classes = useStyles();
@@ -143,7 +136,7 @@ function Summary({ isLoading }) {
       }}
     >
       <RequestTitle />
-      <Typography className={classes.step}>Step 8</Typography>
+      <Typography className={classes.step}>Step 7</Typography>
       {/* <AdditionalOptionalField /> */}
       <Keyword />
       <Vehicle />
