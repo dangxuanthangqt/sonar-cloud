@@ -130,6 +130,7 @@ const index = () => {
             }}
           />
           <TextField
+            type="password"
             id="outlined-basic"
             variant="outlined"
             placeholder="PassWord"
@@ -158,7 +159,7 @@ const index = () => {
               endIcon={<ExitToAppIcon />}
               type="submit"
             >
-              Send
+              Sign in
             </Button>
           </div>
         </div>
