@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SvgIcon,
   Typography,
@@ -8,17 +8,15 @@ import {
   InputAdornment,
   Button,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import makeStyles from '@mui/styles/makeStyles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { signIn } from 'services/sign-in';
-import { useMutation } from 'react-query';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
-import CloseIcon from '@mui/icons-material/Close';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import makeStyles from '@mui/styles/makeStyles';
+import EmailIcon from '@mui/icons-material/Email';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import { useNavigate } from 'react-router-dom';
 import Banner from '@/components/banner-signin-signup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 
@@ -46,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '0',
     marginBottom: '8px',
   },
+  errorText: {
+    textAlign: 'left',
+    color: 'red',
+    marginBottom: '15px',
+  },
   description: {
     color: '#A3A3A3',
     cursor: 'pointer',
@@ -55,21 +58,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '50px 0',
     width: '50%',
   },
-  errorText: {
-    textAlign: 'left',
-    color: 'red',
-    marginBottom: '15px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  spaceText: {
-    marginRight: '5px',
-  },
-  recoveryPass: {
-    marginBottom: '20px',
-    color: '#A3A3A3',
-    cursor: 'pointer',
-  },
   groupBottomform: {
     textAlign: 'right',
   },
@@ -77,8 +65,13 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup
   .object({
+    email: yup.string().email().required(),
     userName: yup.string().required(),
     password: yup.string().required(),
+    repeatPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Passwords does not match')
+      .required(),
   })
   .required();
 
@@ -93,13 +86,9 @@ const index = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const { data, mutate } = useMutation(['singIn'], () => signIn());
-  if (data?.data) {
-    navigate('/dashboard');
-  }
-  const onSubmit = (param) => {
-    console.log('login');
-    mutate();
+  console.log(errors);
+  const onSubmit = (data) => {
+    console.log(data);
   };
   return (
     <div className={classes.wrapForm}>
@@ -117,18 +106,32 @@ const index = () => {
           </div>
           <div className={classes.content}>
             <Typography variant="h6" style={{ marginBottom: '20px' }}>
-              Hello again!
+              Please Sign up here
             </Typography>
             <div className={classes.description}>
               Please input login details to proceed
             </div>
           </div>
           <TextField
+            {...register('email')}
+            id="outlined-basic"
+            variant="outlined"
+            placeholder="Email"
             className={classes.inputField}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
             {...register('userName')}
             id="outlined-basic"
             variant="outlined"
-            placeholder="User name or email"
+            placeholder="User name"
+            className={classes.inputField}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -141,12 +144,12 @@ const index = () => {
             <div className={classes.errorText}>{errors.userName?.message}</div>
           )}
           <TextField
-            className={classes.inputField}
             {...register('password')}
             type="password"
             id="outlined-basic"
             variant="outlined"
             placeholder="Password"
+            className={classes.inputField}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -156,20 +159,36 @@ const index = () => {
             }}
           />
           {errors.password && (
+            <div className={classes.errorText}>{errors.password?.message}</div>
+          )}
+          <TextField
+            {...register('repeatPassword')}
+            type="password"
+            id="outlined-basic"
+            variant="outlined"
+            placeholder="Repeat Password"
+            className={classes.inputField}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.repeatPassword && (
             <div className={classes.errorText}>
-              <CloseIcon className={classes.spaceText} />
-              <span>Icorrect password</span>
+              {errors.repeatPassWord?.message}
             </div>
           )}
           <div className={classes.groupBottomform}>
-            <div className={classes.recoveryPass}>Recovery Password</div>
             <Button
               variant="contained"
               size="large"
-              endIcon={<ExitToAppIcon />}
+              endIcon={<OpenInBrowserIcon />}
               type="submit"
             >
-              Sign in
+              Sign Up
             </Button>
           </div>
         </div>
