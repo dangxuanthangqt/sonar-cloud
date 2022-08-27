@@ -1,19 +1,18 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import DataSources from '.';
-import { render, waitFor } from '../../common/utils/testUtils';
+import { render, waitFor } from '../../../common/utils/testUtils';
+import DataSources from '@/pages/data-sources';
 
 describe('Data source', () => {
-  // it('should match snapshot', async () => {
-  //   const { container } = render(<DataSources />);
-  //   expect(container.firstChild).toMatchSnapshot();
-  // });
+  it('should match snapshot', async () => {
+    const { container } = render(<DataSources />);
+    expect(container).toMatchSnapshot();
+  });
 
   it('displays returned tasks on successful fetch', async () => {
     const { getByText, getByRole } = render(<DataSources />);
-    let selectAllButton;
 
-    expect(getByRole('button', { name: 'NEXT' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Next' })).toBeInTheDocument();
 
     expect(getByText('Datasources')).toBeInTheDocument();
 

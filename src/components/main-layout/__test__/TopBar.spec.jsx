@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import withProviderTesting from 'HOCs/withProviderTesting';
 import renderer from 'react-test-renderer';
 import React from 'react';
-import TopBar from './TopBar';
+import TopBar from '@/components/main-layout/TopBar';
 
 afterEach(cleanup);
 

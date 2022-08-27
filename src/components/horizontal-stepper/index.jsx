@@ -103,8 +103,7 @@ export default function HorizontalLinearStepper({
 
   React.useEffect(() => {
     /** Check case reload page back to step 1, except step 2 */
-    if (activeStep !== 0 && activeStep !== 1 && !dataSourceState)
-      navigate(steps[0].path);
+    if (activeStep !== 0 && !dataSourceState) navigate(steps[0].path);
   }, [activeStep]);
 
   React.useEffect(() => {
