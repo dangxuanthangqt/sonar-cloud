@@ -110,6 +110,9 @@ const index = () => {
   const handleRecoveryPassword = () => {
     setIsShowBackdrop(true);
   };
+  const handleClose = () => {
+    setIsShowBackdrop(false);
+  };
   return (
     <div className={classes.wrapForm}>
       <Banner />
@@ -189,7 +192,7 @@ const index = () => {
           </div>
         </div>
       </form>
-      <RecoveryPopup isShow={isShowBackdrop} />
+      <RecoveryPopup isShow={isShowBackdrop} handleClose={handleClose} />
     </div>
   );
 };

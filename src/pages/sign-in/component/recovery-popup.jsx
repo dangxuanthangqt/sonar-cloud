@@ -8,6 +8,39 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SendIcon from '@mui/icons-material/Send';
+import makeStyles from '@mui/styles/makeStyles';
+
+const useStyles = makeStyles((theme) => ({
+  wrapBtnClose: {
+    textAlign: 'right',
+  },
+  btnClose: {
+    width: '40px',
+    height: '40px',
+    cursor: 'pointer',
+  },
+  wrapBodyPopUp: {
+    width: '70%',
+    margin: 'auto',
+    textAlign: 'center',
+    marginBottom: '50px',
+  },
+  sendIcon: {
+    width: '40px',
+    height: '40px',
+    transform: 'rotate(-45deg)',
+    margin: '10px 0 20px',
+  },
+  titlePopUp: {
+    fontWeight: '700',
+    marginBottom: '20px',
+  },
+  content: {
+    color: '#A3A3A3',
+  },
+}));
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -48,43 +81,34 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   );
 }
 
-function RecoveryPopup({ isShow }) {
-  console.log(isShow);
+function RecoveryPopup({ isShow, handleClose }) {
+  const classes = useStyles();
   return (
     <div>
       <BootstrapDialog
-        // onClose={handleClose}
+        onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={isShow}
       >
-        <BootstrapDialogTitle
-          id="customized-dialog-title"
-          // onClose={handleClose}
-        >
-          Modal title
-        </BootstrapDialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+        <DialogContent>
+          <div className={classes.wrapBtnClose}>
+            <CancelIcon
+              onClick={handleClose}
+              color="primary"
+              className={classes.btnClose}
+            />
+          </div>
+          <div className={classes.wrapBodyPopUp}>
+            <SendIcon className={classes.sendIcon} color="primary" />
+            <Typography className={classes.titlePopUp} variant="h4">
+              Recover password
+            </Typography>
+            <Typography className={classes.content}>
+              An email has been sent to you please open that link to reset your
+              password
+            </Typography>
+          </div>
         </DialogContent>
-        <DialogActions>
-          {/* <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button> */}
-        </DialogActions>
       </BootstrapDialog>
     </div>
   );
