@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Backdrop from '@mui/material/Backdrop';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'services/sign-in';
 import { useMutation } from 'react-query';
@@ -20,6 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import makeStyles from '@mui/styles/makeStyles';
 import Banner from '@/components/banner-signin-signup';
+import RecoveryPopup from './component/recovery-popup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     padding: '50px 0',
     width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   errorText: {
     textAlign: 'left',
@@ -85,6 +90,7 @@ const schema = yup
 const index = () => {
   const navigate = useNavigate();
   const classes = useStyles();
+  const [isShowBackdrop, setIsShowBackdrop] = useState(false);
   const {
     register,
     handleSubmit,
@@ -100,6 +106,9 @@ const index = () => {
   const onSubmit = (param) => {
     console.log('login');
     mutate();
+  };
+  const handleRecoveryPassword = () => {
+    setIsShowBackdrop(true);
   };
   return (
     <div className={classes.wrapForm}>
@@ -162,7 +171,13 @@ const index = () => {
             </div>
           )}
           <div className={classes.groupBottomform}>
-            <div className={classes.recoveryPass}>Recovery Password</div>
+            <div
+              aria-hidden="true"
+              className={classes.recoveryPass}
+              onClick={() => handleRecoveryPassword()}
+            >
+              Recovery Password
+            </div>
             <Button
               variant="contained"
               size="large"
@@ -174,6 +189,7 @@ const index = () => {
           </div>
         </div>
       </form>
+      <RecoveryPopup isShow={isShowBackdrop} />
     </div>
   );
 };
