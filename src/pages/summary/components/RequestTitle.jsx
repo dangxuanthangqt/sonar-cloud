@@ -1,6 +1,9 @@
 import { Edit } from '@mui/icons-material';
 import { IconButton, Input, InputAdornment } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useRecoilState } from 'recoil';
+import { useState } from 'react';
+import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -50,6 +53,9 @@ const useCriteriaStyles = makeStyles((theme) => ({
     },
     '&:hover:not(.Mui-disabled):before': {
       borderBottom: '2px solid #0F81C0',
+    },
+    '&.Mui-disabled:before': {
+      borderBottomStyle: 'solid',
     },
   },
   data_source_1: {
@@ -107,6 +113,11 @@ const useCriteriaStyles = makeStyles((theme) => ({
 }));
 
 function RequestTitle({ control, title = 'Request Title' }) {
+  const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
+  const [value, setValue] = useState(
+    'This is request title This is request title'
+  );
+  const [disableTitle, setDisableTitle] = useState(true);
   const classes = useCriteriaStyles();
   return (
     <div
@@ -118,19 +129,25 @@ function RequestTitle({ control, title = 'Request Title' }) {
       <Input
         className={classes.input}
         control={control}
-        defaultValue="This is request title This is request title"
+        // defaultValue="This is request title This is request title"
+        disabled={activeStep === 0 ? false : disableTitle}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         endAdornment={
-          <InputAdornment position="end" sx={{ cursor: 'pointer' }}>
-            <IconButton
-              className={classes.edit_text}
-              color="primary"
-              size="small"
-            >
-              <Edit />
-              Edit
-            </IconButton>
-          </InputAdornment>
+          activeStep === 0 ? null : (
+            <InputAdornment position="end" sx={{ cursor: 'pointer' }}>
+              <IconButton
+                className={classes.edit_text}
+                color="primary"
+                size="small"
+                onClick={() => setDisableTitle(!disableTitle)}
+              >
+                <Edit />
+                Edit
+              </IconButton>
+            </InputAdornment>
+          )
         }
       />
     </div>

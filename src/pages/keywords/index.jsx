@@ -294,30 +294,12 @@ function Keywords({ isLoading }) {
     >
       <BackdropLoading open={isLoading || isFetching} />
       <RequestTitle />
-      <StepperInfo step={2} name="Keywords" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={2} name="Keywords" />
       {!isLoading && (
         <>
-          <div className="flex justify-end items-center mb-4">
-            <Tooltip
-              title={
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: keyWordSection?.hints?.replace(
-                      /\n/gm,
-                      '<br/><br/>'
-                    ),
-                  }}
-                />
-              }
-            >
-              <HelpOutline color="primary" />
-            </Tooltip>
-            <Typography color="primary" className="text-sm font-semibold">
-              Hints
-            </Typography>
-          </div>
           <OptionsGroup
+            keyWordSection={keyWordSection}
             title={keyWordSection?.optionsGroup?.title}
             control={control}
             getValues={getValues}

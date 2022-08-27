@@ -176,8 +176,8 @@ function NewVehicle({ isLoading }) {
     >
       <BackdropLoading open={isLoading} />
       <RequestTitle />
-      <StepperInfo step={3} name="Vehicles" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={3} name="Vehicles" />
       <Plant
         plant={vehicleSection?.plantGroup?.plant}
         disabled={plantGroupDisabled}
@@ -185,7 +185,6 @@ function NewVehicle({ isLoading }) {
         control={control}
         setValue={setValue}
       />
-
       <VehicleList
         requiredFields={conditions.required}
         properties={propertiesVehicle}

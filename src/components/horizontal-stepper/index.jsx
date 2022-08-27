@@ -243,8 +243,16 @@ export default function HorizontalLinearStepper({
         })}
       </Stepper>
       {activeStep === steps.length - 1 ? (
-        <Button sx={{ pointerEvents: 'none' }}>
-          <span style={{ display: 'none' }}> </span>
+        <Button
+          sx={{
+            pointerEvents: 'none',
+            py: '4px',
+            textTransform: 'none',
+            color: 'transparent',
+          }}
+        >
+          {/* <span style={{ display: 'none' }}> a</span> */}
+          Skip
         </Button>
       ) : dataSourceSummary?.required?.length || activeStep === 0 ? (
         <div>

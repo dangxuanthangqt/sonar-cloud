@@ -141,11 +141,11 @@ function Dates({ isLoading }) {
     >
       <BackdropLoading open={isLoading} />
       <RequestTitle />
-      <StepperInfo step={5} name="Dates" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={5} name="Dates" />
       {!isLoading && (
         <>
-          <div
+          {/* <div
             className={classNames('flex justify-end items-center mb-4', {
               'opacity-[0.38]': dateSectionDisabled,
             })}
@@ -165,7 +165,7 @@ function Dates({ isLoading }) {
             <Typography color="primary" className="text-sm font-semibold">
               Hints
             </Typography>
-          </div>
+          </div> */}
           <DateGroup
             control={control}
             name="buildDateGroup"

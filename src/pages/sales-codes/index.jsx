@@ -178,8 +178,8 @@ function SalesCodes({ isLoading }) {
     >
       <BackdropLoading open={isLoading} />
       <RequestTitle />
-      <StepperInfo step={4} name="Sales Codes" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={4} name="Sales Codes" />
       {!isLoading && (
         <>
           {salesCodesSection?.hints && (
