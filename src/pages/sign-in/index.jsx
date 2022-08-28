@@ -23,12 +23,9 @@ import makeStyles from '@mui/styles/makeStyles';
 import Banner from '@/components/banner-signin-signup';
 import RecoveryPopup from './component/recovery-popup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
+import BaseSigninSignup from './component/base-signin-signup';
 
 const useStyles = makeStyles((theme) => ({
-  wrapForm: {
-    display: 'flex',
-    textAlign: 'center',
-  },
   appName: {
     marginBottom: '50px',
     justifyContent: 'center',
@@ -114,8 +111,7 @@ const index = () => {
     setIsShowBackdrop(false);
   };
   return (
-    <div className={classes.wrapForm}>
-      <Banner />
+    <BaseSigninSignup>
       <form className={classes.wrapRight} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
@@ -193,7 +189,7 @@ const index = () => {
         </div>
       </form>
       <RecoveryPopup isShow={isShowBackdrop} handleClose={handleClose} />
-    </div>
+    </BaseSigninSignup>
   );
 };
 
