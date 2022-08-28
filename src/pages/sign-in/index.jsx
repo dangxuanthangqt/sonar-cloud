@@ -23,7 +23,6 @@ import makeStyles from '@mui/styles/makeStyles';
 import Banner from '@/components/banner-signin-signup';
 import RecoveryPopup from './component/recovery-popup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
-import BaseSigninSignup from './component/base-signin-signup';
 
 const useStyles = makeStyles((theme) => ({
   appName: {
