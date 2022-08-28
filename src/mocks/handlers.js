@@ -8,6 +8,7 @@ import { keywordsHandler, updateKeywordRequest } from './keywords/response';
 import { requestsViewHandler } from './requests-view/response';
 import { getPlants, getVehicles, getVehicleSchema } from './vehicles/response';
 import { signIn } from './sign-in/response';
+import { signUp } from './sign-up/response';
 
 export const handlers = [
   getVehicleSchema,
@@ -18,6 +19,7 @@ export const handlers = [
   updateDataRequest,
   updateKeywordRequest,
   signIn,
+  signUp,
   ...requestsViewHandler,
   ...keywordsHandler,
   ...requestReportsHandler,

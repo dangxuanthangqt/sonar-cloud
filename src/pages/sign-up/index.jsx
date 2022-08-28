@@ -12,10 +12,12 @@ import makeStyles from '@mui/styles/makeStyles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { signUp } from 'services/sign-up';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from 'react-router-dom';
 import Banner from '@/components/banner-signin-signup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
@@ -64,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
   groupBottomform: {
     textAlign: 'right',
   },
+  signUpIcon: {
+    transform: 'rotate(-90deg)',
+  },
 }));
 
 const schema = yup
@@ -89,9 +94,13 @@ const index = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  console.log(errors);
-  const onSubmit = (data) => {
-    console.log(data);
+  const { data, mutate } = useMutation(['singUp'], () => signUp());
+  if (data?.data) {
+    navigate('/dashboard');
+  }
+  const onSubmit = (param) => {
+    console.log('signup');
+    mutate();
   };
   return (
     <Banner>
@@ -183,14 +192,14 @@ const index = () => {
           />
           {errors.repeatPassword && (
             <div className={classes.errorText}>
-              {errors.repeatPassWord?.message}
+              {errors.repeatPassword?.message}
             </div>
           )}
           <div className={classes.groupBottomform}>
             <Button
               variant="contained"
               size="large"
-              endIcon={<OpenInBrowserIcon />}
+              endIcon={<ExitToAppIcon className={classes.signUpIcon} />}
               type="submit"
             >
               Sign Up
