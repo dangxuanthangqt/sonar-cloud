@@ -111,7 +111,7 @@ const index = () => {
     setIsShowBackdrop(false);
   };
   return (
-    <BaseSigninSignup>
+    <Banner>
       <form className={classes.wrapRight} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
@@ -189,7 +189,7 @@ const index = () => {
         </div>
       </form>
       <RecoveryPopup isShow={isShowBackdrop} handleClose={handleClose} />
-    </BaseSigninSignup>
+    </Banner>
   );
 };
 
