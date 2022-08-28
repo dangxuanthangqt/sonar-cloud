@@ -25,7 +25,7 @@ const index = ({ children }) => {
           src={banner}
           alt="banner"
           loading="lazy"
-          style={{ width: '100%', height: '100vh' }}
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
       {children}
