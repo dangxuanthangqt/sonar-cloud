@@ -9,6 +9,10 @@ import {
   Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import Backdrop from '@mui/material/Backdrop';
+import { useForm } from 'react-hook-form';
 import { signIn } from 'services/sign-in';
 import { useMutation } from 'react-query';
 import PersonIcon from '@mui/icons-material/Person';
@@ -17,13 +21,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import makeStyles from '@mui/styles/makeStyles';
 import Banner from '@/components/banner-signin-signup';
+import RecoveryPopup from './component/recovery-popup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
-  wrapForm: {
-    display: 'flex',
-    textAlign: 'center',
-  },
   appName: {
     marginBottom: '50px',
     justifyContent: 'center',
@@ -38,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   content: {
     marginBottom: '30px',
   },
+  inputField: {
+    width: '100%',
+    marginLeft: '0',
+    marginBottom: '8px',
+  },
   description: {
     color: '#A3A3A3',
     cursor: 'pointer',
@@ -46,9 +52,14 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     padding: '50px 0',
     width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   errorText: {
+    textAlign: 'left',
     color: 'red',
+    marginBottom: '15px',
     display: 'flex',
     alignItems: 'center',
   },
@@ -65,37 +76,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const schema = yup
+  .object({
+    userName: yup.string().required(),
+    password: yup.string().required(),
+  })
+  .required();
+
 const index = () => {
   const navigate = useNavigate();
   const classes = useStyles();
-  const [userName, setUserName] = useState('');
-  const [passWord, setPassWord] = useState('');
-  const [isWrongPassWord, setIsWrongPassWord] = useState(false);
-  const handleChangeUserNmae = (value) => {
-    setUserName(value);
-  };
-  const handleChangePassWord = (value) => {
-    setPassWord(value);
-  };
+  const [isShowBackdrop, setIsShowBackdrop] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const { data, mutate } = useMutation(['singIn'], () => signIn());
   if (data?.data) {
     navigate('/dashboard');
   }
-  const submitSignIn = (e) => {
-    e.preventDefault();
-    if (passWord) {
-      mutate();
-    } else {
-      setIsWrongPassWord(true);
-      setTimeout(() => {
-        setIsWrongPassWord(false);
-      }, 2000);
-    }
+  const onSubmit = (param) => {
+    console.log('login');
+    mutate();
+  };
+  const handleRecoveryPassword = () => {
+    setIsShowBackdrop(true);
+  };
+  const handleClose = () => {
+    setIsShowBackdrop(false);
   };
   return (
-    <div className={classes.wrapForm}>
-      <Banner />
-      <form className={classes.wrapRight} onSubmit={(e) => submitSignIn(e)}>
+    <Banner>
+      <form className={classes.wrapRight} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
             <SvgIcon
@@ -115,12 +131,11 @@ const index = () => {
             </div>
           </div>
           <TextField
+            className={classes.inputField}
+            {...register('userName')}
             id="outlined-basic"
             variant="outlined"
             placeholder="User name or email"
-            value={userName}
-            onChange={(e) => handleChangeUserNmae(e.target.value)}
-            sx={{ m: 1, width: '100%' }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -129,14 +144,16 @@ const index = () => {
               ),
             }}
           />
+          {errors.userName && (
+            <div className={classes.errorText}>{errors.userName?.message}</div>
+          )}
           <TextField
+            className={classes.inputField}
+            {...register('password')}
             type="password"
             id="outlined-basic"
             variant="outlined"
-            placeholder="PassWord"
-            value={passWord}
-            onChange={(e) => handleChangePassWord(e.target.value)}
-            sx={{ m: 1, width: '100%' }}
+            placeholder="Password"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -145,14 +162,20 @@ const index = () => {
               ),
             }}
           />
-          {isWrongPassWord && (
+          {errors.password && (
             <div className={classes.errorText}>
               <CloseIcon className={classes.spaceText} />
               <span>Icorrect password</span>
             </div>
           )}
           <div className={classes.groupBottomform}>
-            <div className={classes.recoveryPass}>Recovery Password</div>
+            <div
+              aria-hidden="true"
+              className={classes.recoveryPass}
+              onClick={() => handleRecoveryPassword()}
+            >
+              Recovery Password
+            </div>
             <Button
               variant="contained"
               size="large"
@@ -164,7 +187,8 @@ const index = () => {
           </div>
         </div>
       </form>
-    </div>
+      <RecoveryPopup isShow={isShowBackdrop} handleClose={handleClose} />
+    </Banner>
   );
 };
 

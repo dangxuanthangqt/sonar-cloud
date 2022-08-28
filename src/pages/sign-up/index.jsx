@@ -57,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     padding: '50px 0',
     width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   groupBottomform: {
     textAlign: 'right',
@@ -91,8 +94,7 @@ const index = () => {
     console.log(data);
   };
   return (
-    <div className={classes.wrapForm}>
-      <Banner />
+    <Banner>
       <form className={classes.wrapRight} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
@@ -196,7 +198,7 @@ const index = () => {
           </div>
         </div>
       </form>
-    </div>
+    </Banner>
   );
 };
 

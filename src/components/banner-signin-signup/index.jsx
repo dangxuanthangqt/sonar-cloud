@@ -1,16 +1,34 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
+import makeStyles from '@mui/styles/makeStyles';
 import banner from '../../assets/img/banner.png';
 
-const index = () => {
+const useStyles = makeStyles((theme) => ({
+  wrapForm: {
+    display: 'flex',
+    textAlign: 'center',
+  },
+  wrapBanner: {
+    width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+}));
+
+const index = ({ children }) => {
+  const classes = useStyles();
   return (
-    <div style={{ width: '50%' }}>
-      <img
-        // src="https://i.picsum.photos/id/807/536/354.jpg?hmac=kkWC8rAK1uphdPT88-ZzXPy808J739fsntRMFw-FCK0"
-        src={banner}
-        alt="banner"
-        loading="lazy"
-        style={{ width: '100%', height: '100vh' }}
-      />
+    <div className={classes.wrapForm}>
+      <div className={classes.wrapBanner}>
+        <img
+          src={banner}
+          alt="banner"
+          loading="lazy"
+          style={{ width: '100%', height: '100vh' }}
+        />
+      </div>
+      {children}
     </div>
   );
 };
