@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   selectAllBtnRoot: {
     textTransform: 'none',
   },
-  boxCancel: {
+  btnContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: '30px',
@@ -220,7 +220,7 @@ function DataSources({ isLoading }) {
             </Grid>
           ))}
       </Grid>
-      <Box className={classes.boxCancel}>
+      <Box className={classes.btnContainer}>
         <Button
           onClick={() => {
             // setDataSourceState({ formGroups: [] });

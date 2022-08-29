@@ -27,7 +27,7 @@ import { salesCodeEnum } from './constant';
 import RequestTitle from '../summary/components/RequestTitle';
 
 const useStyles = makeStyles((theme) => ({
-  boxPrevious: {
+  btnContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: '70px',
@@ -248,7 +248,7 @@ function SalesCodes({ isLoading }) {
             isMatchAllSalesCodeDisabled={isMatchAllSalesCodeDisabled}
             matches={matches}
           />
-          <Box className={classes.boxPrevious}>
+          <Box className={classes.btnContainer}>
             <Button
               onClick={() => {
                 handleSubmit(() => {

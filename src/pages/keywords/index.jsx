@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '70px',
     marginTop: '30px',
   },
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
   btnPrevious: {
     width: '123px',
     height: '40px',
@@ -352,14 +358,7 @@ function Keywords({ isLoading }) {
           <Effective effective={effective} />
         </>
       )}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          mb: '70px',
-          mt: '30px',
-        }}
-      >
+      <Box className={classes.btnContainer}>
         <Button
           onClick={() => {
             handleSubmit(() => {
