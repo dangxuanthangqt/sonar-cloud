@@ -130,6 +130,7 @@ function RequestTitle({ control, title = 'Request Title' }) {
         className={classes.input}
         control={control}
         // defaultValue="This is request title This is request title"
+        placeholder="Request title"
         disabled={activeStep === 0 ? false : disableTitle}
         value={value}
         onChange={(e) => setValue(e.target.value)}

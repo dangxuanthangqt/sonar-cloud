@@ -37,6 +37,29 @@ const useStyles = makeStyles((theme) => ({
   selectAllBtnRoot: {
     textTransform: 'none',
   },
+  boxCancel: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '30px',
+    marginBottom: '70px',
+  },
+  btnCancel: {
+    width: '123px',
+    height: '40px',
+    color: '#FD4747',
+    marginTop: '30px',
+    border: '1px solid #FD4747',
+    '&:hover': {
+      border: '1px solid #FD4747',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    backgroundColor: '#0F81C0',
+    color: '#FFFFFF',
+    marginTop: '30px',
+  },
 }));
 
 function DataSources({ isLoading }) {
@@ -197,14 +220,7 @@ function DataSources({ isLoading }) {
             </Grid>
           ))}
       </Grid>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          mb: '70px',
-          mt: '30px',
-        }}
-      >
+      <Box className={classes.boxCancel}>
         <Button
           onClick={() => {
             // setDataSourceState({ formGroups: [] });
@@ -213,16 +229,7 @@ function DataSources({ isLoading }) {
               formGroups: dataSourceSection.dataSourceGroups,
             });
           }}
-          sx={{
-            width: '123px',
-            height: '40px',
-            color: '#FD4747',
-            mt: '30px',
-            border: '1px solid #FD4747',
-            '&:hover': {
-              border: '1px solid #FD4747',
-            },
-          }}
+          className={classes.btnCancel}
           variant="outlined"
           startIcon={<CancelOutlinedIcon />}
         >
@@ -236,13 +243,7 @@ function DataSources({ isLoading }) {
               return prevActiveStep + 1;
             });
           }}
-          sx={{
-            width: '123px',
-            height: '40px',
-            backgroundColor: '#0F81C0',
-            color: '#FFFFFF',
-            mt: '30px',
-          }}
+          className={classes.btnNext}
           variant="contained"
           endIcon={<SkipNextRoundedIcon />}
         >

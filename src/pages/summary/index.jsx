@@ -117,6 +117,28 @@ const useStyles = makeStyles((theme) => ({
     width: '10%',
     marginBottom: 50,
   },
+  previous_button: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '50px',
+    marginTop: '30px',
+  },
+  stepTitle: {
+    fontSize: 16,
+    fontWeight: 700,
+    color: '#919191',
+    marginBottom: '10px',
+  },
 }));
 
 function Summary({ isLoading }) {
@@ -136,16 +158,7 @@ function Summary({ isLoading }) {
         ],
       }}
     >
-      <Typography
-        sx={{
-          fontSize: 16,
-          fontWeight: 700,
-          color: '#919191',
-          mb: '10px',
-        }}
-      >
-        Step 7 :
-      </Typography>
+      <Typography className={classes.stepTitle}>Step 7 :</Typography>
       <RequestTitle />
       {/* <AdditionalOptionalField /> */}
       <Keyword />
@@ -153,14 +166,7 @@ function Summary({ isLoading }) {
       <SalesCode />
       <Dates />
       <LOPParts />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          mb: '70px',
-          mt: '30px',
-        }}
-      >
+      <Box className={classes.buttonContainer}>
         <Button
           onClick={() => {
             setActiveStep((prevActiveStep) => {
@@ -168,16 +174,7 @@ function Summary({ isLoading }) {
               return prevActiveStep - 1;
             });
           }}
-          sx={{
-            width: '123px',
-            height: '40px',
-            color: '#0F81C0',
-            mt: '30px',
-            border: '1px solid #0F81C0',
-            '&:hover': {
-              border: '1px solid #0F81C0',
-            },
-          }}
+          className={classes.previous_button}
           variant="outlined"
           startIcon={<SkipPreviousRoundedIcon />}
         >

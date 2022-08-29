@@ -18,6 +18,16 @@ import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import { steps } from './constant';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    height: '100px',
+    position: 'absolute',
+    top: '128px',
+    width: '100%',
+    alignItems: 'flex-start',
+    paddingTop: '25px',
+    justifyContent: 'space-around',
+  },
   stepLabelRoot: {
     display: 'flex',
     flexDirection: 'column',
@@ -58,6 +68,63 @@ const useStyles = makeStyles((theme) => ({
         borderWidth: '2px !important',
       },
     },
+  },
+  iconPrevious: {
+    width: '30px',
+    height: '30px',
+    backgroundColor: '#12293E',
+    '&:hover': {
+      backgroundColor: '#12293E',
+    },
+  },
+  titleBtnPrevious: {
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#12293E',
+    marginTop: '3px',
+    marginBottom: '0px',
+  },
+  stepper: {
+    width: '75%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'start',
+    '& .MuiStepConnector-root': {
+      marginTop: '15px',
+    },
+  },
+  step: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    '& :hover': {
+      cursor: 'pointer',
+      '& .MuiStepLabel-label': { color: '#0F81C0 !important' },
+      '& .MuiSvgIcon-root': { color: '#0F81C0 !important' },
+    },
+  },
+  skipBtn: {
+    pointerEvents: 'none',
+    paddingBottom: '4px',
+    paddingTop: '4px',
+    textTransform: 'none',
+    color: 'transparent',
+  },
+  titleBtnNext: {
+    fontSize: '14px',
+    fontWeight: '500',
+    marginTop: '3px',
+    marginBottom: '0px',
+  },
+  iconBtnNext: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '30px',
+    height: '30px',
+  },
+  btnSkip: {
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    textTransform: 'none',
   },
 }));
 
@@ -152,28 +219,12 @@ export default function HorizontalLinearStepper({
   const dataSourceSummary = useDataSourceSummary(step);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        height: '100px',
-        position: 'absolute',
-        top: '128px',
-        width: '100%',
-        alignItems: 'flex-start',
-        paddingTop: '25px',
-        justifyContent: 'space-around',
-      }}
-    >
+    <Box className={classes.container}>
       <div className="flex justify-center flex-col items-center">
         <IconButton
+          className={classes.iconPrevious}
           sx={{
-            width: '30px',
-            height: '30px',
-            backgroundColor: '#12293E',
             display: activeStep === 0 ? 'none' : 'inline-flex',
-            '&:hover': {
-              backgroundColor: '#12293E',
-            },
           }}
           // disabled={activeStep === 0}
           onClick={handleBack}
@@ -185,12 +236,8 @@ export default function HorizontalLinearStepper({
           />
         </IconButton>
         <p
+          className={classes.titleBtnPrevious}
           style={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: '#12293E',
-            marginTop: '3px',
-            marginBottom: '0px',
             display: activeStep === 0 ? 'none' : 'block',
           }}
         >
@@ -198,32 +245,13 @@ export default function HorizontalLinearStepper({
         </p>
       </div>
 
-      <Stepper
-        sx={{
-          width: '75%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'start',
-          '& .MuiStepConnector-root': {
-            marginTop: '15px',
-          },
-        }}
-        activeStep={activeStep}
-      >
+      <Stepper className={classes.stepper} activeStep={activeStep}>
         {steps.map((item, index) => {
           return (
             <Step
               key={item.label}
-              sx={{
-                px: 0,
-                '& :hover': {
-                  cursor: 'pointer',
-                  '& .MuiStepLabel-label': { color: '#0F81C0 !important' },
-                  '& .MuiSvgIcon-root': { color: '#0F81C0 !important' },
-                },
-              }}
               onClick={() => handleOnClickStep(index)}
-              className={classNames({
+              className={classNames(classes.step, {
                 [classes.connectorLineActive]: index <= activeStep - 1,
               })}
             >
@@ -243,26 +271,13 @@ export default function HorizontalLinearStepper({
         })}
       </Stepper>
       {activeStep === steps.length - 1 ? (
-        <Button
-          sx={{
-            pointerEvents: 'none',
-            py: '4px',
-            textTransform: 'none',
-            color: 'transparent',
-          }}
-        >
-          {/* <span style={{ display: 'none' }}> a</span> */}
-          Skip
-        </Button>
+        <Button className={classes.skipBtn}>Skip</Button>
       ) : dataSourceSummary?.required?.length || activeStep === 0 ? (
         <div>
           <IconButton
             // disabled={!isEmpty(errors)}
+            className={classes.iconBtnNext}
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '30px',
-              height: '30px',
               backgroundColor: !isEmpty(errors)
                 ? 'rgba(0, 0, 0, 0.38)'
                 : '#12293E',
@@ -282,12 +297,9 @@ export default function HorizontalLinearStepper({
             />
           </IconButton>
           <p
+            className={classes.titleBtnNext}
             style={{
-              fontSize: '14px',
-              fontWeight: '500',
               color: !isEmpty(errors) ? 'rgba(0, 0, 0, 0.6)' : '#12293E',
-              marginTop: '3px',
-              marginBottom: '0px',
             }}
           >
             Next
@@ -295,9 +307,8 @@ export default function HorizontalLinearStepper({
         </div>
       ) : (
         <Button
+          className={classes.btnSkip}
           sx={{
-            py: '4px',
-            textTransform: 'none',
             backgroundColor: !isEmpty(errors)
               ? 'rgba(0, 0, 0, 0.38)'
               : '#0F81C0',
