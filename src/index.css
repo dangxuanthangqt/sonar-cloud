@@ -14,3 +14,59 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.st-border-btn {
+  border: solid 1px #cccccc;
+  height: 42px;
+  color: #12293E;
+}
+
+/** Theme Text Colors **/
+.grey-text {
+  color: #6D6D6D;
+}
+
+.light-grey-text {
+  color: #919191;
+}
+
+.light-blue-text {
+  color: #E7F2F9;
+}
+
+.main-text {
+  color: #12293E;
+}
+
+.more-light-grey-text {
+  color: #DBDBDB;
+}
+
+.primary-text {
+  color: #0F81C0;
+}
+
+/** Theme Background Colors **/
+.grey-bg {
+  background-color: #6D6D6D;
+}
+
+.light-grey-bg {
+  background-color: #919191;
+}
+
+.light-blue-bg {
+  background-color: #E7F2F9;
+}
+
+.main-bg {
+  background-color: #12293E;
+}
+
+.more-light-grey-bg {
+  background-color: #DBDBDB;
+}
+
+.primary-bg {
+  background-color: #0F81C0;
+}

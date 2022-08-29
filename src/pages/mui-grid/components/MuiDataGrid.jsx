@@ -1,4 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search';
+import { SearchOutlined, FilterList, AddOutlined } from '@mui/icons-material';
 import {
   IconButton,
   InputBase,
@@ -7,6 +7,7 @@ import {
   Button,
 } from '@mui/material';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 import { DataGridPro, GridToolbar, useGridApiRef } from '@mui/x-data-grid-pro';
 import useDebounce from 'hooks/common/useDebounce';
 import { useGetRequestDataGrid } from 'hooks/queries/use-request-data-grid';
@@ -30,6 +31,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
 
   const setDataGridState = useSetRecoilState(dataGridStateAtom);
   const dataRequestStateValue = useRecoilValue(dataGridStateAtom);
+
+  const navigate = useNavigate();
 
   const { isFetching } = useGetRequestDataGrid({
     options: {
@@ -202,6 +205,10 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
     },
   });
 
+  const onNewRequest = () => {
+    navigate('/data-request/data-sources');
+  };
+
   const titleStyle = {
     fontWeight: 700,
     fontSize: '20px',
@@ -221,20 +228,18 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
     >
       <Typography sx={titleStyle}>Data Requests</Typography>
 
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex justify-between mb-10">
         <div>
           {!initialLoading && (
-            <div>
+            <div className="flex">
               <Box
                 sx={{
                   width: 500,
-                  maxWidth: '100%',
-                  border: '1px solid #ccc',
-                  borderRadius: 1,
                 }}
+                className="border border-solid border-neutral-300 rounded"
               >
                 <IconButton aria-label="menu">
-                  <SearchIcon />
+                  <SearchOutlined className="fill-neutral-900" />
                 </IconButton>
                 <InputBase
                   sx={{ ml: 1, flex: 1, width: '80%' }}
@@ -246,19 +251,28 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
                 />
               </Box>
 
-              <Button className="uppercase" variant="contained">
-                <SearchIcon />
+              <Button
+                className="uppercase px-3 text-xs border-neutral-300 main-text ml-2"
+                variant="outlined"
+              >
+                <FilterList /> Filter
               </Button>
             </div>
           )}
         </div>
 
-        <Button className="uppercase" variant="contained" color="primary">
-          New Request
+        <Button
+          className="uppercase"
+          variant="contained"
+          color="primary"
+          onClick={onNewRequest}
+        >
+          <AddOutlined /> New Request
         </Button>
       </div>
 
       <DataGridPro
+        className="border-0"
         components={{
           LoadingOverlay: LinearProgress,
           Toolbar: GridToolbar,
@@ -268,8 +282,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
         onStateChange={(state) => {
           // console.log('state', state);
         }}
-        pinnedColumns={pinnedColumns}
-        onPinnedColumnsChange={handlePinnedColumnsChange}
+        // pinnedColumns={pinnedColumns}
+        // onPinnedColumnsChange={handlePinnedColumnsChange}
         columnVisibilityModel={columnVisibilityModel}
         onColumnVisibilityModelChange={(newModel) => {
           const isHideAll =
