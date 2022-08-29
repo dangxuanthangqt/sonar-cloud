@@ -96,13 +96,15 @@ const index = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const { data, isLoading, mutate } = useMutation(['singIn'], () => signIn());
+  const { data, isLoading, mutate } = useMutation(['singIn'], (payload) =>
+    signIn(payload)
+  );
   if (data?.data) {
     navigate('/dashboard');
   }
-  const onSubmit = (param) => {
-    console.log('login');
-    mutate();
+  const onSubmit = (values) => {
+    console.log('values', values);
+    mutate(values);
   };
   const handleRecoveryPassword = () => {
     setIsShowBackdrop(true);
