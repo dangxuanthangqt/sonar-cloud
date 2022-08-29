@@ -35,9 +35,10 @@ function AppRoutes() {
         <Route
           path="summary"
           element={
-            <TopBar>
+            <>
+              <TopBar />
               <Summary />
-            </TopBar>
+            </>
           }
         />
         <Route
