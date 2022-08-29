@@ -1,5 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { IconButton, InputBase, LinearProgress } from '@mui/material';
+import {
+  IconButton,
+  InputBase,
+  LinearProgress,
+  Typography,
+  Button,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import { DataGridPro, GridToolbar, useGridApiRef } from '@mui/x-data-grid-pro';
 import useDebounce from 'hooks/common/useDebounce';
@@ -196,6 +202,14 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
     },
   });
 
+  const titleStyle = {
+    fontWeight: 700,
+    fontSize: '20px',
+    lineHeight: '24px',
+    letterSpacing: '0.15px',
+    margin: '12px 0 20px',
+  };
+
   return (
     <Box
       sx={{
@@ -205,31 +219,45 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
         ...generatedClassCell(),
       }}
     >
-      <Box sx={{ height: '60px' }}>
-        {!initialLoading && (
-          <Box
-            sx={{
-              width: 500,
-              maxWidth: '100%',
-              my: 2,
-              border: '1px solid #ccc',
-              borderRadius: 2,
-            }}
-          >
-            <IconButton sx={{ p: '10px' }} aria-label="menu">
-              <SearchIcon />
-            </IconButton>
-            <InputBase
-              sx={{ ml: 1, flex: 1, width: '80%' }}
-              placeholder="Search by Trader name"
-              value={searchValue}
-              onChange={(event) => {
-                setSearchValue(event.target.value);
-              }}
-            />
-          </Box>
-        )}
-      </Box>
+      <Typography sx={titleStyle}>Data Requests</Typography>
+
+      <div className="flex justify-between items-center mb-10">
+        <div>
+          {!initialLoading && (
+            <div>
+              <Box
+                sx={{
+                  width: 500,
+                  maxWidth: '100%',
+                  border: '1px solid #ccc',
+                  borderRadius: 1,
+                }}
+              >
+                <IconButton aria-label="menu">
+                  <SearchIcon />
+                </IconButton>
+                <InputBase
+                  sx={{ ml: 1, flex: 1, width: '80%' }}
+                  placeholder="Search"
+                  value={searchValue}
+                  onChange={(event) => {
+                    setSearchValue(event.target.value);
+                  }}
+                />
+              </Box>
+
+              <Button className="uppercase" variant="contained">
+                <SearchIcon />
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <Button className="uppercase" variant="contained" color="primary">
+          New Request
+        </Button>
+      </div>
+
       <DataGridPro
         components={{
           LoadingOverlay: LinearProgress,
