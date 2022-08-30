@@ -18,12 +18,12 @@ code {
 .st-border-btn {
   border: solid 1px #cccccc;
   height: 42px;
-  color: #12293E;
+  color: #12293e;
 }
 
 /** Theme Text Colors **/
 .grey-text {
-  color: #6D6D6D;
+  color: #6d6d6d;
 }
 
 .light-grey-text {
@@ -31,24 +31,24 @@ code {
 }
 
 .light-blue-text {
-  color: #E7F2F9;
+  color: #e7f2f9;
 }
 
 .main-text {
-  color: #12293E;
+  color: #12293e;
 }
 
 .more-light-grey-text {
-  color: #DBDBDB;
+  color: #dbdbdb;
 }
 
 .primary-text {
-  color: #0F81C0;
+  color: #0f81c0;
 }
 
 /** Theme Background Colors **/
 .grey-bg {
-  background-color: #6D6D6D;
+  background-color: #6d6d6d;
 }
 
 .light-grey-bg {
@@ -56,17 +56,27 @@ code {
 }
 
 .light-blue-bg {
-  background-color: #E7F2F9;
+  background-color: #e7f2f9;
 }
 
 .main-bg {
-  background-color: #12293E;
+  background-color: #12293e;
 }
 
 .more-light-grey-bg {
-  background-color: #DBDBDB;
+  background-color: #dbdbdb;
 }
 
 .primary-bg {
-  background-color: #0F81C0;
+  background-color: #0f81c0;
+}
+
+/** Heading Style **/
+
+.heading-style {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  margin: 12px 0 20px;
 }

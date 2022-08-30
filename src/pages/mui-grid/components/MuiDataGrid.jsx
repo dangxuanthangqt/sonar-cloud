@@ -7,6 +7,7 @@ import {
   Button,
 } from '@mui/material';
 import Box from '@mui/material/Box';
+import makeStyles from '@mui/styles/makeStyles';
 import { useNavigate } from 'react-router-dom';
 import { DataGridPro, GridToolbar, useGridApiRef } from '@mui/x-data-grid-pro';
 import useDebounce from 'hooks/common/useDebounce';
@@ -209,14 +210,6 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
     navigate('/data-request/data-sources');
   };
 
-  const titleStyle = {
-    fontWeight: 700,
-    fontSize: '20px',
-    lineHeight: '24px',
-    letterSpacing: '0.15px',
-    margin: '12px 0 20px',
-  };
-
   return (
     <Box
       sx={{
@@ -226,7 +219,7 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
         ...generatedClassCell(),
       }}
     >
-      <Typography sx={titleStyle}>Data Requests</Typography>
+      <Typography className="heading-style">Data Requests</Typography>
 
       <div className="flex justify-between mb-10">
         <div>
@@ -255,7 +248,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
                 className="uppercase px-3 text-xs border-neutral-300 main-text ml-2"
                 variant="outlined"
               >
-                <FilterList /> Filter
+                <FilterList className=" mr-1" />
+                Filter
               </Button>
             </div>
           )}
@@ -267,7 +261,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
           color="primary"
           onClick={onNewRequest}
         >
-          <AddOutlined /> New Request
+          <AddOutlined className=" mr-1" />
+          New Request
         </Button>
       </div>
 
