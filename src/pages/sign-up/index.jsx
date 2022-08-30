@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import {
   SvgIcon,
@@ -12,10 +11,12 @@ import makeStyles from '@mui/styles/makeStyles';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { signUp } from 'services/sign-up';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from 'react-router-dom';
 import Banner from '@/components/banner-signin-signup';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
@@ -46,8 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
   errorText: {
     textAlign: 'left',
-    color: 'red',
+    color: '#d32f2f',
+    fontWeight: '400',
+    fontSize: '0.75rem',
+    lineHeight: '1.66',
     marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center',
   },
   description: {
     color: '#A3A3A3',
@@ -57,25 +63,34 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     padding: '50px 0',
     width: '50%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
   },
   groupBottomform: {
     textAlign: 'right',
+  },
+  signUpIcon: {
+    transform: 'rotate(-90deg)',
   },
 }));
 
 const schema = yup
   .object({
-    email: yup.string().email().required(),
-    userName: yup.string().required(),
-    password: yup.string().required(),
+    email: yup
+      .string()
+      .email('Email must be a valid email')
+      .required('Email is a required field'),
+    userName: yup.string().required('User name is a required field'),
+    password: yup.string().required('Password is a required field'),
     repeatPassword: yup
       .string()
-      .oneOf([yup.ref('password')], 'Passwords does not match')
-      .required(),
+      .oneOf([yup.ref('password')], 'Password does not match')
+      .required('Repeat Password is a required field'),
   })
   .required();
 
-const index = () => {
+function Index() {
   const navigate = useNavigate();
   const classes = useStyles();
   const {
@@ -86,13 +101,18 @@ const index = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  console.log(errors);
-  const onSubmit = (data) => {
-    console.log(data);
+  const { data, mutate } = useMutation(['singUp'], (payload) =>
+    signUp(payload)
+  );
+  const onSubmit = (values) => {
+    mutate(values, {
+      onSuccess: () => {
+        navigate('/dashboard');
+      },
+    });
   };
   return (
-    <div className={classes.wrapForm}>
-      <Banner />
+    <Banner>
       <form className={classes.wrapRight} onSubmit={handleSubmit(onSubmit)}>
         <div style={{ padding: '0 50px' }}>
           <div className={classes.appName}>
@@ -113,6 +133,7 @@ const index = () => {
             </div>
           </div>
           <TextField
+            error={errors.email}
             {...register('email')}
             id="outlined-basic"
             variant="outlined"
@@ -126,7 +147,11 @@ const index = () => {
               ),
             }}
           />
+          {errors.email && (
+            <div className={classes.errorText}>{errors.email?.message}</div>
+          )}
           <TextField
+            error={errors.userName}
             {...register('userName')}
             id="outlined-basic"
             variant="outlined"
@@ -144,6 +169,7 @@ const index = () => {
             <div className={classes.errorText}>{errors.userName?.message}</div>
           )}
           <TextField
+            error={errors.password}
             {...register('password')}
             type="password"
             id="outlined-basic"
@@ -162,6 +188,7 @@ const index = () => {
             <div className={classes.errorText}>{errors.password?.message}</div>
           )}
           <TextField
+            error={errors.repeatPassword}
             {...register('repeatPassword')}
             type="password"
             id="outlined-basic"
@@ -178,14 +205,14 @@ const index = () => {
           />
           {errors.repeatPassword && (
             <div className={classes.errorText}>
-              {errors.repeatPassWord?.message}
+              {errors.repeatPassword?.message}
             </div>
           )}
           <div className={classes.groupBottomform}>
             <Button
               variant="contained"
               size="large"
-              endIcon={<OpenInBrowserIcon />}
+              endIcon={<ExitToAppIcon className={classes.signUpIcon} />}
               type="submit"
             >
               Sign Up
@@ -193,8 +220,8 @@ const index = () => {
           </div>
         </div>
       </form>
-    </div>
+    </Banner>
   );
-};
+}
 
-export default index;
+export default Index;
