@@ -1,6 +1,7 @@
-import { Paper, Typography } from '@mui/material';
+import { Paper, Tooltip, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useMemo } from 'react';
+import { HelpOutline } from '@mui/icons-material';
 import BooleanControl from '@/components/boolean-control';
 import FixedSingleValueLookup from '@/components/fixed-single-value-lookup';
 
@@ -18,6 +19,8 @@ const useOptionGroupStyles = makeStyles((theme) => ({
     },
   },
   header: {
+    display: 'flex',
+    justifyContent: 'space-between',
     backgroundColor: theme.palette.primary.light,
     paddingTop: 14,
     paddingBottom: 12,
@@ -55,6 +58,7 @@ function OptionsGroup({
   disabled,
   watchOptionsGroup,
   handleSelectTemplate,
+  keyWordSection,
 }) {
   const classes = useOptionGroupStyles();
 
@@ -71,6 +75,23 @@ function OptionsGroup({
     <Paper className="rounded-lg overflow-hidden">
       <div className={classes.header}>
         <Typography>{title}</Typography>
+        <div className="flex justify-end items-center">
+          <Tooltip
+            title={
+              <div
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: keyWordSection?.hints?.replace(/\n/gm, '<br/><br/>'),
+                }}
+              />
+            }
+          >
+            <HelpOutline color="primary" />
+          </Tooltip>
+          <Typography color="primary" className="text-sm font-semibold">
+            Hints
+          </Typography>
+        </div>
       </div>
       <div className={classes.body}>
         <div className="flex items-center">
@@ -95,7 +116,7 @@ function OptionsGroup({
           {...isExactMatchFields}
           name="optionsGroup.isExactMatch.value"
           control={control}
-          label={isExactMatchFields?.title}
+          label={isExactMatchFields?.title || 'Exact Match'}
           disabled={disabled}
         />
       </div>

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { camelCase, isEmpty, omit, last } from 'lodash';
+import { isEmpty, omit, last } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
+import { Box } from '@mui/system';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import makeStyles from '@mui/styles/makeStyles';
 import MainLayout from '@/components/main-layout';
 import BackdropLoading from '@/components/backdrop-loading';
 import Plant from './components/Plant';
@@ -21,44 +25,46 @@ import { StepperInfo } from '@/components/stepper-info';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
+import RequestTitle from '@/pages/summary/components/RequestTitle';
+
+const useStyles = makeStyles((theme) => ({
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
+  btnPrevious: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    color: '#FFFFFF',
+    marginTop: '30px',
+    marginBottom: '20px',
+    pointerEvents: 'all !important',
+  },
+}));
 
 function NewVehicle({ isLoading }) {
+  const classes = useStyles();
+
   const { t } = useTranslation('vehicles');
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [vehicleState, setVehicleState] = useRecoilState(vehicleStateAtom);
   const {
-    dataSchema,
     data: { vehicleSection },
   } = dataRequestStateValue || {};
-
-  const requiredFields = useMemo(
-    () => dataSchema?.definitions?.vehicleCriteria?.required || [],
-    [dataSchema]
-  );
-
-  const properties = useMemo(() => {
-    if (
-      isEmpty(vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList) ||
-      isEmpty(dataSchema?.definitions?.vehicleCriteria?.properties)
-    )
-      return {};
-    return Object.keys(
-      vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList?.[0] || {}
-    )?.reduce((acc, key) => {
-      acc[key] = {
-        ...(dataSchema?.definitions?.[
-          camelCase(
-            dataSchema?.definitions?.vehicleCriteria?.properties?.[key]
-              ?.originalRef
-          )
-        ]?.properties || {}),
-        ...dataSchema?.definitions?.vehicleCriteria?.properties?.[key],
-      };
-      return acc;
-    }, {});
-  }, [vehicleSection, dataSchema]);
 
   const { control, reset, setValue, handleSubmit, getValues, watch } = useForm({
     defaultValues: {
@@ -199,8 +205,9 @@ function NewVehicle({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
-      <StepperInfo step={3} name="Vehicles" />
+      <RequestTitle />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={3} name="Vehicles" />
       <Plant
         plant={vehicleSection?.plantGroup?.plant}
         disabled={plantGroupDisabled}
@@ -208,7 +215,6 @@ function NewVehicle({ isLoading }) {
         control={control}
         setValue={setValue}
       />
-
       <VehicleList
         requiredFields={conditions.required}
         properties={propertiesVehicle}
@@ -221,35 +227,49 @@ function NewVehicle({ isLoading }) {
         disabled={vehicleSectionDisabled}
         append={handleAppendNewRow}
       />
-
-      <Button
-        onClick={() => {
-          handleSubmit(() => {
-            setVehicleState(getValues());
-            setActiveStep((prevActiveStep) => {
-              navigate(steps[activeStep + 1].path);
-              return prevActiveStep + 1;
-            });
-          })();
-        }}
-        sx={{
-          width: '123px',
-          height: '40px',
-          backgroundColor: !isEmpty(errors) ? 'rgba(0, 0, 0, 0.38)' : '#0F81C0',
-          color: '#FFFFFF',
-          mt: '30px',
-          mb: '20px',
-          textTransform: 'none',
-          '&:hover': {
-            cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
-          },
-          pointerEvents: 'all !important',
-        }}
-        variant="contained"
-        disabled={!isEmpty(errors)}
-      >
-        {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
-      </Button>
+      <Box className={classes.btnContainer}>
+        <Button
+          onClick={() => {
+            handleSubmit(() => {
+              setVehicleState(getValues());
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep - 1].path);
+                return prevActiveStep - 1;
+              });
+            })();
+          }}
+          className={classes.btnPrevious}
+          variant="outlined"
+          startIcon={<SkipPreviousRoundedIcon />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => {
+            handleSubmit(() => {
+              setVehicleState(getValues());
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep + 1].path);
+                return prevActiveStep + 1;
+              });
+            })();
+          }}
+          className={classes.btnNext}
+          sx={{
+            backgroundColor: !isEmpty(errors)
+              ? 'rgba(0, 0, 0, 0.38)'
+              : '#0F81C0',
+            '&:hover': {
+              cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
+            },
+          }}
+          variant="contained"
+          disabled={!isEmpty(errors)}
+          endIcon={<SkipNextRoundedIcon />}
+        >
+          {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
+        </Button>
+      </Box>
     </MainLayout>
   );
 }

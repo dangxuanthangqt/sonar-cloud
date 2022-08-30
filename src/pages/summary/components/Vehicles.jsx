@@ -19,6 +19,7 @@ import StringMultipleValueControl from '@/components/string-multiple-value-contr
 import DataSourceSummary from '@/components/data-source-summary';
 import { vehicleStateAtom } from '@/recoil/atom/vehicle-state';
 import SummaryChip from '@/components/Summary-chip';
+import { STEPS } from '@/common/constants';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -126,7 +127,7 @@ function Vehicle({ control }) {
   const classes = useCriteriaStyles();
   const [rows, setRows] = useState([]);
 
-  const dataSourceSummary = useDataSourceSummary('keywords');
+  const dataSourceSummary = useDataSourceSummary(STEPS.VEHICLES);
   const [vehicleState, setVehicleState] = useRecoilState(vehicleStateAtom);
 
   useEffect(() => {

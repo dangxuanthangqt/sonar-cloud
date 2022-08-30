@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import {
   SvgIcon,
@@ -83,7 +82,7 @@ const schema = yup
   })
   .required();
 
-const index = () => {
+function Index() {
   const navigate = useNavigate();
   const classes = useStyles();
   const {
@@ -94,13 +93,14 @@ const index = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const { data, mutate } = useMutation(['singUp'], () => signUp());
+  const { data, mutate } = useMutation(['singUp'], (payload) =>
+    signUp(payload)
+  );
   if (data?.data) {
     navigate('/dashboard');
   }
-  const onSubmit = (param) => {
-    console.log('signup');
-    mutate();
+  const onSubmit = (values) => {
+    mutate(values);
   };
   return (
     <Banner>
@@ -209,6 +209,6 @@ const index = () => {
       </form>
     </Banner>
   );
-};
+}
 
-export default index;
+export default Index;

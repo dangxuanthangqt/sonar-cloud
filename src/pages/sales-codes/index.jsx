@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HelpOutline } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
 import { isEmpty, last, omit } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
@@ -11,6 +11,9 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import makeStyles from '@mui/styles/makeStyles';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
@@ -21,6 +24,36 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
 import DataSourceSummary from '@/components/data-source-summary';
 import { salesCodeEnum } from './constant';
+import RequestTitle from '../summary/components/RequestTitle';
+
+const useStyles = makeStyles((theme) => ({
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
+  btnPrevious: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    textTransform: 'none',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    color: '#FFFFFF',
+    marginTop: '30px',
+    marginBottom: '20px',
+    textTransform: 'none',
+    pointerEvents: 'all !important',
+  },
+}));
 
 const schema = yup.object().shape({
   matchAllSalesCode: yup.object().shape({
@@ -53,6 +86,8 @@ const schema = yup.object().shape({
 });
 
 function SalesCodes({ isLoading }) {
+  const classes = useStyles();
+
   const { t } = useTranslation('sales-code');
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [salesCodeStateValue, setSalesCodeStateValue] =
@@ -174,8 +209,9 @@ function SalesCodes({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
-      <StepperInfo step={4} name="Sales Codes" />
+      <RequestTitle />
       <DataSourceSummary dataSummary={dataSourceSummary} />
+      <StepperInfo step={4} name="Sales Codes" />
       {!isLoading && (
         <>
           {salesCodesSection?.hints && (
@@ -212,36 +248,50 @@ function SalesCodes({ isLoading }) {
             isMatchAllSalesCodeDisabled={isMatchAllSalesCodeDisabled}
             matches={matches}
           />
-          <Button
-            onClick={() => {
-              handleSubmit(() => {
-                setSalesCodeStateValue(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
-              })();
-            }}
-            sx={{
-              width: '123px',
-              height: '40px',
-              backgroundColor: !isEmpty(errors)
-                ? 'rgba(0, 0, 0, 0.38)'
-                : '#0F81C0',
-              color: '#FFFFFF',
-              mt: '30px',
-              mb: '20px',
-              textTransform: 'none',
-              '&:hover': {
-                cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
-              },
-              pointerEvents: 'all !important',
-            }}
-            variant="contained"
-            disabled={!isEmpty(errors)}
-          >
-            {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
-          </Button>
+          <Box className={classes.btnContainer}>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setSalesCodeStateValue(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep - 1].path);
+                    return prevActiveStep - 1;
+                  });
+                })();
+              }}
+              className={classes.btnPrevious}
+              variant="outlined"
+              startIcon={<SkipPreviousRoundedIcon />}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setSalesCodeStateValue(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep + 1].path);
+                    return prevActiveStep + 1;
+                  });
+                })();
+              }}
+              className={classes.btnNext}
+              sx={{
+                backgroundColor: !isEmpty(errors)
+                  ? 'rgba(0, 0, 0, 0.38)'
+                  : '#0F81C0',
+
+                '&:hover': {
+                  cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
+                },
+              }}
+              variant="contained"
+              disabled={!isEmpty(errors)}
+              endIcon={<SkipNextRoundedIcon />}
+            >
+              {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
+            </Button>
+          </Box>
         </>
       )}
     </MainLayout>

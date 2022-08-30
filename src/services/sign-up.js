@@ -1,3 +1,3 @@
 import request from './request';
 
-export const signUp = () => request.put(`/api/v1/sign-up`);
+export const signUp = (payload) => request.put(`/api/v1/sign-up`, payload);

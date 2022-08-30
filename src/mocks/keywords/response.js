@@ -2,7 +2,6 @@ import { rest } from 'msw';
 import { API_URL } from 'services/constant';
 import { faker } from '@faker-js/faker';
 import { API_MOCK_DELAY } from '@/common/constants';
-import dataRequestSchema from './schema.json';
 
 const mockTemplates = [
   {
@@ -206,10 +205,10 @@ const getKeywordsTemplates = rest.get(
   }
 );
 
-export const getDataRequestSchema = rest.get(
-  `${API_URL}api/v1/data-requests/schema`,
-  (_, res, ctx) => res(ctx.delay(API_MOCK_DELAY), ctx.json(dataRequestSchema))
-);
+// export const getDataRequestSchema = rest.get(
+//   `${API_URL}api/v1/data-requests/schema`,
+//   (_, res, ctx) => res(ctx.delay(API_MOCK_DELAY), ctx.json(dataRequestSchema))
+// );
 
 export const updateKeywordRequest = rest.put(
   `${API_URL}api/keywords_templates`,

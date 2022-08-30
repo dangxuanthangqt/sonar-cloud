@@ -6,12 +6,11 @@ import {
 import { requestReportsHandler } from './reports/response';
 import { keywordsHandler, updateKeywordRequest } from './keywords/response';
 import { requestsViewHandler } from './requests-view/response';
-import { getPlants, getVehicles, getVehicleSchema } from './vehicles/response';
 import { signIn } from './sign-in/response';
 import { signUp } from './sign-up/response';
+import { getPlants, getVehicles } from './vehicles/response';
 
 export const handlers = [
-  getVehicleSchema,
   getVehicles,
   getPlants,
   getDataRequestSchema,
