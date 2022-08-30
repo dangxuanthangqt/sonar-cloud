@@ -4,13 +4,13 @@ exports[`Data source should match snapshot 1`] = `
 <div>
   <main>
     <div
-      class="MuiBox-root css-v8fepg"
+      class="makeStyles-container-10 MuiBox-root css-0"
     >
       <div
         class="flex justify-center flex-col items-center"
       >
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-coieiy-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-iconPrevious-17 css-v3imdt-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
@@ -30,22 +30,23 @@ exports[`Data source should match snapshot 1`] = `
           />
         </button>
         <p
-          style="font-size: 14px; font-weight: 500; color: rgb(18, 41, 62); margin-top: 3px; margin-bottom: 0px; display: none;"
+          class="makeStyles-titleBtnPrevious-18"
+          style="display: none;"
         >
           Previous
         </p>
       </div>
       <div
-        class="MuiStepper-root MuiStepper-horizontal css-1enz6m5-MuiStepper-root"
+        class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-19 css-m5vj9m-MuiStepper-root"
       >
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -73,7 +74,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label makeStyles-activeStep-9 Mui-active css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label makeStyles-activeStep-14 Mui-active css-gv1taf-MuiStepLabel-label"
               >
                 Datasources
               </span>
@@ -88,13 +89,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -122,7 +123,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 Keywords
               </span>
@@ -137,13 +138,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -171,7 +172,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 Vehicles
               </span>
@@ -186,13 +187,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -220,7 +221,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 Sales Codes
               </span>
@@ -235,13 +236,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -269,7 +270,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 Dates
               </span>
@@ -284,13 +285,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -318,7 +319,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 LOPs Parts
               </span>
@@ -333,13 +334,13 @@ exports[`Data source should match snapshot 1`] = `
           />
         </div>
         <div
-          class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+          class="MuiStep-root MuiStep-horizontal makeStyles-step-20 css-1bw0nnu-MuiStep-root"
         >
           <span
-            class="makeStyles-stepLabelRoot-6 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+            class="makeStyles-stepLabelRoot-11 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
           >
             <span
-              class="makeStyles-iconStyle-7 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+              class="makeStyles-iconStyle-12 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
             >
               <svg
                 aria-hidden="true"
@@ -367,7 +368,7 @@ exports[`Data source should match snapshot 1`] = `
               class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
             >
               <span
-                class="makeStyles-labelStyle1-8 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+                class="makeStyles-labelStyle1-13 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
               >
                 Summary
               </span>
@@ -377,7 +378,7 @@ exports[`Data source should match snapshot 1`] = `
       </div>
       <div>
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ilvgj4-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-iconBtnNext-23 css-1vmeuix-MuiButtonBase-root-MuiIconButton-root"
           tabindex="0"
           type="button"
         >
@@ -397,18 +398,19 @@ exports[`Data source should match snapshot 1`] = `
           />
         </button>
         <p
-          style="font-size: 14px; font-weight: 500; color: rgb(18, 41, 62); margin-top: 3px; margin-bottom: 0px;"
+          class="makeStyles-titleBtnNext-22"
+          style="color: rgb(18, 41, 62);"
         >
           Next
         </p>
       </div>
     </div>
     <div
-      class="makeStyles-contentContainer-1"
+      class="makeStyles-contentContainer-5"
       id="123456"
     >
       <div
-        class="makeStyles-content-3 makeStyles-contentWithCollapsedSidebar-4 makeStyles-contentWithStepper-5"
+        class="makeStyles-content-7 makeStyles-contentWithCollapsedSidebar-8 makeStyles-contentWithStepper-9"
       >
         <div
           aria-hidden="true"
@@ -440,24 +442,25 @@ exports[`Data source should match snapshot 1`] = `
           style="margin-bottom: 25px;"
         >
           <div
-            class="makeStyles-header1-19"
+            class="makeStyles-header1-32"
           >
             Request Title
           </div>
           <div
-            class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary makeStyles-input-17 css-ffkbon-MuiInputBase-root-MuiInput-root"
+            class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary makeStyles-input-30 css-ffkbon-MuiInputBase-root-MuiInput-root"
           >
             <input
               class="MuiInput-input MuiInputBase-input css-1x51dt5-MuiInputBase-input-MuiInput-input"
               inputmode="numeric"
               pattern="[0-9]*"
+              placeholder="Request title"
               type="text"
               value="This is request title This is request title"
             />
           </div>
         </div>
         <div
-          class="makeStyles-container-27 MuiBox-root css-0"
+          class="makeStyles-container-40 MuiBox-root css-0"
         >
           <div
             class="MuiListItemButton-root MuiListItemButton-gutters MuiButtonBase-root css-1jni0wj-MuiButtonBase-root-MuiListItemButton-root"
@@ -466,7 +469,7 @@ exports[`Data source should match snapshot 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium makeStyles-customIcon-28 css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium makeStyles-customIcon-41 css-i4bv87-MuiSvgIcon-root"
               data-testid="ExpandLessRoundedIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -547,20 +550,20 @@ exports[`Data source should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="MuiBox-root css-10hr09j"
+          class="makeStyles-container-46 MuiBox-root css-0"
         >
           <div
             class="MuiBox-root css-0"
           >
             <p
-              class="MuiTypography-root MuiTypography-body1 css-89t54g-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepTitle-47 css-16w2zvr-MuiTypography-root"
             >
               Step 
               2
                :
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 css-1uucx26-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepName-48 css-16w2zvr-MuiTypography-root"
             >
               Keywords
             </p>
@@ -580,7 +583,7 @@ exports[`Data source should match snapshot 1`] = `
           class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden css-1ps6pg7-MuiPaper-root"
         >
           <div
-            class="makeStyles-header-36"
+            class="makeStyles-header-52"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 css-16w2zvr-MuiTypography-root"
@@ -608,7 +611,7 @@ exports[`Data source should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="makeStyles-body-37"
+            class="makeStyles-body-53"
           >
             <div
               class="flex items-center"
@@ -620,7 +623,7 @@ exports[`Data source should match snapshot 1`] = `
                 class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-16awh2u-MuiAutocomplete-root"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth makeStyles-root-38 MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                  class="MuiFormControl-root MuiFormControl-fullWidth makeStyles-root-54 MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
                 >
                   <div
                     class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1mxjs2u-MuiInputBase-root-MuiOutlinedInput-root"
@@ -698,7 +701,7 @@ exports[`Data source should match snapshot 1`] = `
                 />
               </span>
               <span
-                class="MuiTypography-root MuiTypography-body1 makeStyles-label-40 MuiFormControlLabel-label css-16w2zvr-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 makeStyles-label-56 MuiFormControlLabel-label css-16w2zvr-MuiTypography-root"
               >
                 Exact Match
               </span>
@@ -709,20 +712,20 @@ exports[`Data source should match snapshot 1`] = `
           class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden mt-8 css-1ps6pg7-MuiPaper-root"
         >
           <div
-            class="makeStyles-header-44"
+            class="makeStyles-header-60"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 css-16w2zvr-MuiTypography-root"
             />
           </div>
           <div
-            class="makeStyles-body-45"
+            class="makeStyles-body-61"
           >
             <div
               class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden css-1ps6pg7-MuiPaper-root"
             >
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 makeStyles-contentHeader-46 css-mhc70k-MuiGrid-root"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 makeStyles-contentHeader-62 css-mhc70k-MuiGrid-root"
               >
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-wpkret-MuiGrid-root"
@@ -749,7 +752,7 @@ exports[`Data source should match snapshot 1`] = `
                 </div>
               </div>
               <div
-                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 pl-4 mt-0 makeStyles-contentBody-47 css-16ysvd0-MuiGrid-root"
+                class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 pl-4 mt-0 makeStyles-contentBody-63 css-16ysvd0-MuiGrid-root"
               >
                 <div
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 css-wpkret-MuiGrid-root"
@@ -761,13 +764,13 @@ exports[`Data source should match snapshot 1`] = `
                   </p>
                 </div>
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 pr-4 makeStyles-criteriaContainer-50 css-18fhitp-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 pr-4 makeStyles-criteriaContainer-66 css-18fhitp-MuiGrid-root"
                 >
                   <div
                     class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-16awh2u-MuiAutocomplete-root"
                   >
                     <div
-                      class="MuiFormControl-root MuiFormControl-fullWidth makeStyles-root-38 MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                      class="MuiFormControl-root MuiFormControl-fullWidth makeStyles-root-54 MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
                     >
                       <div
                         class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1mxjs2u-MuiInputBase-root-MuiOutlinedInput-root"
@@ -816,7 +819,7 @@ exports[`Data source should match snapshot 1`] = `
                   </div>
                 </div>
                 <div
-                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 relative makeStyles-keywordsContainer-51 css-7tv4rv-MuiGrid-root"
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 relative makeStyles-keywordsContainer-67 css-7tv4rv-MuiGrid-root"
                 >
                   <div
                     class="MuiAutocomplete-root css-16awh2u-MuiAutocomplete-root"
@@ -825,7 +828,7 @@ exports[`Data source should match snapshot 1`] = `
                       class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
                     >
                       <div
-                        class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall makeStyles-inputRoot-52 makeStyles-inputRoot-53 MuiAutocomplete-inputRoot css-3304bn-MuiInputBase-root-MuiOutlinedInput-root"
+                        class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-sizeSmall makeStyles-inputRoot-68 makeStyles-inputRoot-69 MuiAutocomplete-inputRoot css-3304bn-MuiInputBase-root-MuiOutlinedInput-root"
                       >
                         <input
                           aria-autocomplete="list"
@@ -865,7 +868,7 @@ exports[`Data source should match snapshot 1`] = `
                   class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 relative css-wpkret-MuiGrid-root"
                 >
                   <button
-                    class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root rounded-full bg-[#F96A6A] w-5 h-5 min-w-0 absolute top-1/2 left-1/2 makeStyles-deleteButton-48 css-t8red9-MuiButtonBase-root-MuiButton-root"
+                    class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButtonBase-root rounded-full bg-[#F96A6A] w-5 h-5 min-w-0 absolute top-1/2 left-1/2 makeStyles-deleteButton-64 css-t8red9-MuiButtonBase-root-MuiButton-root"
                     tabindex="0"
                     type="button"
                   >
@@ -936,10 +939,10 @@ exports[`Data source should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="MuiBox-root css-slhovo"
+          class="makeStyles-btnContainer-2 MuiBox-root css-0"
         >
           <button
-            class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root  css-1q2t6q6-MuiButtonBase-root-MuiButton-root"
+            class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root makeStyles-btnPrevious-3 css-1i3jxbp-MuiButtonBase-root-MuiButton-root"
             tabindex="0"
             type="button"
           >
@@ -964,7 +967,7 @@ exports[`Data source should match snapshot 1`] = `
             />
           </button>
           <button
-            class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-1ri7gw8-MuiButtonBase-root-MuiButton-root"
+            class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root makeStyles-btnNext-4 css-13itokw-MuiButtonBase-root-MuiButton-root"
             tabindex="0"
             type="button"
           >

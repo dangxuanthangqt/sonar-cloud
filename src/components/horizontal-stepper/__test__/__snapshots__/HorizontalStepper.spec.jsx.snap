@@ -3,13 +3,13 @@
 exports[`Horizontal stepper should match snapshot 1`] = `
 <div>
   <div
-    class="MuiBox-root css-v8fepg"
+    class="makeStyles-container-1 MuiBox-root css-0"
   >
     <div
       class="flex justify-center flex-col items-center"
     >
       <button
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-coieiy-MuiButtonBase-root-MuiIconButton-root"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-iconPrevious-8 css-v3imdt-MuiButtonBase-root-MuiIconButton-root"
         tabindex="0"
         type="button"
       >
@@ -29,22 +29,23 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </button>
       <p
-        style="font-size: 14px; font-weight: 500; color: rgb(18, 41, 62); margin-top: 3px; margin-bottom: 0px; display: none;"
+        class="makeStyles-titleBtnPrevious-9"
+        style="display: none;"
       >
         Previous
       </p>
     </div>
     <div
-      class="MuiStepper-root MuiStepper-horizontal css-1enz6m5-MuiStepper-root"
+      class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-10 css-m5vj9m-MuiStepper-root"
     >
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -72,7 +73,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label makeStyles-activeStep-4 Mui-active css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label makeStyles-activeStep-5 Mui-active css-gv1taf-MuiStepLabel-label"
             >
               Datasources
             </span>
@@ -87,13 +88,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -121,7 +122,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               Keywords
             </span>
@@ -136,13 +137,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -170,7 +171,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               Vehicles
             </span>
@@ -185,13 +186,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -219,7 +220,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               Sales Codes
             </span>
@@ -234,13 +235,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -268,7 +269,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               Dates
             </span>
@@ -283,13 +284,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -317,7 +318,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               LOPs Parts
             </span>
@@ -332,13 +333,13 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </div>
       <div
-        class="MuiStep-root MuiStep-horizontal css-4u4pbf-MuiStep-root"
+        class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"
       >
         <span
-          class="makeStyles-stepLabelRoot-1 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
+          class="makeStyles-stepLabelRoot-2 MuiStepLabel-root MuiStepLabel-horizontal Mui-disabled css-ascpo7-MuiStepLabel-root"
         >
           <span
-            class="makeStyles-iconStyle-2 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
+            class="makeStyles-iconStyle-3 MuiStepLabel-iconContainer css-vnkopk-MuiStepLabel-iconContainer"
           >
             <svg
               aria-hidden="true"
@@ -366,7 +367,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
             class="MuiStepLabel-labelContainer css-16ubnlw-MuiStepLabel-labelContainer"
           >
             <span
-              class="makeStyles-labelStyle1-3 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
+              class="makeStyles-labelStyle1-4 MuiStepLabel-label Mui-disabled css-gv1taf-MuiStepLabel-label"
             >
               Summary
             </span>
@@ -376,7 +377,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
     </div>
     <div>
       <button
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1ilvgj4-MuiButtonBase-root-MuiIconButton-root"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-iconBtnNext-14 css-1vmeuix-MuiButtonBase-root-MuiIconButton-root"
         tabindex="0"
         type="button"
       >
@@ -396,7 +397,8 @@ exports[`Horizontal stepper should match snapshot 1`] = `
         />
       </button>
       <p
-        style="font-size: 14px; font-weight: 500; color: rgb(18, 41, 62); margin-top: 3px; margin-bottom: 0px;"
+        class="makeStyles-titleBtnNext-13"
+        style="color: rgb(18, 41, 62);"
       >
         Next
       </p>
