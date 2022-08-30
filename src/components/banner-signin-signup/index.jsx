@@ -11,9 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapBanner: {
     width: '50%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'fill',
   },
 }));
 
@@ -26,7 +31,7 @@ const index = ({ children }) => {
           src={banner}
           alt="banner"
           loading="lazy"
-          style={{ width: '100%', height: '100%' }}
+          className={classes.image}
         />
       </div>
       {children}

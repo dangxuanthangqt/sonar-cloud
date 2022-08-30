@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto 0',
     // padding: '50px 0',
     width: '50%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },
