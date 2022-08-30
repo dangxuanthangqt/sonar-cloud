@@ -12,6 +12,7 @@ import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import makeStyles from '@mui/styles/makeStyles';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import PartsGroup from './components/PartsGroup';
@@ -24,6 +25,33 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import { lopsPartProperties } from './constant';
 import RequestTitle from '../summary/components/RequestTitle';
+
+const useStyles = makeStyles((theme) => ({
+  boxPrevious: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
+  btnPrevious: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    color: '#FFFFFF',
+    marginTop: '30px',
+    marginBottom: '20px',
+    pointerEvents: 'all !important',
+  },
+}));
 
 const schema = yup.object().shape({
   partsGroup: yup.object().shape({
@@ -80,6 +108,7 @@ const schema = yup.object().shape({
 });
 
 function Lops({ isLoading }) {
+  const classes = useStyles();
   const { t } = useTranslation('lops');
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [lopsAndPartsState, setLopsAndPartsState] = useRecoilState(
@@ -200,14 +229,7 @@ function Lops({ isLoading }) {
             }
             disabled={lopsAndPartsSectionDisabled}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              mb: '70px',
-              mt: '30px',
-            }}
-          >
+          <Box className={classes.boxPrevious}>
             <Button
               onClick={() => {
                 handleSubmit(() => {
@@ -218,16 +240,7 @@ function Lops({ isLoading }) {
                   });
                 })();
               }}
-              sx={{
-                width: '123px',
-                height: '40px',
-                color: '#0F81C0',
-                mt: '30px',
-                border: '1px solid #0F81C0',
-                '&:hover': {
-                  border: '1px solid #0F81C0',
-                },
-              }}
+              className={classes.btnPrevious}
               variant="outlined"
               startIcon={<SkipPreviousRoundedIcon />}
             >
@@ -243,19 +256,14 @@ function Lops({ isLoading }) {
                   });
                 })();
               }}
+              className={classes.btnNext}
               sx={{
-                width: '123px',
-                height: '40px',
                 backgroundColor: !isEmpty(errors)
                   ? 'rgba(0, 0, 0, 0.38)'
                   : '#0F81C0',
-                color: '#FFFFFF',
-                mt: '30px',
-                mb: '20px',
                 '&:hover': {
                   cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
                 },
-                pointerEvents: 'all !important',
               }}
               variant="contained"
               disabled={!isEmpty(errors)}

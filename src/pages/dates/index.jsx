@@ -40,6 +40,30 @@ const useStyles = makeStyles((theme) => ({
   selectAllBtnRoot: {
     textTransform: 'none',
   },
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
+  btnPrevious: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    backgroundColor: '#0F81C0',
+    color: '#FFFFFF',
+    marginTop: '30px',
+    marginBottom: '20px',
+  },
 }));
 
 function Dates({ isLoading }) {
@@ -184,14 +208,7 @@ function Dates({ isLoading }) {
             dateGroup={datesSection?.reportDateGroup}
             disabled={dateSectionDisabled}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              mb: '70px',
-              mt: '30px',
-            }}
-          >
+          <Box className={classes.btnContainer}>
             <Button
               onClick={() => {
                 handleSubmit(() => {
@@ -202,16 +219,7 @@ function Dates({ isLoading }) {
                   });
                 })();
               }}
-              sx={{
-                width: '123px',
-                height: '40px',
-                color: '#0F81C0',
-                mt: '30px',
-                border: '1px solid #0F81C0',
-                '&:hover': {
-                  border: '1px solid #0F81C0',
-                },
-              }}
+              className={classes.btnPrevious}
               variant="outlined"
               startIcon={<SkipPreviousRoundedIcon />}
             >
@@ -225,14 +233,7 @@ function Dates({ isLoading }) {
                   return prevActiveStep + 1;
                 });
               }}
-              sx={{
-                width: '123px',
-                height: '40px',
-                backgroundColor: '#0F81C0',
-                color: '#FFFFFF',
-                mt: '30px',
-                mb: '20px',
-              }}
+              className={classes.btnNext}
               variant="contained"
               endIcon={<SkipNextRoundedIcon />}
             >
