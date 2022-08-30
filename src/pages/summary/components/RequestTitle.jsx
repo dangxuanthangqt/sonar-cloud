@@ -114,9 +114,7 @@ const useCriteriaStyles = makeStyles((theme) => ({
 
 function RequestTitle({ control, title = 'Request Title' }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
-  const [value, setValue] = useState(
-    'This is request title This is request title'
-  );
+  const [value, setValue] = useState('');
   const [disableTitle, setDisableTitle] = useState(true);
   const classes = useCriteriaStyles();
   return (
