@@ -47,8 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
   errorText: {
     textAlign: 'left',
-    color: 'red',
+    color: '#d32f2f',
+    fontWeight: '400',
+    fontSize: '0.75rem',
+    lineHeight: '1.66',
     marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center',
   },
   description: {
     color: '#A3A3A3',
@@ -96,11 +101,12 @@ function Index() {
   const { data, mutate } = useMutation(['singUp'], (payload) =>
     signUp(payload)
   );
-  if (data?.data) {
-    navigate('/dashboard');
-  }
   const onSubmit = (values) => {
-    mutate(values);
+    mutate(values, {
+      onSuccess: () => {
+        navigate('/dashboard');
+      },
+    });
   };
   return (
     <Banner>
@@ -124,6 +130,7 @@ function Index() {
             </div>
           </div>
           <TextField
+            error={errors.email}
             {...register('email')}
             id="outlined-basic"
             variant="outlined"
@@ -141,6 +148,7 @@ function Index() {
             <div className={classes.errorText}>{errors.email?.message}</div>
           )}
           <TextField
+            error={errors.userName}
             {...register('userName')}
             id="outlined-basic"
             variant="outlined"
@@ -158,6 +166,7 @@ function Index() {
             <div className={classes.errorText}>{errors.userName?.message}</div>
           )}
           <TextField
+            error={errors.password}
             {...register('password')}
             type="password"
             id="outlined-basic"
@@ -176,6 +185,7 @@ function Index() {
             <div className={classes.errorText}>{errors.password?.message}</div>
           )}
           <TextField
+            error={errors.repeatPassword}
             {...register('repeatPassword')}
             type="password"
             id="outlined-basic"
