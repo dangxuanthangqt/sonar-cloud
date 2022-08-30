@@ -10,6 +10,9 @@ import { useMutation } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { updateDataRequest } from 'services/data-request-service';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/system';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import MainLayout from '@/components/main-layout';
@@ -18,6 +21,7 @@ import FormGroup from './components/FormGroup';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
+import RequestTitle from '../summary/components/RequestTitle';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -32,6 +36,29 @@ const useStyles = makeStyles((theme) => ({
   },
   selectAllBtnRoot: {
     textTransform: 'none',
+  },
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '30px',
+    marginBottom: '70px',
+  },
+  btnCancel: {
+    width: '123px',
+    height: '40px',
+    color: '#FD4747',
+    marginTop: '30px',
+    border: '1px solid #FD4747',
+    '&:hover': {
+      border: '1px solid #FD4747',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    backgroundColor: '#0F81C0',
+    color: '#FFFFFF',
+    marginTop: '30px',
   },
 }));
 
@@ -49,10 +76,9 @@ function DataSources({ isLoading }) {
     data: { dataSourceSection, id: dataRequestId },
   } = dataRequestStateValue || {};
 
-  const { control, reset, getValues, setValue, handleSubmit, watch, trigger } =
-    useForm({
-      defaultValues: { formGroups: [] },
-    });
+  const { control, reset, getValues, setValue, handleSubmit, watch } = useForm({
+    defaultValues: { formGroups: [] },
+  });
 
   const { fields } = useFieldArray({ control, name: 'formGroups' });
 
@@ -74,14 +100,6 @@ function DataSources({ isLoading }) {
       reset({ formGroups: dataSourceSection.dataSourceGroups });
     }
   }, [dataSourceSection, dataSourceState]);
-
-  // useEffect(
-  //   () => () => {
-  //     setDataSourceState(getValues());
-  //     reset();
-  //   },
-  //   []
-  // );
 
   const { mutate, isLoading: updateDataRequestLoading } = useMutation(
     ['updateDataRequest'],
@@ -178,6 +196,7 @@ function DataSources({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
+      <RequestTitle title="Create New Request" />
       <StepperInfo step={1} name="Data Sources" />
       <Grid container className={classes.body} spacing={3}>
         {!isLoading &&
@@ -201,25 +220,36 @@ function DataSources({ isLoading }) {
             </Grid>
           ))}
       </Grid>
-      <Button
-        onClick={() => {
-          setDataSourceState(getValues());
-          setActiveStep((prevActiveStep) => {
-            navigate(steps[activeStep + 1].path);
-            return prevActiveStep + 1;
-          });
-        }}
-        sx={{
-          width: '123px',
-          height: '40px',
-          backgroundColor: '#0F81C0',
-          color: '#FFFFFF',
-          mt: '30px',
-        }}
-        variant="contained"
-      >
-        Next
-      </Button>
+      <Box className={classes.btnContainer}>
+        <Button
+          onClick={() => {
+            // setDataSourceState({ formGroups: [] });
+            reset({ formGroups: dataSourceSection.dataSourceGroups });
+            setDataSourceState({
+              formGroups: dataSourceSection.dataSourceGroups,
+            });
+          }}
+          className={classes.btnCancel}
+          variant="outlined"
+          startIcon={<CancelOutlinedIcon />}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            setDataSourceState(getValues());
+            setActiveStep((prevActiveStep) => {
+              navigate(steps[activeStep + 1].path);
+              return prevActiveStep + 1;
+            });
+          }}
+          className={classes.btnNext}
+          variant="contained"
+          endIcon={<SkipNextRoundedIcon />}
+        >
+          Next
+        </Button>
+      </Box>
     </MainLayout>
   );
 }

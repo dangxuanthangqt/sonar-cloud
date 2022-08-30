@@ -41,10 +41,6 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
   const {
     data: { dataGridSection = {} },
   } = dataRequestStateValue || {};
-  // const dataGridSection = useMemo(
-  //   () => dataRequestStateValue?.data?.dataGridSection || {},
-  //   [dataRequestStateValue]
-  // );
   useEffect(() => {
     setRowCountState((prevRowCountState) =>
       dataGridSection?.pagination?.totalRowCount !== undefined

@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import React, { useMemo, useEffect } from 'react';
 import DataSourceSummary from '@/components/data-source-summary';
 import { lopsAndPartsStateAtom } from '@/recoil/atom/lops-and-parts-state';
+import { STEPS } from '@/common/constants';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -104,7 +105,7 @@ const useCriteriaStyles = makeStyles((theme) => ({
 function LOPParts({ control }) {
   const classes = useCriteriaStyles();
 
-  const dataSourceSummary = useDataSourceSummary('keywords');
+  const dataSourceSummary = useDataSourceSummary(STEPS.LOPS_PARTS);
   const [lopsAndPartsState, setLopsAndPartsState] = useRecoilState(
     lopsAndPartsStateAtom
   );

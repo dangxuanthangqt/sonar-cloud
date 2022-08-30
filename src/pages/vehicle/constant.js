@@ -13,20 +13,21 @@ export const vehicleDefaultItemValue = {
 };
 
 export const propertiesVehicle = {
-  bodyDescription: {
-    originalRef: 'StringControl',
+  fromYear: {
+    originalRef: 'IntegerControl',
+    minimum: 1995,
+    maximum: 2022,
+  },
+  toYear: {
+    originalRef: 'IntegerControl',
+    minimum: 2000,
+    maximum: 2022,
   },
   family: {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 2,
     maximum: 2,
   },
-  fromYear: {
-    originalRef: 'IntegerControl',
-    minimum: 1995,
-    maximum: 2022,
-  },
-
   line: {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 2,
@@ -42,9 +43,7 @@ export const propertiesVehicle = {
     minLength: 1,
     maximum: 1,
   },
-  toYear: {
-    originalRef: 'IntegerControl',
-    minimum: 2000,
-    maximum: 2022,
+  bodyDescription: {
+    originalRef: 'StringControl',
   },
 };

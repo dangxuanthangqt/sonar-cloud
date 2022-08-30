@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import React, { useMemo } from 'react';
 import DataSourceSummary from '@/components/data-source-summary';
 import { salesCodeStateAtom } from '@/recoil/atom/sales-code-state';
+import { STEPS } from '@/common/constants';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -99,15 +100,9 @@ const useCriteriaStyles = makeStyles((theme) => ({
   },
 }));
 
-const dataSources1 = [
-  'Uncodable Claim Narrative (UCN)',
-  'Straight Time Claim Narrative (STN)',
-  'Quality Tracking Narratives (QTN)',
-];
-
 function SalesCode({ control }) {
   const classes = useCriteriaStyles();
-  const dataSourceSummary = useDataSourceSummary('keywords');
+  const dataSourceSummary = useDataSourceSummary(STEPS.SALE_CODES);
   const [salesCodeStateValue, setSalesCodeStateValue] =
     useRecoilState(salesCodeStateAtom);
 

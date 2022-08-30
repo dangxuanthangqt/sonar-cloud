@@ -7,9 +7,12 @@ import { isEmpty } from 'lodash';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
+import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
+import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import makeStyles from '@mui/styles/makeStyles';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import PartsGroup from './components/PartsGroup';
@@ -21,6 +24,34 @@ import { StepperInfo } from '@/components/stepper-info';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import { lopsPartProperties } from './constant';
+import RequestTitle from '../summary/components/RequestTitle';
+
+const useStyles = makeStyles((theme) => ({
+  boxPrevious: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '70px',
+    marginTop: '30px',
+  },
+  btnPrevious: {
+    width: '123px',
+    height: '40px',
+    color: '#0F81C0',
+    marginTop: '30px',
+    border: '1px solid #0F81C0',
+    '&:hover': {
+      border: '1px solid #0F81C0',
+    },
+  },
+  btnNext: {
+    width: '123px',
+    height: '40px',
+    color: '#FFFFFF',
+    marginTop: '30px',
+    marginBottom: '20px',
+    pointerEvents: 'all !important',
+  },
+}));
 
 const schema = yup.object().shape({
   partsGroup: yup.object().shape({
@@ -77,6 +108,7 @@ const schema = yup.object().shape({
 });
 
 function Lops({ isLoading }) {
+  const classes = useStyles();
   const { t } = useTranslation('lops');
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [lopsAndPartsState, setLopsAndPartsState] = useRecoilState(
@@ -86,38 +118,9 @@ function Lops({ isLoading }) {
   const navigate = useNavigate();
 
   const {
-    dataSchema,
     data: { lopAndPartsSection },
   } = dataRequestStateValue || {};
 
-  // const lopsProperties = useMemo(() => {
-  //   if (isEmpty(dataSchema)) return {};
-  //   const {
-  //     definitions: {
-  //       lopCriteriaGroup,
-  //       lopCriteria,
-  //       lopAndPartsSection: lopAndPartsSectionSchema,
-  //       partGroup,
-  //     },
-  //   } = dataSchema;
-  //   return {
-  //     lopAndPartsSection: {
-  //       ...(lopAndPartsSectionSchema || {}),
-  //       partGroup: {
-  //         ...(partGroup || {}),
-  //       },
-  //       lopCriteriaGroup: {
-  //         ...(lopCriteriaGroup || {}),
-  //         lopCriteriaList: {
-  //           ...(lopCriteriaGroup?.lopCriteriaList || {}),
-  //           lopCriteria: {
-  //             ...(lopCriteria || {}),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   };
-  // }, [dataSchema]);
   const lopsProperties = lopsPartProperties;
 
   const requiredFields = ['parts', 'lop', 'failureCode'];
@@ -130,7 +133,6 @@ function Lops({ isLoading }) {
     handleSubmit,
     getValues,
     trigger,
-    watch,
   } = useForm({
     defaultValues: {
       partsGroup: {
@@ -167,14 +169,6 @@ function Lops({ isLoading }) {
       });
     }
   }, [lopAndPartsSection]);
-
-  // useEffect(
-  //   () => () => {
-  //     setLopsAndPartsState(getValues());
-  //     reset();
-  //   },
-  //   []
-  // );
 
   const lopsAndPartsSectionDisabled = useMemo(
     () => lopAndPartsSection?.permissions?.readOnlyControl,
@@ -214,6 +208,7 @@ function Lops({ isLoading }) {
       }}
     >
       <BackdropLoading open={isLoading} />
+      <RequestTitle />
       <StepperInfo step={6} name="LOPs Parts" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       {!isLoading && (
@@ -234,36 +229,49 @@ function Lops({ isLoading }) {
             }
             disabled={lopsAndPartsSectionDisabled}
           />
-          <Button
-            onClick={() => {
-              handleSubmit(() => {
-                setLopsAndPartsState(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
-              })();
-            }}
-            sx={{
-              width: '123px',
-              height: '40px',
-              backgroundColor: !isEmpty(errors)
-                ? 'rgba(0, 0, 0, 0.38)'
-                : '#0F81C0',
-              color: '#FFFFFF',
-              mt: '30px',
-              mb: '20px',
-              textTransform: 'none',
-              '&:hover': {
-                cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
-              },
-              pointerEvents: 'all !important',
-            }}
-            variant="contained"
-            disabled={!isEmpty(errors)}
-          >
-            {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
-          </Button>
+          <Box className={classes.boxPrevious}>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setLopsAndPartsState(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep - 1].path);
+                    return prevActiveStep - 1;
+                  });
+                })();
+              }}
+              className={classes.btnPrevious}
+              variant="outlined"
+              startIcon={<SkipPreviousRoundedIcon />}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => {
+                handleSubmit(() => {
+                  setLopsAndPartsState(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep + 1].path);
+                    return prevActiveStep + 1;
+                  });
+                })();
+              }}
+              className={classes.btnNext}
+              sx={{
+                backgroundColor: !isEmpty(errors)
+                  ? 'rgba(0, 0, 0, 0.38)'
+                  : '#0F81C0',
+                '&:hover': {
+                  cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
+                },
+              }}
+              variant="contained"
+              disabled={!isEmpty(errors)}
+              endIcon={<SkipNextRoundedIcon />}
+            >
+              {dataSourceSummary?.required?.length ? 'Next' : 'Skip'}
+            </Button>
+          </Box>
         </>
       )}
     </MainLayout>

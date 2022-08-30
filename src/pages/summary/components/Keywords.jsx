@@ -4,15 +4,11 @@ import { useRecoilState } from 'recoil';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import yup from 'helpers/yup-extended';
-import { isEmpty, some } from 'lodash';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
-import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { keywordsStateAtom } from '@/recoil/atom/keywords-state';
 import DataSourceSummary from '@/components/data-source-summary';
 import SummaryChip from '@/components/Summary-chip';
+import { STEPS } from '@/common/constants';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -111,9 +107,7 @@ const useCriteriaStyles = makeStyles((theme) => ({
 function Keyword() {
   const classes = useCriteriaStyles();
 
-  const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
-
-  const dataSourceSummary = useDataSourceSummary('keywords');
+  const dataSourceSummary = useDataSourceSummary(STEPS.KEYWORDS);
 
   const { t } = useTranslation();
 
