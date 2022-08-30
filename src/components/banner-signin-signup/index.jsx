@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   wrapForm: {
     display: 'flex',
     textAlign: 'center',
+    minHeight: '100vh',
   },
   wrapBanner: {
     width: '50%',

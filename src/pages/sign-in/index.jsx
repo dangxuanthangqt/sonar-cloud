@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
 import {
   SvgIcon,
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapRight: {
     margin: 'auto 0',
-    padding: '50px 0',
+    // padding: '50px 0',
     width: '50%',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -84,7 +83,7 @@ const schema = yup
   })
   .required();
 
-const index = () => {
+function Index() {
   const navigate = useNavigate();
   const classes = useStyles();
   const [isShowBackdrop, setIsShowBackdrop] = useState(false);
@@ -103,7 +102,6 @@ const index = () => {
     navigate('/dashboard');
   }
   const onSubmit = (values) => {
-    console.log('values', values);
     mutate(values);
   };
   const handleRecoveryPassword = () => {
@@ -198,6 +196,6 @@ const index = () => {
       </Banner>
     </>
   );
-};
+}
 
-export default index;
+export default Index;
