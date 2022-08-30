@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup
   .object({
-    userName: yup.string().required('User Name is a required field'),
+    userName: yup.string().required('User name is a required field'),
     password: yup.string().required(),
   })
   .required();
