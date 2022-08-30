@@ -64,11 +64,6 @@ const columnVisibility = {
 
 const columnsData = [
   {
-    field: 'id',
-    headerName: 'ID',
-    type: 'string',
-  },
-  {
     field: 'actions',
     headerName: 'Actions',
     width: 200,
@@ -78,18 +73,16 @@ const columnsData = [
     type: 'actions',
   },
   {
+    field: 'id',
+    headerName: 'ID',
+    type: 'string',
+  },
+  {
     field: 'title',
     headerName: 'Title',
     editable: true,
     width: 150,
     hide: false,
-    type: 'string',
-  },
-  {
-    field: 'progress',
-    headerName: 'Progress',
-    editable: false,
-    width: 200,
     type: 'string',
   },
   {
@@ -107,6 +100,12 @@ const columnsData = [
     //  hide: true,
   },
   {
+    field: 'type',
+    headerName: 'Type',
+    editable: true,
+    type: 'string',
+  },
+  {
     field: 'statusCustom',
     headerName: 'Status',
     editable: false,
@@ -114,19 +113,18 @@ const columnsData = [
     type: 'string',
   },
   {
-    field: 'type',
-    headerName: 'Type',
-    editable: true,
-    type: 'string',
-  },
-
-  {
     field: 'report',
     headerName: 'Report',
     editable: false,
     type: 'string',
   },
-
+  {
+    field: 'progress',
+    headerName: 'Progress',
+    editable: false,
+    width: 200,
+    type: 'string',
+  },
   {
     field: 'desk',
     headerName: 'Desk',

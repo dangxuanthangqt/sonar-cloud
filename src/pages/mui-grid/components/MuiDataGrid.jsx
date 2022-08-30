@@ -1,6 +1,14 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { IconButton, InputBase, LinearProgress } from '@mui/material';
+import { SearchOutlined, FilterList, AddOutlined } from '@mui/icons-material';
+import {
+  IconButton,
+  InputBase,
+  LinearProgress,
+  Typography,
+  Button,
+} from '@mui/material';
 import Box from '@mui/material/Box';
+import makeStyles from '@mui/styles/makeStyles';
+import { useNavigate } from 'react-router-dom';
 import { DataGridPro, GridToolbar, useGridApiRef } from '@mui/x-data-grid-pro';
 import useDebounce from 'hooks/common/useDebounce';
 import { useGetRequestDataGrid } from 'hooks/queries/use-request-data-grid';
@@ -24,6 +32,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
 
   const setDataGridState = useSetRecoilState(dataGridStateAtom);
   const dataRequestStateValue = useRecoilValue(dataGridStateAtom);
+
+  const navigate = useNavigate();
 
   const { isFetching } = useGetRequestDataGrid({
     options: {
@@ -192,6 +202,10 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
     },
   });
 
+  const onNewRequest = () => {
+    navigate('/data-request/data-sources');
+  };
+
   return (
     <Box
       sx={{
@@ -201,32 +215,55 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
         ...generatedClassCell(),
       }}
     >
-      <Box sx={{ height: '60px' }}>
-        {!initialLoading && (
-          <Box
-            sx={{
-              width: 500,
-              maxWidth: '100%',
-              my: 2,
-              border: '1px solid #ccc',
-              borderRadius: 2,
-            }}
-          >
-            <IconButton sx={{ p: '10px' }} aria-label="menu">
-              <SearchIcon />
-            </IconButton>
-            <InputBase
-              sx={{ ml: 1, flex: 1, width: '80%' }}
-              placeholder="Search by Trader name"
-              value={searchValue}
-              onChange={(event) => {
-                setSearchValue(event.target.value);
-              }}
-            />
-          </Box>
-        )}
-      </Box>
+      <Typography className="heading-style">Data Requests</Typography>
+
+      <div className="flex justify-between mb-10">
+        <div>
+          {!initialLoading && (
+            <div className="flex">
+              <Box
+                sx={{
+                  width: 500,
+                }}
+                className="border border-solid border-neutral-300 rounded"
+              >
+                <IconButton aria-label="menu">
+                  <SearchOutlined className="fill-neutral-900" />
+                </IconButton>
+                <InputBase
+                  sx={{ ml: 1, flex: 1, width: '80%' }}
+                  placeholder="Search"
+                  value={searchValue}
+                  onChange={(event) => {
+                    setSearchValue(event.target.value);
+                  }}
+                />
+              </Box>
+
+              <Button
+                className="uppercase px-3 text-xs border-neutral-300 main-text ml-2"
+                variant="outlined"
+              >
+                <FilterList className=" mr-1" />
+                Filter
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <Button
+          className="uppercase"
+          variant="contained"
+          color="primary"
+          onClick={onNewRequest}
+        >
+          <AddOutlined className=" mr-1" />
+          New Request
+        </Button>
+      </div>
+
       <DataGridPro
+        className="border-0"
         components={{
           LoadingOverlay: LinearProgress,
           Toolbar: GridToolbar,
@@ -236,8 +273,8 @@ export default function MuiDataGrid({ isLoading: initialLoading }) {
         onStateChange={(state) => {
           // console.log('state', state);
         }}
-        pinnedColumns={pinnedColumns}
-        onPinnedColumnsChange={handlePinnedColumnsChange}
+        // pinnedColumns={pinnedColumns}
+        // onPinnedColumnsChange={handlePinnedColumnsChange}
         columnVisibilityModel={columnVisibilityModel}
         onColumnVisibilityModelChange={(newModel) => {
           const isHideAll =
