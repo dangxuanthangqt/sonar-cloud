@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapRight: {
     margin: 'auto 0',
-    // padding: '50px 0',
     width: '50%',
     [theme.breakpoints.down('md')]: {
       width: '100%',
@@ -58,7 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
   errorText: {
     textAlign: 'left',
-    color: 'red',
+    color: '#d32f2f',
+    fontWeight: '400',
+    fontSize: '0.75rem',
+    lineHeight: '1.66',
     marginBottom: '15px',
     display: 'flex',
     alignItems: 'center',
@@ -69,6 +71,8 @@ const useStyles = makeStyles((theme) => ({
   recoveryPass: {
     marginBottom: '20px',
     color: '#A3A3A3',
+  },
+  textRecoveryPass: {
     cursor: 'pointer',
   },
   groupBottomform: {
@@ -95,21 +99,27 @@ function Index() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const { data, isLoading, mutate } = useMutation(['singIn'], (payload) =>
     signIn(payload)
   );
-  if (data?.data) {
-    navigate('/dashboard');
-  }
+
   const onSubmit = (values) => {
-    mutate(values);
+    mutate(values, {
+      onSuccess: () => {
+        navigate('/dashboard');
+      },
+    });
   };
+
   const handleRecoveryPassword = () => {
     setIsShowBackdrop(true);
   };
+
   const handleClose = () => {
     setIsShowBackdrop(false);
   };
+
   return (
     <>
       <BackdropLoading open={isLoading} />
@@ -134,6 +144,7 @@ function Index() {
               </div>
             </div>
             <TextField
+              error={errors.userName}
               className={classes.inputField}
               {...register('userName')}
               id="outlined-basic"
@@ -153,6 +164,7 @@ function Index() {
               </div>
             )}
             <TextField
+              error={errors.password}
               className={classes.inputField}
               {...register('password')}
               type="password"
@@ -174,12 +186,14 @@ function Index() {
               </div>
             )}
             <div className={classes.groupBottomform}>
-              <div
-                aria-hidden="true"
-                className={classes.recoveryPass}
-                onClick={() => handleRecoveryPassword()}
-              >
-                Recovery Password
+              <div className={classes.recoveryPass}>
+                <span
+                  aria-hidden="true"
+                  onClick={() => handleRecoveryPassword()}
+                  className={classes.textRecoveryPass}
+                >
+                  Recovery Password
+                </span>
               </div>
               <Button
                 variant="contained"
