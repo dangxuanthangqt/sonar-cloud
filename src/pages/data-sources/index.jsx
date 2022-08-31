@@ -22,6 +22,7 @@ import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -68,6 +69,10 @@ function DataSources({ isLoading }) {
   const [isAllSelected, setIsAllSelected] = useState(false);
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+
   const navigate = useNavigate();
 
   const [dataSourceState, setDataSourceState] =
@@ -90,6 +95,13 @@ function DataSources({ isLoading }) {
       ...watchFieldArray[index],
     };
   });
+
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   useEffect(() => {
     if (!isEmpty(dataSourceState) && !isLoading) {
@@ -223,7 +235,7 @@ function DataSources({ isLoading }) {
       <Box className={classes.btnContainer}>
         <Button
           onClick={() => {
-            // setDataSourceState({ formGroups: [] });
+            handleErrorRequestTitle('');
             reset({ formGroups: dataSourceSection.dataSourceGroups });
             setDataSourceState({
               formGroups: dataSourceSection.dataSourceGroups,
@@ -238,10 +250,15 @@ function DataSources({ isLoading }) {
         <Button
           onClick={() => {
             setDataSourceState(getValues());
-            setActiveStep((prevActiveStep) => {
-              navigate(steps[activeStep + 1].path);
-              return prevActiveStep + 1;
-            });
+            if (requestTitleState?.value) {
+              handleErrorRequestTitle('');
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep + 1].path);
+                return prevActiveStep + 1;
+              });
+            } else {
+              handleErrorRequestTitle('Request title is required');
+            }
           }}
           className={classes.btnNext}
           variant="contained"
