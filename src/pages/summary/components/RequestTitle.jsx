@@ -111,6 +111,16 @@ const useCriteriaStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 400,
   },
+  errorText: {
+    textAlign: 'left',
+    color: '#d32f2f',
+    fontWeight: '400',
+    fontSize: '0.75rem',
+    lineHeight: '1.66',
+    marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 function RequestTitle({ control, title = 'Request Title' }) {
@@ -134,8 +144,10 @@ function RequestTitle({ control, title = 'Request Title' }) {
         // defaultValue="This is request title This is request title"
         placeholder="Request title"
         disabled={activeStep === 0 ? false : disableTitle}
-        value={requestTitleState}
-        onChange={(e) => setRequestTitleState(e.target.value)}
+        value={requestTitleState.value}
+        onChange={(e) =>
+          setRequestTitleState({ ...requestTitleState, value: e.target.value })
+        }
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         endAdornment={
           activeStep === 0 ? null : (
@@ -153,6 +165,11 @@ function RequestTitle({ control, title = 'Request Title' }) {
           )
         }
       />
+      {requestTitleState?.error && (
+        <div className={classes.errorText}>
+          <span>Request title is required</span>
+        </div>
+      )}
     </div>
   );
 }

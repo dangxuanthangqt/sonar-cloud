@@ -16,6 +16,7 @@ import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import { steps } from './constant';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -137,6 +138,9 @@ export default function HorizontalLinearStepper({
 }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const { pathname } = useLocation();
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
 
   const [dataSourceState, setDataSourceState] =
     useRecoilState(dataSourceStateAtom);
@@ -145,26 +149,41 @@ export default function HorizontalLinearStepper({
 
   const navigate = useNavigate();
 
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
+
   const handleNext = () => {
     // trigger(); /** For test error messages when submit */
     if (handleSubmit)
       /** Handle submit when onclick next button */
       handleSubmit((values) => {
         /** When click next button -> set value to recoil store */
-        setDataToRecoilStore && setDataToRecoilStore(values);
+        if (requestTitleState?.value) {
+          handleErrorRequestTitle('');
+          setDataToRecoilStore && setDataToRecoilStore(values);
 
-        setActiveStep((prevActiveStep) => {
-          if (prevActiveStep < steps.length - 1) return prevActiveStep + 1;
-          return prevActiveStep;
-        });
-        navigate(steps[activeStep + 1].path);
+          setActiveStep((prevActiveStep) => {
+            if (prevActiveStep < steps.length - 1) return prevActiveStep + 1;
+            return prevActiveStep;
+          });
+          navigate(steps[activeStep + 1].path);
+        } else {
+          handleErrorRequestTitle('Request title is required');
+        }
       })();
-    else {
+    else if (requestTitleState?.value) {
+      handleErrorRequestTitle('');
       setActiveStep((prevActiveStep) => {
         if (prevActiveStep < steps.length - 1) return prevActiveStep + 1;
         return prevActiveStep;
       });
       navigate(steps[activeStep + 1].path);
+    } else {
+      handleErrorRequestTitle('Request title is required');
     }
   };
 
@@ -184,17 +203,25 @@ export default function HorizontalLinearStepper({
       /** Handle submit when onclick next button */
       handleSubmit((values) => {
         /** When click next button -> set value to recoil store */
-        setDataToRecoilStore && setDataToRecoilStore(values);
+        if (requestTitleState?.value) {
+          handleErrorRequestTitle('');
 
-        setActiveStep((prevActiveStep) => {
-          if (prevActiveStep > 0) {
-            return prevActiveStep - 1;
-          }
-          return prevActiveStep;
-        });
-        navigate(steps[activeStep - 1].path);
+          setDataToRecoilStore && setDataToRecoilStore(values);
+
+          setActiveStep((prevActiveStep) => {
+            if (prevActiveStep > 0) {
+              return prevActiveStep - 1;
+            }
+            return prevActiveStep;
+          });
+          navigate(steps[activeStep - 1].path);
+        } else {
+          handleErrorRequestTitle('Request title is required');
+        }
       })();
-    else {
+    else if (requestTitleState?.value) {
+      handleErrorRequestTitle('');
+
       setActiveStep((prevActiveStep) => {
         if (prevActiveStep > 0) {
           return prevActiveStep - 1;
@@ -202,17 +229,28 @@ export default function HorizontalLinearStepper({
         return prevActiveStep;
       });
       navigate(steps[activeStep - 1].path);
+    } else {
+      handleErrorRequestTitle('Request title is required');
     }
   };
 
   const handleOnClickStep = (index) => {
     if (handleSubmit)
       handleSubmit((values) => {
-        setDataToRecoilStore && setDataToRecoilStore(values);
-        navigate(steps[index].path);
+        if (requestTitleState?.value) {
+          handleErrorRequestTitle('');
+
+          setDataToRecoilStore && setDataToRecoilStore(values);
+          navigate(steps[index].path);
+        } else {
+          handleErrorRequestTitle('Request title is required');
+        }
       })();
-    else {
+    else if (requestTitleState?.value) {
+      handleErrorRequestTitle('');
       navigate(steps[index].path);
+    } else {
+      handleErrorRequestTitle('Request title is required');
     }
   };
 

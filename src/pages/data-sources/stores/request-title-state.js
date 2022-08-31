@@ -4,5 +4,8 @@ export const requestTitleStateKey = 'requestTitleStateKey';
 
 export const requestTitleStateAtom = atom({
   key: requestTitleStateKey,
-  default: '',
+  default: {
+    value: '',
+    error: '',
+  },
 });
