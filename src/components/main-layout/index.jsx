@@ -16,8 +16,8 @@ import SideBarStepper from './SideBarStepper';
 
 const useStyles = makeStyles((theme) => ({
   contentContainer: {
-    height: 'calc(100vh - 238px)',
-    overflowY: 'auto',
+    // height: 'calc(100vh - 238px)',
+    // overflowY: 'auto',
     marginTop: theme.spacing(2),
     '&:not(.full)': {
       marginTop: 110,

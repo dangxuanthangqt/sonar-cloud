@@ -20,7 +20,9 @@ function AppRoutes() {
           element={
             <>
               <TopBar />
-              <Dashboard />
+              <div className="content-wrapper">
+                <Dashboard />
+              </div>
             </>
           }
         />
@@ -29,7 +31,9 @@ function AppRoutes() {
           element={
             <>
               <TopBar />
-              <ReportsRoute />
+              <div className="content-wrapper">
+                <ReportsRoute />
+              </div>
             </>
           }
         />
@@ -39,7 +43,9 @@ function AppRoutes() {
           element={
             <>
               <TopBar />
-              <Summary />
+              <div className="content-wrapper">
+                <Summary />
+              </div>
             </>
           }
         />
@@ -48,7 +54,9 @@ function AppRoutes() {
           element={
             <>
               <TopBar />
-              <DataRequestRoutes />
+              <div className="content-wrapper">
+                <DataRequestRoutes />
+              </div>
             </>
           }
         />

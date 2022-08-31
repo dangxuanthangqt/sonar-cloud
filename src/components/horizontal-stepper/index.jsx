@@ -20,13 +20,15 @@ import { steps } from './constant';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    height: '100px',
-    position: 'absolute',
+    // height: '100px',
+    position: 'fixed',
     top: '128px',
     width: '100%',
     alignItems: 'flex-start',
-    paddingTop: '25px',
+    padding: '25px 0',
     justifyContent: 'space-around',
+    backgroundColor: '#ffffff',
+    zIndex: 10,
   },
   stepLabelRoot: {
     display: 'flex',

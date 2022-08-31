@@ -80,3 +80,18 @@ code {
   letter-spacing: 0.15px;
   margin: 12px 0 20px;
 }
+
+/** Main Header Style **/
+
+.header-wrapper {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.content-wrapper {
+  padding-top: 128px;
+}
