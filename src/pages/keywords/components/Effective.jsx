@@ -20,22 +20,31 @@ function Effective({ effective }) {
       relative = 'OR';
     }
     return (
-      <Typography className="text-sm">
-        {item?.criteria?.label}
-        :&nbsp;
-        {item?.keywords?.map((k, idx) => (
-          <Fragment key={idx}>
-            {idx > 0 && (
-              <span className="inline-block font-medium text-sm text-[#0F81C0]">
-                &nbsp;
-                {relative}
-                &nbsp;
-              </span>
-            )}
-            {k}
-          </Fragment>
-        ))}
-      </Typography>
+      <>
+        {item.operator && (
+          <Typography className="text-sm">
+            <span className="inline-block font-medium text-sm text-[#0F81C0]">
+              {item.operator}
+            </span>
+          </Typography>
+        )}
+        <Typography className="text-sm">
+          {item?.criteria?.label}
+          :&nbsp;
+          {item?.keywords?.map((k, idx) => (
+            <Fragment key={idx}>
+              {idx > 0 && (
+                <span className="inline-block font-medium text-sm text-[#0F81C0]">
+                  &nbsp;
+                  {relative}
+                  &nbsp;
+                </span>
+              )}
+              {k}
+            </Fragment>
+          ))}
+        </Typography>
+      </>
     );
   };
 

@@ -276,9 +276,13 @@ function Keywords({ isLoading }) {
   const effective = useMemo(() => {
     const result = [];
     forEach(watchCriteriaGroup, (criteriaGroup) => {
-      const { criteria, keywords } = criteriaGroup;
+      const { criteria, keywords, logicalOperator } = criteriaGroup;
       if (!isEmpty(criteria?.value) || !isEmpty(keywords?.value)) {
-        result.push({ criteria: criteria.value, keywords: keywords.value });
+        result.push({
+          criteria: criteria.value,
+          keywords: keywords.value,
+          operator: logicalOperator,
+        });
       }
     });
     return result;
