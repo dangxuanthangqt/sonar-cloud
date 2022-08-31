@@ -5,6 +5,7 @@ import {
   // eslint-disable-next-line camelcase
   useRecoilTransactionObserver_UNSTABLE,
 } from 'recoil';
+import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from 'routes/AppRoutes';
 import { StyledEngineProvider } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -46,10 +47,12 @@ function App() {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={muiTheme}>
         <QueryClientProvider client={queryClient}>
-          <RecoilRoot>
-            <AppRoutes />
-            <DebugObserver />
-          </RecoilRoot>
+          <BrowserRouter>
+            <RecoilRoot>
+              <AppRoutes />
+              <DebugObserver />
+            </RecoilRoot>
+          </BrowserRouter>
         </QueryClientProvider>
       </ThemeProvider>
     </StyledEngineProvider>
