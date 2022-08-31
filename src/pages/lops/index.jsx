@@ -25,6 +25,7 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import { lopsPartProperties } from './constant';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   boxPrevious: {
@@ -122,6 +123,16 @@ function Lops({ isLoading }) {
   } = dataRequestStateValue || {};
 
   const lopsProperties = lopsPartProperties;
+
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   const requiredFields = ['parts', 'lop', 'failureCode'];
 
@@ -233,11 +244,15 @@ function Lops({ isLoading }) {
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setLopsAndPartsState(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep - 1].path);
-                    return prevActiveStep - 1;
-                  });
+                  if (requestTitleState?.value) {
+                    setLopsAndPartsState(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep - 1].path);
+                      return prevActiveStep - 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnPrevious}
@@ -249,11 +264,16 @@ function Lops({ isLoading }) {
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setLopsAndPartsState(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep + 1].path);
-                    return prevActiveStep + 1;
-                  });
+                  if (requestTitleState?.value) {
+                    handleErrorRequestTitle('');
+                    setLopsAndPartsState(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep + 1].path);
+                      return prevActiveStep + 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnNext}

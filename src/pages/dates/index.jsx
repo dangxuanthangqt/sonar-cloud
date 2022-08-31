@@ -25,6 +25,7 @@ import { StepperInfo } from '@/components/stepper-info';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -84,6 +85,16 @@ function Dates({ isLoading }) {
       reportDateGroup: null,
     },
   });
+
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -212,11 +223,16 @@ function Dates({ isLoading }) {
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setDatesState(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep - 1].path);
-                    return prevActiveStep - 1;
-                  });
+                  if (requestTitleState?.value) {
+                    handleErrorRequestTitle('');
+                    setDatesState(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep - 1].path);
+                      return prevActiveStep - 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnPrevious}
@@ -227,11 +243,17 @@ function Dates({ isLoading }) {
             </Button>
             <Button
               onClick={() => {
-                setDatesState(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
+                if (requestTitleState?.value) {
+                  handleErrorRequestTitle('');
+
+                  setDatesState(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep + 1].path);
+                    return prevActiveStep + 1;
+                  });
+                } else {
+                  handleErrorRequestTitle('Request title is required');
+                }
               }}
               className={classes.btnNext}
               variant="contained"

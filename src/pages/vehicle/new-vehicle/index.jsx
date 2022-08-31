@@ -26,6 +26,7 @@ import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import RequestTitle from '@/pages/summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   btnContainer: {
@@ -62,6 +63,16 @@ function NewVehicle({ isLoading }) {
   const navigate = useNavigate();
   const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [vehicleState, setVehicleState] = useRecoilState(vehicleStateAtom);
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
+
   const {
     data: { vehicleSection },
   } = dataRequestStateValue || {};
@@ -231,11 +242,16 @@ function NewVehicle({ isLoading }) {
         <Button
           onClick={() => {
             handleSubmit(() => {
-              setVehicleState(getValues());
-              setActiveStep((prevActiveStep) => {
-                navigate(steps[activeStep - 1].path);
-                return prevActiveStep - 1;
-              });
+              if (requestTitleState?.value) {
+                handleErrorRequestTitle('');
+                setVehicleState(getValues());
+                setActiveStep((prevActiveStep) => {
+                  navigate(steps[activeStep - 1].path);
+                  return prevActiveStep - 1;
+                });
+              } else {
+                handleErrorRequestTitle('Request title is required');
+              }
             })();
           }}
           className={classes.btnPrevious}
@@ -247,11 +263,16 @@ function NewVehicle({ isLoading }) {
         <Button
           onClick={() => {
             handleSubmit(() => {
-              setVehicleState(getValues());
-              setActiveStep((prevActiveStep) => {
-                navigate(steps[activeStep + 1].path);
-                return prevActiveStep + 1;
-              });
+              if (requestTitleState?.value) {
+                handleErrorRequestTitle('');
+                setVehicleState(getValues());
+                setActiveStep((prevActiveStep) => {
+                  navigate(steps[activeStep + 1].path);
+                  return prevActiveStep + 1;
+                });
+              } else {
+                handleErrorRequestTitle('Request title is required');
+              }
             })();
           }}
           className={classes.btnNext}
