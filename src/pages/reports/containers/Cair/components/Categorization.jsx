@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   body: {
     padding: '0px 16px',
     overflowY: 'scroll',
-    height: `calc(60vh)`,
+    height: `calc(100vh - 330px)`,
   },
   checkBox13: {
     height: '32px',
