@@ -118,16 +118,16 @@ const getRequestsViewData = rest.get(
             {
               id: 5,
               title: 'STAR/Cherwel',
-              permission: {
-                readOnlyControl: true,
-              },
+              // permission: {
+              //   readOnlyControl: true,
+              // },
               dataSources: [
                 {
                   id: 1,
                   title: 'Star Report',
-                  permission: {
-                    readOnlyControl: true,
-                  },
+                  // permission: {
+                  //   readOnlyControl: true,
+                  // },
                   value: false,
                   ...generateDataSourceSummary(),
                 },
@@ -229,9 +229,9 @@ const getRequestsViewData = rest.get(
             id: 1,
             title: 'Criteria',
             helpText: 'Keywords criteria to filter the data sources',
-            permission: {
-              readOnlyControl: false,
-            },
+            // permission: {
+            //   readOnlyControl: false,
+            // },
             keyWordsCriteria: [
               {
                 sequence: 1,
@@ -365,24 +365,24 @@ const getRequestsViewData = rest.get(
             lopCriteriaList: [
               {
                 id: 1,
-                permission: {
-                  readOnlyControl: false,
-                },
+                // permission: {
+                //   readOnlyControl: false,
+                // },
                 lop: {
                   id: 1,
                   title: 'LOPs',
                   value: 334234,
-                  permission: {
-                    readOnlyControl: false,
-                  },
+                  // permission: {
+                  //   readOnlyControl: false,
+                  // },
                 },
                 failureCode: {
                   id: 2,
                   title: 'Failure code',
                   value: 'FC',
-                  permission: {
-                    readOnlyControl: false,
-                  },
+                  // permission: {
+                  //   readOnlyControl: false,
+                  // },
                 },
               },
             ],
