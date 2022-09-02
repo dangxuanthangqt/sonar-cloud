@@ -53,7 +53,6 @@ function FormGroup({
     control,
     name: `formGroups.${groupIdx}.dataSources`,
   });
-
   const watchDataSources = useWatch({
     control,
     name: `formGroups.${groupIdx}.dataSources`,

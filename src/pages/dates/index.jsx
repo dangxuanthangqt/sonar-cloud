@@ -141,7 +141,8 @@ function Dates({ isLoading }) {
   }, [datesSection, reset]);
 
   const dateSectionDisabled = useMemo(
-    () => datesSection?.permission?.readOnlyControl,
+    // () => datesSection?.permission?.readOnlyControl,
+    () => (param) => param === 'Vehicle build date',
     [datesSection]
   );
 
@@ -205,19 +206,21 @@ function Dates({ isLoading }) {
             control={control}
             name="buildDateGroup"
             dateGroup={datesSection?.buildDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(datesSection?.buildDateGroup?.title)}
           />
           <DateGroup
             control={control}
             name="incidentDateGroup"
             dateGroup={datesSection?.incidentDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(
+              datesSection?.incidentDateGroup?.title
+            )}
           />
           <DateGroup
             control={control}
             name="reportDateGroup"
             dateGroup={datesSection?.reportDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(datesSection?.reportDateGroup?.title)}
           />
           <Box className={classes.btnContainer}>
             <Button
