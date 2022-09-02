@@ -189,7 +189,7 @@ function TopBar() {
   }, [pathname]);
 
   return (
-    <>
+    <div className="header-wrapper">
       <Toolbar className={classes.header}>
         <div className={classes.appName}>
           <SvgIcon
@@ -289,7 +289,7 @@ function TopBar() {
           ))}
         </List>
       </Popover>
-    </>
+    </div>
   );
 }
 
