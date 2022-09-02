@@ -25,6 +25,7 @@ import { StepperInfo } from '@/components/stepper-info';
 import DataSourceSummary from '@/components/data-source-summary';
 import { salesCodeEnum } from './constant';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   btnContainer: {
@@ -120,6 +121,16 @@ function SalesCodes({ isLoading }) {
   const { errors } = useFormState({
     control,
   });
+
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   useEffect(() => {
     if (!isEmpty(salesCodeStateValue) && !isLoading) {
@@ -252,11 +263,16 @@ function SalesCodes({ isLoading }) {
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setSalesCodeStateValue(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep - 1].path);
-                    return prevActiveStep - 1;
-                  });
+                  if (requestTitleState?.value) {
+                    handleErrorRequestTitle('');
+                    setSalesCodeStateValue(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep - 1].path);
+                      return prevActiveStep - 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnPrevious}
@@ -268,11 +284,16 @@ function SalesCodes({ isLoading }) {
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setSalesCodeStateValue(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep + 1].path);
-                    return prevActiveStep + 1;
-                  });
+                  if (requestTitleState?.value) {
+                    handleErrorRequestTitle('');
+                    setSalesCodeStateValue(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep + 1].path);
+                      return prevActiveStep + 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnNext}

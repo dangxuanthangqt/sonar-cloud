@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useCriteriaStyles = makeStyles((theme) => ({
   header: {
@@ -110,15 +111,26 @@ const useCriteriaStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 400,
   },
+  errorText: {
+    textAlign: 'left',
+    color: '#d32f2f',
+    fontWeight: '400',
+    fontSize: '0.75rem',
+    lineHeight: '1.66',
+    marginBottom: '15px',
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 function RequestTitle({ control, title = 'Request Title' }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
-  const [value, setValue] = useState(
-    'This is request title This is request title'
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
   );
   const [disableTitle, setDisableTitle] = useState(true);
   const classes = useCriteriaStyles();
+
   return (
     <div
       style={{
@@ -132,8 +144,10 @@ function RequestTitle({ control, title = 'Request Title' }) {
         // defaultValue="This is request title This is request title"
         placeholder="Request title"
         disabled={activeStep === 0 ? false : disableTitle}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={requestTitleState.value}
+        onChange={(e) =>
+          setRequestTitleState({ ...requestTitleState, value: e.target.value })
+        }
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         endAdornment={
           activeStep === 0 ? null : (
@@ -151,6 +165,11 @@ function RequestTitle({ control, title = 'Request Title' }) {
           )
         }
       />
+      {requestTitleState?.error && (
+        <div className={classes.errorText}>
+          <span>Request title is required</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -38,9 +38,9 @@ const getRequestsViewData = rest.get(
                 {
                   id: 2,
                   title: 'Dealer Problem sampling System (DPS)',
-                  permission: {
-                    readOnlyControl: true,
-                  },
+                  // permission: {
+                  //   readOnlyControl: true,
+                  // },
                   value: false,
                   ...generateDataSourceSummary(),
                 },
@@ -118,16 +118,16 @@ const getRequestsViewData = rest.get(
             {
               id: 5,
               title: 'STAR/Cherwel',
-              permission: {
-                readOnlyControl: true,
-              },
+              // permission: {
+              //   readOnlyControl: true,
+              // },
               dataSources: [
                 {
                   id: 1,
                   title: 'Star Report',
-                  permission: {
-                    readOnlyControl: true,
-                  },
+                  // permission: {
+                  //   readOnlyControl: true,
+                  // },
                   value: false,
                   ...generateDataSourceSummary(),
                 },
@@ -211,9 +211,9 @@ const getRequestsViewData = rest.get(
             template: {
               id: 1,
               title: 'Load From Template',
-              permission: {
-                readOnlyControl: false,
-              },
+              // permission: {
+              //   readOnlyControl: false,
+              // },
               url: `${API_URL}api/keywords_templates`,
               requestType: 'GET',
               value: 'Template 1',
@@ -229,9 +229,9 @@ const getRequestsViewData = rest.get(
             id: 1,
             title: 'Criteria',
             helpText: 'Keywords criteria to filter the data sources',
-            permission: {
-              readOnlyControl: false,
-            },
+            // permission: {
+            //   readOnlyControl: false,
+            // },
             keyWordsCriteria: [
               {
                 sequence: 1,
@@ -342,9 +342,9 @@ const getRequestsViewData = rest.get(
         lopAndPartsSection: {
           id: 1,
           title: 'LOPs and Parts',
-          permission: {
-            readOnlyControl: false,
-          },
+          // permission: {
+          //   readOnlyControl: false,
+          // },
           partGroup: {
             id: 1,
             title: 'Parts',
@@ -352,37 +352,37 @@ const getRequestsViewData = rest.get(
               title: 'Part number',
               values: [1234567980, 1234567890],
             },
-            permission: {
-              readOnlyControl: false,
-            },
+            // permission: {
+            //   readOnlyControl: false,
+            // },
           },
           lopCriteriaGroup: {
-            permission: {
-              readOnlyControl: false,
-            },
+            // permission: {
+            //   readOnlyControl: false,
+            // },
             id: 1,
             title: 'LOP Information',
             lopCriteriaList: [
               {
                 id: 1,
-                permission: {
-                  readOnlyControl: false,
-                },
+                // permission: {
+                //   readOnlyControl: false,
+                // },
                 lop: {
                   id: 1,
                   title: 'LOPs',
                   value: 334234,
-                  permission: {
-                    readOnlyControl: false,
-                  },
+                  // permission: {
+                  //   readOnlyControl: false,
+                  // },
                 },
                 failureCode: {
                   id: 2,
                   title: 'Failure code',
                   value: 'FC',
-                  permission: {
-                    readOnlyControl: false,
-                  },
+                  // permission: {
+                  //   readOnlyControl: false,
+                  // },
                 },
               },
             ],
@@ -392,9 +392,9 @@ const getRequestsViewData = rest.get(
           id: 5,
           title: 'Sales Code',
           helpText: 'Sales Code Section help',
-          permission: {
-            // readOnlyControl: true,
-          },
+          // permission: {
+          //   readOnlyControl: true,
+          // },
           salesCodesGroup: {
             id: 44,
             title: 'Sales Code',
@@ -432,13 +432,13 @@ const getRequestsViewData = rest.get(
           title: 'Dates',
           hints:
             'Common date fields that will apply to the applicable data sources',
-          permission: {
-            readOnlyControl: false,
-          },
+          // permission: {
+          //   readOnlyControl: false,
+          // },
           buildDateGroup: {
-            permission: {
-              readOnlyControl: true,
-            },
+            // permission: {
+            //   readOnlyControl: true,
+            // },
             id: 1,
             title: 'Vehicle build date',
             helpText: 'The report date',

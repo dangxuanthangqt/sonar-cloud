@@ -32,7 +32,7 @@ export function StepperInfo({ step, name, title }) {
         <Typography className={classes.stepTitle}>Step {step} :</Typography>
         <Typography className={classes.stepName}>{name}</Typography>
       </Box>
-      <Button variant="outlined">Review</Button>
+      {/* <Button variant="outlined">Review</Button> */}
     </Box>
   );
 }

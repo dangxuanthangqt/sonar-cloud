@@ -20,6 +20,7 @@ import LOPParts from './components/LOPParts';
 import { steps } from '@/components/horizontal-stepper/constant';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { StepperInfo } from '@/components/stepper-info';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -145,6 +146,15 @@ function Summary({ isLoading }) {
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   const classes = useStyles();
 
@@ -169,10 +179,15 @@ function Summary({ isLoading }) {
       <Box className={classes.buttonContainer}>
         <Button
           onClick={() => {
-            setActiveStep((prevActiveStep) => {
-              navigate(steps[activeStep - 1].path);
-              return prevActiveStep - 1;
-            });
+            if (requestTitleState?.value) {
+              handleErrorRequestTitle('');
+              setActiveStep((prevActiveStep) => {
+                navigate(steps[activeStep - 1].path);
+                return prevActiveStep - 1;
+              });
+            } else {
+              handleErrorRequestTitle('Request title is required');
+            }
           }}
           className={classes.previous_button}
           variant="outlined"

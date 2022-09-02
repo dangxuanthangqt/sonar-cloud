@@ -37,6 +37,7 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   boxBtn: {
@@ -146,6 +147,16 @@ function Keywords({ isLoading }) {
   const {
     data: { keyWordSection, id: dataRequestId },
   } = dataRequestStateValue || {};
+
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -276,9 +287,13 @@ function Keywords({ isLoading }) {
   const effective = useMemo(() => {
     const result = [];
     forEach(watchCriteriaGroup, (criteriaGroup) => {
-      const { criteria, keywords } = criteriaGroup;
+      const { criteria, keywords, logicalOperator } = criteriaGroup;
       if (!isEmpty(criteria?.value) || !isEmpty(keywords?.value)) {
-        result.push({ criteria: criteria.value, keywords: keywords.value });
+        result.push({
+          criteria: criteria.value,
+          keywords: keywords.value,
+          operator: logicalOperator,
+        });
       }
     });
     return result;
@@ -362,11 +377,16 @@ function Keywords({ isLoading }) {
         <Button
           onClick={() => {
             handleSubmit(() => {
-              setKeywordsStateValue(getValues());
-              setActiveStep((prevActiveStep) => {
-                navigate(steps[activeStep - 1].path);
-                return prevActiveStep - 1;
-              });
+              if (requestTitleState?.value) {
+                handleErrorRequestTitle('');
+                setKeywordsStateValue(getValues());
+                setActiveStep((prevActiveStep) => {
+                  navigate(steps[activeStep - 1].path);
+                  return prevActiveStep - 1;
+                });
+              } else {
+                handleErrorRequestTitle('Request title is required');
+              }
             })();
           }}
           className={classes.btnPrevious}
@@ -378,11 +398,16 @@ function Keywords({ isLoading }) {
         <Button
           onClick={() => {
             handleSubmit(() => {
-              setKeywordsStateValue(getValues());
-              setActiveStep((prevActiveStep) => {
-                navigate(steps[activeStep + 1].path);
-                return prevActiveStep + 1;
-              });
+              if (requestTitleState?.value) {
+                handleErrorRequestTitle('');
+                setKeywordsStateValue(getValues());
+                setActiveStep((prevActiveStep) => {
+                  navigate(steps[activeStep + 1].path);
+                  return prevActiveStep + 1;
+                });
+              } else {
+                handleErrorRequestTitle('Request title is required');
+              }
             })();
           }}
           sx={{

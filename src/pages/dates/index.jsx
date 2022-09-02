@@ -25,6 +25,7 @@ import { StepperInfo } from '@/components/stepper-info';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import RequestTitle from '../summary/components/RequestTitle';
+import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -85,6 +86,16 @@ function Dates({ isLoading }) {
     },
   });
 
+  const [requestTitleState, setRequestTitleState] = useRecoilState(
+    requestTitleStateAtom
+  );
+  const handleErrorRequestTitle = (message = '') => {
+    setRequestTitleState({
+      ...requestTitleState,
+      error: message,
+    });
+  };
+
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log({ data });
@@ -130,7 +141,8 @@ function Dates({ isLoading }) {
   }, [datesSection, reset]);
 
   const dateSectionDisabled = useMemo(
-    () => datesSection?.permission?.readOnlyControl,
+    // () => datesSection?.permission?.readOnlyControl,
+    () => (param) => param === 'Vehicle build date',
     [datesSection]
   );
 
@@ -194,29 +206,36 @@ function Dates({ isLoading }) {
             control={control}
             name="buildDateGroup"
             dateGroup={datesSection?.buildDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(datesSection?.buildDateGroup?.title)}
           />
           <DateGroup
             control={control}
             name="incidentDateGroup"
             dateGroup={datesSection?.incidentDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(
+              datesSection?.incidentDateGroup?.title
+            )}
           />
           <DateGroup
             control={control}
             name="reportDateGroup"
             dateGroup={datesSection?.reportDateGroup}
-            disabled={dateSectionDisabled}
+            disabled={dateSectionDisabled(datesSection?.reportDateGroup?.title)}
           />
           <Box className={classes.btnContainer}>
             <Button
               onClick={() => {
                 handleSubmit(() => {
-                  setDatesState(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep - 1].path);
-                    return prevActiveStep - 1;
-                  });
+                  if (requestTitleState?.value) {
+                    handleErrorRequestTitle('');
+                    setDatesState(getValues());
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep - 1].path);
+                      return prevActiveStep - 1;
+                    });
+                  } else {
+                    handleErrorRequestTitle('Request title is required');
+                  }
                 })();
               }}
               className={classes.btnPrevious}
@@ -227,11 +246,17 @@ function Dates({ isLoading }) {
             </Button>
             <Button
               onClick={() => {
-                setDatesState(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
+                if (requestTitleState?.value) {
+                  handleErrorRequestTitle('');
+
+                  setDatesState(getValues());
+                  setActiveStep((prevActiveStep) => {
+                    navigate(steps[activeStep + 1].path);
+                    return prevActiveStep + 1;
+                  });
+                } else {
+                  handleErrorRequestTitle('Request title is required');
+                }
               }}
               className={classes.btnNext}
               variant="contained"
