@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import {
   SvgIcon,
   Typography,
@@ -19,6 +20,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import makeStyles from '@mui/styles/makeStyles';
+import { loginUserDetailAtom } from '@/recoil/atom/login-state';
 import Banner from '@/components/banner-signin-signup';
 import BackdropLoading from '@/components/backdrop-loading';
 import RecoveryPopup from './component/recovery-popup';
@@ -91,6 +93,8 @@ function Index() {
   const navigate = useNavigate();
   const classes = useStyles();
   const [isShowBackdrop, setIsShowBackdrop] = useState(false);
+  const [loginUserDetail, setLoginUserDetail] =
+    useRecoilState(loginUserDetailAtom);
   const {
     register,
     handleSubmit,
@@ -107,7 +111,7 @@ function Index() {
   const onSubmit = (values) => {
     mutate(values, {
       onSuccess: () => {
-        navigate('/dashboard');
+        setLoginUserDetail(values);
       },
     });
   };
