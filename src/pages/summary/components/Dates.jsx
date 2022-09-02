@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useDataSourceSummary } from 'hooks/use-data-source-summary';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import DataSourceSummary from '@/components/data-source-summary';
 import { datesStateAtom } from '@/recoil/atom/dates-state';

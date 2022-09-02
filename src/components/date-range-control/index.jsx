@@ -16,7 +16,7 @@ import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
 import { DateRangePicker } from 'react-date-range';
 import { addDays, format } from 'date-fns';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { getDateFormatString } from '@/common/utils';
 
 const useStyles = makeStyles({

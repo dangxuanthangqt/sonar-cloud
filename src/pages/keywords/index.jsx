@@ -9,7 +9,7 @@ import {
 import { findLast, forEach, isEmpty, last, omit, some } from 'lodash';
 import { HelpOutline } from '@mui/icons-material';
 import { Box, Button, Tooltip, Typography } from '@mui/material';
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { LoadingButton } from '@mui/lab';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -313,10 +313,10 @@ function Keywords({ isLoading }) {
   const dataSourceSummary = useDataSourceSummary(STEPS.KEYWORDS);
   const previousDataSourceState = usePrevious(dataSourceState);
 
-  if (dataSourceState === null && previousDataSourceState === null) {
-    /** Check case when reload keywords pages */
-    return <Navigate to={steps[0].path} replace />;
-  }
+  // if (dataSourceState === null && previousDataSourceState === null) {
+  //   /** Check case when reload keywords pages */
+  //   return <Navigate to={steps[0].path} replace />;
+  // }
 
   return (
     <MainLayout

@@ -2,6 +2,7 @@ import { Checkbox, FormControlLabel, FormHelperText } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import classNames from 'classnames';
 import { useController } from 'react-hook-form';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   label: {
