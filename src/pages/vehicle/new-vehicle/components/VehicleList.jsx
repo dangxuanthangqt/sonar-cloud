@@ -116,6 +116,7 @@ function VehicleList({
                         maxLength={properties[el]?.maxLength}
                         minLength={properties[el]?.minLength}
                         minimum={properties[el]?.minimum}
+                        url={properties[el]?.url}
                         maximum={properties[el]?.maximum}
                         type={properties[el].originalRef}
                         placeholder={t(`vehicle_form.fields.${el}`)}

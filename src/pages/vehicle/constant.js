@@ -5,11 +5,21 @@ export const vehicleDefaultItemValue = {
   toYear: {
     value: '',
   },
-  family: {},
-  line: {},
-  series: {},
-  style: {},
-  bodyDescription: {},
+  family: {
+    value: '',
+  },
+  line: {
+    value: '',
+  },
+  series: {
+    value: '',
+  },
+  style: {
+    value: '',
+  },
+  bodyDescription: {
+    value: '',
+  },
 };
 
 export const propertiesVehicle = {
@@ -27,21 +37,25 @@ export const propertiesVehicle = {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 2,
     maximum: 2,
+    url: '/api/familyCode',
   },
   line: {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 2,
     maximum: 2,
+    url: '/api/lineCode',
   },
   series: {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 2,
     maximum: 2,
+    url: '/api/seriesCode',
   },
   style: {
     originalRef: 'DynamicSingleValueLookup',
     minLength: 1,
     maximum: 1,
+    url: '/api/styleCode',
   },
   bodyDescription: {
     originalRef: 'StringControl',
