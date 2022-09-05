@@ -24,6 +24,8 @@ import { STEPS } from 'mocks/requests-view/mockData';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import makeStyles from '@mui/styles/makeStyles';
+import { API_URL } from 'services/constant';
+import { createKeywordRequest } from 'services/data-request-service';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import Criteria from './components/Criteria';
@@ -38,6 +40,7 @@ import DataSourceSummary from '@/components/data-source-summary';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
 import RequestTitle from '../summary/components/RequestTitle';
 import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
+import { hintKeywords } from './constant';
 
 const useStyles = makeStyles((theme) => ({
   boxBtn: {
@@ -141,12 +144,8 @@ function Keywords({ isLoading }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
 
   const { t } = useTranslation();
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [keywordsStateValue, setKeywordsStateValue] =
     useRecoilState(keywordsStateAtom);
-  const {
-    data: { keyWordSection, id: dataRequestId },
-  } = dataRequestStateValue || {};
 
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
@@ -157,39 +156,45 @@ function Keywords({ isLoading }) {
       error: message,
     });
   };
-
   const navigate = useNavigate();
 
   const { data: templates, isFetching } = useQuery(
-    ['getDataByCode', keyWordSection],
-    () => getDataByCode({}, keyWordSection?.optionsGroup?.template?.url),
+    ['getDataByCode'],
+    () => getDataByCode({}, `${API_URL}api/keywords_templates`),
     {
-      enabled: !!keyWordSection?.optionsGroup?.template?.url,
       select: (res) => res.data.data,
     }
   );
 
-  const { control, reset, getValues, handleSubmit, setValue, watch, trigger } =
-    useForm({
-      defaultValues: {
-        optionsGroup: {
-          template: '',
-          isExactMatch: '',
+  const {
+    control,
+    reset,
+    getValues,
+    handleSubmit,
+    setValue,
+    watch,
+    trigger,
+    clearErrors,
+  } = useForm({
+    defaultValues: {
+      optionsGroup: {
+        template: '',
+        isExactMatch: '',
+      },
+      criteriaGroup: [
+        {
+          criteria: {},
+          keywords: {},
         },
-        criteriaGroup: [
-          {
-            criteria: '',
-            keywords: '',
-          },
-        ],
-      },
-      resolver: yupResolver(schema),
-      context: {
-        required: ['criteria', 'keywords'],
-        properties: { keywords: { minLength: 1, maximum: 15 } },
-        t,
-      },
-    });
+      ],
+    },
+    resolver: yupResolver(schema),
+    context: {
+      required: ['criteria', 'keywords'],
+      properties: { keywords: { minLength: 1, maximum: 15 } },
+      t,
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -203,26 +208,25 @@ function Keywords({ isLoading }) {
   useEffect(() => {
     if (!isEmpty(keywordsStateValue) && !isLoading) {
       reset(keywordsStateValue);
-      return;
     }
-    if (keyWordSection) {
-      reset({
-        optionsGroup: {
-          ...keyWordSection.optionsGroup,
-          template: {
-            ...keyWordSection.optionsGroup.template,
-            value: {
-              value: keyWordSection.optionsGroup.template.value,
-              label: keyWordSection.optionsGroup.template.value,
-            },
-          },
-        },
-        criteriaGroup: mappingKeyWordsCriteria(
-          keyWordSection.criteriaGroup?.keyWordsCriteria
-        ),
-      });
-    }
-  }, [keyWordSection, keywordsStateValue]);
+    // if (keyWordSection) {
+    //   reset({
+    //     optionsGroup: {
+    //       ...keyWordSection.optionsGroup,
+    //       template: {
+    //         ...keyWordSection.optionsGroup.template,
+    //         value: {
+    //           value: keyWordSection.optionsGroup.template.value,
+    //           label: keyWordSection.optionsGroup.template.value,
+    //         },
+    //       },
+    //     },
+    //     criteriaGroup: mappingKeyWordsCriteria(
+    //       keyWordSection.criteriaGroup?.keyWordsCriteria
+    //     ),
+    //   });
+    // }
+  }, [keywordsStateValue]);
 
   const watchFieldArray = watch('criteriaGroup');
 
@@ -232,10 +236,15 @@ function Keywords({ isLoading }) {
       ...watchFieldArray[index],
     };
   });
-
   const { mutate, isLoading: updateDataRequestLoading } = useMutation(
     ['updateKeywordRequest'],
     (data) => updateKeywordRequest({ requestId: 255, data })
+  );
+  const {
+    mutate: mutateKeywordsRequest,
+    isLoading: createKeywordRequestLoading,
+  } = useMutation(['createKeywordRequest'], (payload) =>
+    createKeywordRequest(payload)
   );
 
   const handleAppendNewRow = () => {
@@ -262,25 +271,6 @@ function Keywords({ isLoading }) {
     mutate(payload);
   };
 
-  const isKeywordsDisabled = useMemo(
-    () => keyWordSection?.permission?.readOnlyControl,
-    [keyWordSection]
-  );
-
-  const isCriteriaDisabled = useMemo(
-    () =>
-      isKeywordsDisabled ||
-      keyWordSection?.criteriaGroup?.permission?.readOnlyControl,
-    [keyWordSection, isKeywordsDisabled]
-  );
-
-  const isOptionGroupDisabled = useMemo(
-    () =>
-      isKeywordsDisabled ||
-      keyWordSection?.optionsGroup?.permission?.readOnlyControl,
-    [keyWordSection, isKeywordsDisabled]
-  );
-
   const watchCriteriaGroup = useWatch({ control, name: 'criteriaGroup' });
   const watchOptionsGroup = useWatch({ control, name: 'optionsGroup' });
 
@@ -304,19 +294,50 @@ function Keywords({ isLoading }) {
       templates,
       (template) => template.template?.value === v.value
     );
+    clearErrors(); /** clear  error message */
     setValue(
       'criteriaGroup',
       mappingKeyWordsCriteria(filterTemplate?.criteriaGroup?.keyWordsCriteria)
     );
   };
 
-  const dataSourceSummary = useDataSourceSummary(STEPS.KEYWORDS);
-  const previousDataSourceState = usePrevious(dataSourceState);
+  const formatDataSubmitted = (values = []) => {
+    return {
+      selectedKeywordsTemplateId: values?.optionsGroup?.template?.value?.value,
+      keywordsCriteria: values?.criteriaGroup.map((item) => {
+        return {
+          criteria: item?.criteria?.value?.value,
+          keywords: item?.keywords?.value,
+          logicalOperator: item?.logicalOperator || '',
+        };
+      }),
+    };
+  };
 
-  // if (dataSourceState === null && previousDataSourceState === null) {
-  //   /** Check case when reload keywords pages */
-  //   return <Navigate to={steps[0].path} replace />;
-  // }
+  const handleClickNextOrPrevious = (number) => {
+    handleSubmit((values) => {
+      if (requestTitleState?.value) {
+        mutateKeywordsRequest(formatDataSubmitted(values), {
+          onSuccess: () => {
+            handleErrorRequestTitle('');
+            setKeywordsStateValue(getValues());
+            setActiveStep((prevActiveStep) => {
+              navigate(steps[activeStep + number].path);
+              return prevActiveStep + number;
+            });
+          },
+        });
+      } else {
+        handleErrorRequestTitle('Request title is required');
+      }
+    })();
+  };
+
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateKeywordsRequest(payload, { onSuccess });
+  };
+
+  const dataSourceSummary = useDataSourceSummary(STEPS.KEYWORDS);
 
   return (
     <MainLayout
@@ -325,13 +346,15 @@ function Keywords({ isLoading }) {
       trigger={trigger}
       errors={errors}
       handleSubmit={handleSubmit}
+      mutateCreation={mutateCreation}
+      formatDataSubmitted={formatDataSubmitted}
       step={STEPS.KEYWORDS}
       breadcrumbs={{
         trailing: [
           { label: t('common:breadcrumbs.create_new_request') },
           { label: 'Keywords' },
         ],
-        moreAction: !isKeywordsDisabled && !isLoading && !isFetching && (
+        moreAction: !isLoading && !isFetching && (
           <LoadingButton
             variant="contained"
             color="primary"
@@ -343,31 +366,35 @@ function Keywords({ isLoading }) {
         ),
       }}
     >
-      <BackdropLoading open={isLoading || isFetching} />
+      <BackdropLoading
+        open={isLoading || isFetching || createKeywordRequestLoading}
+      />
       <RequestTitle />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       <StepperInfo step={2} name="Keywords" />
       {!isLoading && (
         <>
           <OptionsGroup
-            keyWordSection={keyWordSection}
-            title={keyWordSection?.optionsGroup?.title}
+            url={`${API_URL}api/keywords_templates`}
+            hintKeywords={hintKeywords}
+            title="Options"
             control={control}
             getValues={getValues}
-            disabled={isOptionGroupDisabled}
+            // disabled={isOptionGroupDisabled}
             watchOptionsGroup={watchOptionsGroup}
             templates={templates}
             handleSelectTemplate={handleSelectTemplate}
           />
           <Criteria
-            title={keyWordSection?.criteriaGroup?.title}
+            url={`${API_URL}api/keywords_criteria`}
+            title="Criteria"
             fields={controlledFields}
             append={append}
             control={control}
             getValues={getValues}
             onAddNewRow={handleAppendNewRow}
             remove={remove}
-            disabled={isCriteriaDisabled}
+            // disabled={isCriteriaDisabled}
             logicalOperatorEnum={['AND', 'OR']}
           />
           <Effective effective={effective} />
@@ -375,20 +402,7 @@ function Keywords({ isLoading }) {
       )}
       <Box className={classes.btnContainer}>
         <Button
-          onClick={() => {
-            handleSubmit(() => {
-              if (requestTitleState?.value) {
-                handleErrorRequestTitle('');
-                setKeywordsStateValue(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep - 1].path);
-                  return prevActiveStep - 1;
-                });
-              } else {
-                handleErrorRequestTitle('Request title is required');
-              }
-            })();
-          }}
+          onClick={() => handleClickNextOrPrevious(-1)}
           className={classes.btnPrevious}
           variant="outlined"
           startIcon={<SkipPreviousRoundedIcon />}
@@ -396,20 +410,7 @@ function Keywords({ isLoading }) {
           Previous
         </Button>
         <Button
-          onClick={() => {
-            handleSubmit(() => {
-              if (requestTitleState?.value) {
-                handleErrorRequestTitle('');
-                setKeywordsStateValue(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
-                });
-              } else {
-                handleErrorRequestTitle('Request title is required');
-              }
-            })();
-          }}
+          onClick={() => handleClickNextOrPrevious(1)}
           sx={{
             backgroundColor: !isEmpty(errors)
               ? 'rgba(0, 0, 0, 0.38)'

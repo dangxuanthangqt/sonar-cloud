@@ -137,6 +137,8 @@ export default function HorizontalLinearStepper({
   handleSubmit,
   setDataToRecoilStore,
   step,
+  mutateCreation,
+  formatDataSubmitted,
 }) {
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const { pathname } = useLocation();
@@ -158,7 +160,7 @@ export default function HorizontalLinearStepper({
     });
   };
 
-  const handleNext = () => {
+  const handleBackOrNext = (number) => {
     // trigger(); /** For test error messages when submit */
     if (handleSubmit)
       /** Handle submit when onclick next button */
@@ -166,13 +168,37 @@ export default function HorizontalLinearStepper({
         /** When click next button -> set value to recoil store */
         if (requestTitleState?.value) {
           handleErrorRequestTitle('');
-          setDataToRecoilStore && setDataToRecoilStore(values);
 
-          setActiveStep((prevActiveStep) => {
-            if (prevActiveStep < steps.length - 1) return prevActiveStep + 1;
-            return prevActiveStep;
-          });
-          navigate(steps[activeStep + 1].path);
+          if (mutateCreation && formatDataSubmitted) {
+            mutateCreation({
+              payload: formatDataSubmitted(values),
+              onSuccess: () => {
+                setDataToRecoilStore && setDataToRecoilStore(values);
+                setActiveStep((prevActiveStep) => {
+                  if (
+                    number > 0
+                      ? prevActiveStep < steps.length - 1
+                      : prevActiveStep > 0
+                  )
+                    return prevActiveStep + number;
+                  return prevActiveStep;
+                });
+                navigate(steps[activeStep + number].path);
+              },
+            });
+          } else {
+            setDataToRecoilStore && setDataToRecoilStore(values);
+            setActiveStep((prevActiveStep) => {
+              if (
+                number > 0
+                  ? prevActiveStep < steps.length - 1
+                  : prevActiveStep > 0
+              )
+                return prevActiveStep + number;
+              return prevActiveStep;
+            });
+            navigate(steps[activeStep + number].path);
+          }
         } else {
           handleErrorRequestTitle('Request title is required');
         }
@@ -180,10 +206,11 @@ export default function HorizontalLinearStepper({
     else if (requestTitleState?.value) {
       handleErrorRequestTitle('');
       setActiveStep((prevActiveStep) => {
-        if (prevActiveStep < steps.length - 1) return prevActiveStep + 1;
+        if (number > 0 ? prevActiveStep < steps.length - 1 : prevActiveStep > 0)
+          return prevActiveStep + number;
         return prevActiveStep;
       });
-      navigate(steps[activeStep + 1].path);
+      navigate(steps[activeStep + number].path);
     } else {
       handleErrorRequestTitle('Request title is required');
     }
@@ -199,50 +226,23 @@ export default function HorizontalLinearStepper({
     if (idx !== -1) setActiveStep(idx);
   }, [pathname]);
 
-  const handleBack = () => {
-    if (handleSubmit)
-      /** Handle submit when onclick next button */
-      handleSubmit((values) => {
-        /** When click next button -> set value to recoil store */
-        if (requestTitleState?.value) {
-          handleErrorRequestTitle('');
-
-          setDataToRecoilStore && setDataToRecoilStore(values);
-
-          setActiveStep((prevActiveStep) => {
-            if (prevActiveStep > 0) {
-              return prevActiveStep - 1;
-            }
-            return prevActiveStep;
-          });
-          navigate(steps[activeStep - 1].path);
-        } else {
-          handleErrorRequestTitle('Request title is required');
-        }
-      })();
-    else if (requestTitleState?.value) {
-      handleErrorRequestTitle('');
-
-      setActiveStep((prevActiveStep) => {
-        if (prevActiveStep > 0) {
-          return prevActiveStep - 1;
-        }
-        return prevActiveStep;
-      });
-      navigate(steps[activeStep - 1].path);
-    } else {
-      handleErrorRequestTitle('Request title is required');
-    }
-  };
-
   const handleOnClickStep = (index) => {
     if (handleSubmit)
       handleSubmit((values) => {
         if (requestTitleState?.value) {
           handleErrorRequestTitle('');
-
-          setDataToRecoilStore && setDataToRecoilStore(values);
-          navigate(steps[index].path);
+          if (mutateCreation && formatDataSubmitted) {
+            mutateCreation({
+              payload: formatDataSubmitted(values),
+              onSuccess: () => {
+                setDataToRecoilStore && setDataToRecoilStore(values);
+                navigate(steps[index].path);
+              },
+            });
+          } else {
+            setDataToRecoilStore && setDataToRecoilStore(values);
+            navigate(steps[index].path);
+          }
         } else {
           handleErrorRequestTitle('Request title is required');
         }
@@ -266,7 +266,7 @@ export default function HorizontalLinearStepper({
             display: activeStep === 0 ? 'none' : 'inline-flex',
           }}
           // disabled={activeStep === 0}
-          onClick={handleBack}
+          onClick={() => handleBackOrNext(-1)}
         >
           <NavigateBeforeRoundedIcon
             sx={{
@@ -327,7 +327,7 @@ export default function HorizontalLinearStepper({
                 cursor: !isEmpty(errors) ? 'not-allowed' : 'pointer',
               },
             }}
-            onClick={handleNext}
+            onClick={() => handleBackOrNext(1)}
           >
             <NavigateNextRoundedIcon
               sx={{
@@ -359,7 +359,7 @@ export default function HorizontalLinearStepper({
             },
           }}
           variant="contained"
-          onClick={handleNext}
+          onClick={() => handleBackOrNext(1)}
         >
           Skip
         </Button>

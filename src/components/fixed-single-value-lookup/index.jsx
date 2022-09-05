@@ -81,7 +81,7 @@ const FixedSingleValueLookup = React.forwardRef(
         }}
         disableClearable
         classes={{ paper: classes.paper }}
-        disabled={isFetching || disabled || permission?.readOnlyControl}
+        disabled={isFetching || disabled}
         renderInput={(params) => (
           <TextField
             // {...field}
@@ -94,7 +94,7 @@ const FixedSingleValueLookup = React.forwardRef(
             required={required}
             error={!!error?.message}
             helperText={error?.message}
-            disabled={disabled || permission?.readOnlyControl}
+            disabled={disabled}
             InputProps={{
               ...params.InputProps,
               endAdornment: <Search />,
