@@ -24,6 +24,7 @@ import { loginUserDetailAtom } from '@/recoil/atom/login-state';
 import Banner from '@/components/banner-signin-signup';
 import BackdropLoading from '@/components/backdrop-loading';
 import RecoveryPopup from './component/recovery-popup';
+import { saveLoginToLocalstorage } from '@/common/utils';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -104,14 +105,20 @@ function Index() {
     resolver: yupResolver(schema),
   });
 
-  const { data, isLoading, mutate } = useMutation(['singIn'], (payload) =>
+  const { isLoading, mutate } = useMutation(['singIn'], (payload) =>
     signIn(payload)
   );
 
   const onSubmit = (values) => {
-    mutate(values, {
-      onSuccess: () => {
-        setLoginUserDetail(values);
+    const bodyData = {
+      username: values.userName,
+      password: values.password,
+    };
+    mutate(bodyData, {
+      onSuccess: (res) => {
+        const response = res && res.data;
+        setLoginUserDetail(response);
+        saveLoginToLocalstorage(response);
       },
     });
   };

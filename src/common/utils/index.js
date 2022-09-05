@@ -40,3 +40,14 @@ export function uuidv4() {
     return v.toString(16);
   });
 }
+
+export function saveLoginToLocalstorage(res) {
+  localStorage.setItem('ST_LOGIN', JSON.stringify(res));
+}
+
+export function getLoginFromLocalstorage() {
+  const getloginDetail = localStorage.getItem('ST_LOGIN');
+
+  const parseLoginDetail = getloginDetail && JSON.parse(getloginDetail);
+  return parseLoginDetail;
+}
