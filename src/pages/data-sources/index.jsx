@@ -147,9 +147,23 @@ function DataSources({ isLoading }) {
   };
 
   const formatDataSubmitted = (values) => {
+    const dataSourceGroupFormatted = values?.formGroups.reduce((acc, item) => {
+      const dataSources = item?.dataSources
+        ?.filter((item1) => item1.value)
+        ?.map((item2) => ({ id: item2.id }));
+      if (dataSources?.length > 0)
+        return [
+          ...acc,
+          {
+            id: item?.id,
+            dataSources,
+          },
+        ];
+      return acc;
+    }, []);
     return {
       title: requestTitleState?.value,
-      dataSourceGroup: values?.formGroups,
+      dataSourceGroup: dataSourceGroupFormatted,
     };
   };
 
