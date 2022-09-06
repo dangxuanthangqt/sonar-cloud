@@ -8,10 +8,6 @@ function BooleanControl({ control, name, label, disabled, permission }) {
       name={name}
       label={label}
       // disabled={disabled || permission?.readOnlyControl}
-      disabled={
-        label === 'Dealer Problem sampling System (DPS)' ||
-        label === 'Star Report'
-      }
     />
   );
 }
