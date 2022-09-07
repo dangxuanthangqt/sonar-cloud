@@ -1,0 +1,2 @@
+export const hintKeywords =
+  'Include: If match all: Only if all the Keywords/Phrases in this group matches, then the document will be included in the result.\nInclude: If match any: If any of the Keyword./Phrase in this group matches, then the document will be included in the result.\nExclude: If match all: Only if all the Keyword./Phrase in this group matches, then the document will be excluded in the result.\nExclude: If match any: If any of the Keyword./Phrase in this group matches, then the document will be excluded in the result.';

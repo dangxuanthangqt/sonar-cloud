@@ -52,7 +52,7 @@ function DynamicSingleValueLookup({
 
   const { isFetching } = useQuery(
     ['getDataByCode', url, search, name],
-    () => getDataByCode({ ...(parameters?.q && { q: search }) }, url),
+    () => getDataByCode({ q: search }, url),
     {
       enabled: open,
       select: (res) => res.data,

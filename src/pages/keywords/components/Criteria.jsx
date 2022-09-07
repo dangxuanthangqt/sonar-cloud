@@ -126,6 +126,7 @@ function Criteria({
   remove,
   disabled,
   logicalOperatorEnum,
+  url,
 }) {
   const classes = useCriteriaStyles();
   return (
@@ -147,11 +148,6 @@ function Criteria({
             </Grid>
           </Grid>
           {fields.map(({ id, ...restField }, idx) => {
-            const isCriteriaDisabled =
-              disabled ||
-              restField.permission?.readOnlyControl ||
-              (restField.criteria?.permission?.readOnlyControl &&
-                restField.keywords?.permission?.readOnlyControl);
             return (
               <Grid
                 container
@@ -174,11 +170,12 @@ function Criteria({
                 >
                   <FixedSingleValueLookup
                     name={`criteriaGroup.${idx}.criteria.value`}
+                    url={url}
                     control={control}
                     {...restField.criteria}
                     title=""
                     placeholder="Choose Template"
-                    disabled={isCriteriaDisabled}
+                    // disabled={isCriteriaDisabled}
                     handleOptions={(options) => {
                       return (
                         options?.data?.map((item) => ({
@@ -201,7 +198,7 @@ function Criteria({
                         'border-[1px] border-[#E0E0E0] rounded-full border-solid absolute',
                         classes.andOrContainer
                       )}
-                      disabled={isCriteriaDisabled}
+                      // disabled={isCriteriaDisabled}
                     >
                       <Controller
                         control={control}
@@ -249,8 +246,12 @@ function Criteria({
                       classes.deleteButton
                     )}
                     size="small"
-                    onClick={() => remove(idx)}
-                    disabled={isCriteriaDisabled}
+                    onClick={() => {
+                      if (fields.length > 1) {
+                        remove(idx);
+                      }
+                    }}
+                    // disabled={isCriteriaDisabled}
                   />
                 </Grid>
               </Grid>

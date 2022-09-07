@@ -31,16 +31,16 @@ const mockTemplates = [
             url: `${API_URL}api/keywords_criteria`,
             requestType: 'GET',
             value: 'Include : if match all',
-            permission: {
-              readOnlyControl: true,
-            },
+            // permission: {
+            //   readOnlyControl: true,
+            // },
           },
           keywords: {
             title: 'Keywords',
             values: ['fire', 'engine'],
-            permission: {
-              readOnlyControl: true,
-            },
+            // permission: {
+            //   readOnlyControl: true,
+            // },
           },
         },
         {
@@ -85,18 +85,18 @@ const mockTemplates = [
             url: `${API_URL}api/keywords_criteria`,
             requestType: 'GET',
             value: 'Include : if match any',
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
           keywords: {
             title: 'Keywords',
             values: Array(10)
               .fill(1)
               .map(() => faker.unique(faker.random.word)),
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
         },
       ],
@@ -126,18 +126,18 @@ const mockTemplates = [
             url: `${API_URL}api/keywords_criteria`,
             requestType: 'GET',
             value: 'Include : if match any',
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
           keywords: {
             title: 'Keywords',
             values: Array(7)
               .fill(1)
               .map(() => faker.unique(faker.random.word)),
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
         },
       ],
@@ -167,18 +167,18 @@ const mockTemplates = [
             url: `${API_URL}api/keywords_criteria`,
             requestType: 'GET',
             value: 'Include : if match any',
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
           keywords: {
             title: 'Keywords',
             values: Array(5)
               .fill(1)
               .map(() => faker.unique(faker.random.word)),
-            permission: {
-              readOnlyControl: faker.datatype.boolean(),
-            },
+            // permission: {
+            //   readOnlyControl: faker.datatype.boolean(),
+            // },
           },
         },
       ],
@@ -215,4 +215,14 @@ export const updateKeywordRequest = rest.put(
   (_, res, ctx) => res(ctx.delay(API_MOCK_DELAY))
 );
 
-export const keywordsHandler = [getKeywordsTemplates];
+export const createKeywordRequest = rest.post(
+  `${API_URL}api/requests/keywords`,
+  (req, res, ctx) => {
+    return res(
+      ctx.delay(API_MOCK_DELAY),
+      ctx.json('Create keyword request successfully')
+    );
+  }
+);
+
+export const keywordsHandler = [getKeywordsTemplates, createKeywordRequest];

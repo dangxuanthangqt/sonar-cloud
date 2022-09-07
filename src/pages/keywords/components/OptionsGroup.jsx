@@ -58,7 +58,8 @@ function OptionsGroup({
   disabled,
   watchOptionsGroup,
   handleSelectTemplate,
-  keyWordSection,
+  hintKeywords,
+  url,
 }) {
   const classes = useOptionGroupStyles();
 
@@ -81,7 +82,7 @@ function OptionsGroup({
               <div
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{
-                  __html: keyWordSection?.hints?.replace(/\n/gm, '<br/><br/>'),
+                  __html: hintKeywords.replace(/\n/gm, '<br/><br/>'),
                 }}
               />
             }
@@ -97,28 +98,29 @@ function OptionsGroup({
         <div className="flex items-center">
           <Typography className="text-sm">{templateFields?.title}</Typography>
           <FixedSingleValueLookup
+            url={url}
             name="optionsGroup.template.value"
             control={control}
             {...templateFields}
             title=""
             placeholder="Choose Template"
             disabled={disabled}
-            handleOptions={(options) =>
-              options?.data?.map((option) => ({
+            handleOptions={(options) => {
+              return options?.data?.map((option) => ({
                 label: option.template?.value,
                 value: option.template?.value,
-              }))
-            }
+              }));
+            }}
             extendOnChange={handleSelectTemplate}
           />
         </div>
-        <BooleanControl
+        {/* <BooleanControl
           {...isExactMatchFields}
           name="optionsGroup.isExactMatch.value"
           control={control}
           label={isExactMatchFields?.title || 'Exact Match'}
           disabled={disabled}
-        />
+        /> */}
       </div>
     </Paper>
   );

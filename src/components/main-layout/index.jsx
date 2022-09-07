@@ -60,6 +60,8 @@ function MainLayout({
   handleSubmit,
   setDataToRecoilStore,
   step,
+  mutateCreation,
+  formatDataSubmitted,
 }) {
   const classes = useStyles();
   const sidebarState = useRecoilValue(sidebarStateAtom);
@@ -106,6 +108,8 @@ function MainLayout({
               errors={errors}
               setDataToRecoilStore={setDataToRecoilStore}
               step={step}
+              mutateCreation={mutateCreation}
+              formatDataSubmitted={formatDataSubmitted}
             />
           )}
 

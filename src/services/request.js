@@ -10,11 +10,11 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
   return {
     ...config,
-    ...(config.data && {
-      data: config.url.includes(originalDataReq)
-        ? config.data
-        : humps.decamelizeKeys(config.data),
-    }),
+    // ...(config.data && {
+    //   data: config.url.includes(originalDataReq)
+    //     ? config.data
+    //     : humps.decamelizeKeys(config.data),
+    // }),
     ...(config.params && { params: humps.decamelizeKeys(config.params) }),
   };
 });
