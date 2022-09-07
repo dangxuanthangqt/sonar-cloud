@@ -85,3 +85,15 @@ export const getPlants = rest.get(
     );
   }
 );
+
+export const createVehicleRequest = rest.post(
+  `${API_URL}api/requests/vehicles`,
+  (req, res, ctx) => {
+    return res(
+      ctx.delay(API_MOCK_DELAY),
+      ctx.json('Create vehicle request successfully')
+    );
+  }
+);
+
+export const newVehiclesHandler = [createVehicleRequest];

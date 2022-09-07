@@ -8,7 +8,11 @@ import { keywordsHandler, updateKeywordRequest } from './keywords/response';
 import { requestsViewHandler } from './requests-view/response';
 import { signIn } from './sign-in/response';
 import { signUp } from './sign-up/response';
-import { getPlants, getVehicles } from './vehicles/response';
+import {
+  getPlants,
+  getVehicles,
+  newVehiclesHandler,
+} from './vehicles/response';
 
 export const handlers = [
   getVehicles,
@@ -22,4 +26,5 @@ export const handlers = [
   ...requestsViewHandler,
   ...keywordsHandler,
   ...requestReportsHandler,
+  ...newVehiclesHandler,
 ];

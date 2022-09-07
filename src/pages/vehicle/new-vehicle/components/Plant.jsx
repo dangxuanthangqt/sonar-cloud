@@ -78,7 +78,7 @@ function Plant({ plant: plantData, disabled, title, control, setValue }) {
               onDelete={() => handleDelete(plant)}
               color="primary"
               key={plant?.value || idx}
-              disabled={disabled || plantData?.permission?.readOnlyControl}
+              disabled={disabled}
               className="text-sm font-medium"
             />
           ))}

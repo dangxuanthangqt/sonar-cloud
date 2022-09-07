@@ -13,6 +13,8 @@ import { Box } from '@mui/system';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import makeStyles from '@mui/styles/makeStyles';
+import { useMutation } from 'react-query';
+import { createNewVehicleRequest } from 'services/data-request-service';
 import MainLayout from '@/components/main-layout';
 import BackdropLoading from '@/components/backdrop-loading';
 import Plant from './components/Plant';
@@ -61,7 +63,6 @@ function NewVehicle({ isLoading }) {
   const { t } = useTranslation('vehicles');
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [vehicleState, setVehicleState] = useRecoilState(vehicleStateAtom);
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
@@ -72,10 +73,6 @@ function NewVehicle({ isLoading }) {
       error: message,
     });
   };
-
-  const {
-    data: { vehicleSection },
-  } = dataRequestStateValue || {};
 
   const { control, reset, setValue, handleSubmit, getValues, watch } = useForm({
     defaultValues: {
@@ -103,46 +100,52 @@ function NewVehicle({ isLoading }) {
     control,
   });
 
+  const {
+    mutate: mutateNewVehicleRequest,
+    isLoading: createKeywordRequestLoading,
+  } = useMutation(['createNewVehicleRequest'], (payload) =>
+    createNewVehicleRequest(payload)
+  );
+
   useEffect(() => {
     if (!isEmpty(vehicleState) && !isLoading) {
       reset(vehicleState);
-      return;
     }
-    if (vehicleSection) {
-      const dataForm = {
-        plantGroup: {
-          ...vehicleSection?.plantGroup,
-          plant: {
-            ...vehicleSection?.plantGroup?.plant,
-            value:
-              vehicleSection?.plantGroup?.plant?.values?.map((p) => ({
-                value: p,
-                label: p,
-              })) || [],
-          },
-        },
-        vehicles:
-          vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList?.map(
-            (v) => {
-              const r = {};
-              Object.keys(v).forEach((key) => {
-                r[key] = { ...v[key] };
-                if (
-                  !['fromYear', 'toYear', 'bodyDescription', 'id'].includes(key)
-                ) {
-                  r[key].value = {
-                    value: v[key].value,
-                    label: v[key].value,
-                  };
-                }
-              });
-              return r;
-            }
-          ),
-      };
-      reset(dataForm);
-    }
-  }, [vehicleSection, vehicleState]);
+    // if (vehicleSection) {
+    //   const dataForm = {
+    //     plantGroup: {
+    //       ...vehicleSection?.plantGroup,
+    //       plant: {
+    //         ...vehicleSection?.plantGroup?.plant,
+    //         value:
+    //           vehicleSection?.plantGroup?.plant?.values?.map((p) => ({
+    //             value: p,
+    //             label: p,
+    //           })) || [],
+    //       },
+    //     },
+    //     vehicles:
+    //       vehicleSection?.vehicleCriteriaGroup?.vehicleCriteriaList?.map(
+    //         (v) => {
+    //           const r = {};
+    //           Object.keys(v).forEach((key) => {
+    //             r[key] = { ...v[key] };
+    //             if (
+    //               !['fromYear', 'toYear', 'bodyDescription', 'id'].includes(key)
+    //             ) {
+    //               r[key].value = {
+    //                 value: v[key].value,
+    //                 label: v[key].value,
+    //               };
+    //             }
+    //           });
+    //           return r;
+    //         }
+    //       ),
+    //   };
+    //   reset(dataForm);
+    // }
+  }, [vehicleState]);
 
   const watchFieldArray = watch('vehicles');
   const controlledFields = fields.map((field, index) => {
@@ -151,24 +154,6 @@ function NewVehicle({ isLoading }) {
       ...watchFieldArray[index],
     };
   });
-
-  const allDisabled = useMemo(
-    () => vehicleSection?.permission?.readOnlyControl,
-    [vehicleSection]
-  );
-
-  const plantGroupDisabled = useMemo(
-    () =>
-      allDisabled || vehicleSection?.plantGroup?.permission?.readOnlyControl,
-    [allDisabled, vehicleSection]
-  );
-
-  const vehicleSectionDisabled = useMemo(
-    () =>
-      allDisabled ||
-      vehicleSection?.vehicleCriteriaGroup?.permission?.readOnlyControl,
-    [allDisabled, vehicleSection]
-  );
 
   const onSubmit = (data) => {
     // TODO: call API to submit data
@@ -191,10 +176,42 @@ function NewVehicle({ isLoading }) {
 
   const dataSourceSummary = useDataSourceSummary(STEPS.VEHICLES);
 
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateNewVehicleRequest(payload, { onSuccess });
+  };
+
+  const formatDataSubmitted = (values) => {
+    return {
+      selectedPlants: values?.plantGroup?.plant?.value,
+      vehicles: values.vehicles.map((vehicle) => {
+        const {
+          fromYear,
+          toYear,
+          family,
+          line,
+          series,
+          style,
+          bodyDescription,
+        } = vehicle;
+        return {
+          fromYear: fromYear?.value,
+          toYear: toYear.value,
+          family: family?.value?.value,
+          line: line?.value?.value,
+          series: series?.value?.value,
+          style: style?.value?.value,
+          bodyDescription: bodyDescription?.value,
+        };
+      }),
+    };
+  };
+
   return (
     <MainLayout
       isShowSideBarStepper
       handleSubmit={handleSubmit}
+      mutateCreation={mutateCreation}
+      formatDataSubmitted={formatDataSubmitted}
       setDataToRecoilStore={setVehicleState}
       errors={errors}
       step={STEPS.VEHICLES}
@@ -203,7 +220,7 @@ function NewVehicle({ isLoading }) {
           { label: t('common:breadcrumbs.create_new_request') },
           { label: t('common:sidebar.vehicle') },
         ],
-        moreAction: !allDisabled && (
+        moreAction: (
           <LoadingButton
             variant="contained"
             color="primary"
@@ -220,9 +237,9 @@ function NewVehicle({ isLoading }) {
       <DataSourceSummary dataSummary={dataSourceSummary} />
       <StepperInfo step={3} name="Vehicles" />
       <Plant
-        plant={vehicleSection?.plantGroup?.plant}
-        disabled={plantGroupDisabled}
-        title={vehicleSection?.plantGroup?.title}
+        plant={{ url: '/api/common_code' }}
+        // disabled={plantGroupDisabled}
+        title="Plant"
         control={control}
         setValue={setValue}
       />
@@ -234,20 +251,25 @@ function NewVehicle({ isLoading }) {
         fields={controlledFields}
         t={t}
         setValue={setValue}
-        title={vehicleSection?.vehicleCriteriaGroup?.title}
-        disabled={vehicleSectionDisabled}
+        title="Vehicles"
+        // disabled={vehicleSectionDisabled}
         append={handleAppendNewRow}
       />
       <Box className={classes.btnContainer}>
         <Button
           onClick={() => {
-            handleSubmit(() => {
+            handleSubmit((values) => {
               if (requestTitleState?.value) {
                 handleErrorRequestTitle('');
-                setVehicleState(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep - 1].path);
-                  return prevActiveStep - 1;
+                mutateCreation({
+                  payload: formatDataSubmitted(values),
+                  onSuccess: () => {
+                    setVehicleState(values);
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep - 1].path);
+                      return prevActiveStep - 1;
+                    });
+                  },
                 });
               } else {
                 handleErrorRequestTitle('Request title is required');
@@ -262,13 +284,18 @@ function NewVehicle({ isLoading }) {
         </Button>
         <Button
           onClick={() => {
-            handleSubmit(() => {
+            handleSubmit((values) => {
               if (requestTitleState?.value) {
                 handleErrorRequestTitle('');
-                setVehicleState(getValues());
-                setActiveStep((prevActiveStep) => {
-                  navigate(steps[activeStep + 1].path);
-                  return prevActiveStep + 1;
+                mutateCreation({
+                  payload: formatDataSubmitted(values),
+                  onSuccess: () => {
+                    setVehicleState(values);
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep + 1].path);
+                      return prevActiveStep + 1;
+                    });
+                  },
                 });
               } else {
                 handleErrorRequestTitle('Request title is required');
