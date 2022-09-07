@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   drawerPaper: {
+    height: 'calc(100vh - 200px)',
     top: 192,
     '& .MuiList-root': {
       '& .MuiListItem-root': {
