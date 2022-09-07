@@ -95,3 +95,27 @@ code {
 .content-wrapper {
   padding-top: 128px;
 }
+
+/** Steps form wrapper style **/
+
+.step-form-wrapper svg.MuiSvgIcon-root.Mui-active {
+  fill: transparent;
+  border: solid 1px #0f81c0;
+}
+
+.step-form-wrapper svg.MuiSvgIcon-root.Mui-active text {
+  fill: #0f81c0;
+}
+
+.step-form-wrapper svg.MuiSvgIcon-root.Mui-completed {
+  border-color: transparent;
+  color: #0f81c0;
+}
+
+.step-form-wrapper .MuiStep-horizontal:hover svg {
+  fill: transparent;
+}
+
+.step-form-wrapper .MuiStep-horizontal.Mui-completed:hover svg {
+  fill: #0f81c0;
+}

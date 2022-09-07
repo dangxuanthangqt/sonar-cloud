@@ -41,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
     '& svg': {
       width: '30px',
       height: '30px',
+      color: 'transparent',
+      border: 'solid 1px #6D6D6D',
+      borderRadius: '100%',
+
+      '& text': {
+        fill: '#6D6D6D',
+      },
     },
   },
   labelStyle1: {
@@ -284,7 +291,10 @@ export default function HorizontalLinearStepper({
         </p>
       </div>
 
-      <Stepper className={classes.stepper} activeStep={activeStep}>
+      <Stepper
+        className={`${classes.stepper} step-form-wrapper`}
+        activeStep={activeStep}
+      >
         {steps.map((item, index) => {
           return (
             <Step
