@@ -13,6 +13,7 @@ import {
   getVehicles,
   newVehiclesHandler,
 } from './vehicles/response';
+import { dataSourceHandler } from './data-source/response';
 
 export const handlers = [
   getVehicles,
@@ -27,4 +28,5 @@ export const handlers = [
   ...keywordsHandler,
   ...requestReportsHandler,
   ...newVehiclesHandler,
+  ...dataSourceHandler,
 ];

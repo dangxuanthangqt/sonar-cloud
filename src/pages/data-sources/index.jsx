@@ -6,7 +6,7 @@ import { forEach, isEmpty, omit, some } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { updateDataRequest } from 'services/data-request-service';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,10 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
 import RequestTitle from '../summary/components/RequestTitle';
 import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
+import {
+  createDataSourceRequest,
+  getAllDataSources,
+} from '../../services/datasource-service';
 
 const useStyles = makeStyles((theme) => ({
   actionContainer: {
@@ -67,7 +71,6 @@ function DataSources({ isLoading }) {
   const { t } = useTranslation();
   const classes = useStyles();
   const [isAllSelected, setIsAllSelected] = useState(false);
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
@@ -77,9 +80,15 @@ function DataSources({ isLoading }) {
 
   const [dataSourceState, setDataSourceState] =
     useRecoilState(dataSourceStateAtom);
-  const {
-    data: { dataSourceSection, id: dataRequestId },
-  } = dataRequestStateValue || {};
+
+  /** Fetch all data sources master */
+  const { data: dataSourceMaster } = useQuery(
+    ['getAllDataSources'],
+    () => getAllDataSources(),
+    {
+      select: (res) => res.data,
+    }
+  );
 
   const { control, reset, getValues, setValue, handleSubmit, watch } = useForm({
     defaultValues: { formGroups: [] },
@@ -108,19 +117,16 @@ function DataSources({ isLoading }) {
       reset(dataSourceState);
       return;
     }
-    if (dataSourceSection) {
-      reset({ formGroups: dataSourceSection.dataSourceGroups });
+    if (dataSourceMaster) {
+      reset({ formGroups: dataSourceMaster.dataSourceGroups });
     }
-  }, [dataSourceSection, dataSourceState]);
+  }, [dataSourceMaster, dataSourceState]);
 
-  const { mutate, isLoading: updateDataRequestLoading } = useMutation(
-    ['updateDataRequest'],
-    (data) => updateDataRequest({ requestId: 255, data })
-  );
-
-  const isDataSourceSectionDisabled = useMemo(
-    () => dataSourceSection?.permission?.readOnlyControl,
-    [dataSourceSection]
+  const {
+    mutate: mutateDataSourceRequest,
+    isLoading: createDataSourceLoading,
+  } = useMutation(['createDataSources'], (payload) =>
+    createDataSourceRequest(payload)
   );
 
   const handleSelectAll = (isAll) => {
@@ -136,21 +142,29 @@ function DataSources({ isLoading }) {
 
   const watchFormGroups = useWatch({ name: 'formGroups', control });
 
-  const onSubmit = (data) => {
-    const { formGroups } = data;
-    const payload = {
-      id: dataRequestId,
-      formSections: [
-        {
-          id: dataSourceSection?.id,
-          name: dataSourceSection?.title,
-          formGroups: formGroups.map((group) => ({
-            ...omit(group, ['value', 'helpText']),
-          })),
-        },
-      ],
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateDataSourceRequest(payload, { onSuccess });
+  };
+
+  const formatDataSubmitted = (values) => {
+    const dataSourceGroupFormatted = values?.formGroups.reduce((acc, item) => {
+      const dataSources = item?.dataSources
+        ?.filter((item1) => item1.value)
+        ?.map((item2) => ({ id: item2.id }));
+      if (dataSources?.length > 0)
+        return [
+          ...acc,
+          {
+            id: item?.id,
+            dataSources,
+          },
+        ];
+      return acc;
+    }, []);
+    return {
+      title: requestTitleState?.value,
+      dataSourceGroup: dataSourceGroupFormatted,
     };
-    mutate(payload);
   };
 
   useEffect(() => {
@@ -169,13 +183,15 @@ function DataSources({ isLoading }) {
     <MainLayout
       isShowSideBarStepper
       handleSubmit={handleSubmit}
+      mutateCreation={mutateCreation}
+      formatDataSubmitted={formatDataSubmitted}
       setDataToRecoilStore={setDataSourceState}
       breadcrumbs={{
         trailing: [
           { label: t('breadcrumbs.create_new_request') },
           { label: t('sidebar.data_sources') },
         ],
-        moreAction: !isDataSourceSectionDisabled && !isLoading && (
+        moreAction: !isLoading && (
           <div className={classes.actionContainer}>
             <Button
               variant={!isAllSelected ? 'outlined' : 'contained'}
@@ -188,7 +204,7 @@ function DataSources({ isLoading }) {
                 ? t('buttons.select_all')
                 : t('buttons.unselect_all')}
             </Button>
-            <LoadingButton
+            {/* <LoadingButton
               variant="contained"
               color="primary"
               className="save-button"
@@ -202,7 +218,7 @@ function DataSources({ isLoading }) {
               {updateDataRequestLoading
                 ? t('buttons.in_progress')
                 : t('buttons.save_parameters')}
-            </LoadingButton>
+            </LoadingButton> */}
           </div>
         ),
       }}
@@ -221,11 +237,11 @@ function DataSources({ isLoading }) {
                 key={id}
                 label={restField.title}
                 isFirst={idx === 0}
-                disabled={
-                  isDataSourceSectionDisabled ||
-                  restField.permission?.readOnlyControl ||
-                  updateDataRequestLoading
-                }
+                // disabled={
+                //   isDataSourceSectionDisabled ||
+                //   restField.permission?.readOnlyControl ||
+                //   updateDataRequestLoading
+                // }
                 groupIdx={idx}
                 setValue={setValue}
               />
@@ -236,9 +252,9 @@ function DataSources({ isLoading }) {
         <Button
           onClick={() => {
             handleErrorRequestTitle('');
-            reset({ formGroups: dataSourceSection.dataSourceGroups });
+            reset({ formGroups: dataSourceMaster?.dataSourceGroups });
             setDataSourceState({
-              formGroups: dataSourceSection.dataSourceGroups,
+              formGroups: dataSourceMaster?.dataSourceGroups,
             });
           }}
           className={classes.btnCancel}
@@ -249,13 +265,19 @@ function DataSources({ isLoading }) {
         </Button>
         <Button
           onClick={() => {
-            setDataSourceState(getValues());
             if (requestTitleState?.value) {
               handleErrorRequestTitle('');
-              setActiveStep((prevActiveStep) => {
-                navigate(steps[activeStep + 1].path);
-                return prevActiveStep + 1;
-              });
+              handleSubmit((values) => {
+                mutateDataSourceRequest(formatDataSubmitted(values), {
+                  onSuccess: () => {
+                    setDataSourceState(values);
+                    setActiveStep((prevActiveStep) => {
+                      navigate(steps[activeStep + 1].path);
+                      return prevActiveStep + 1;
+                    });
+                  },
+                });
+              })();
             } else {
               handleErrorRequestTitle('Request title is required');
             }
