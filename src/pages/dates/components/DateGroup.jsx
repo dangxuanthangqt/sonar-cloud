@@ -38,40 +38,23 @@ function DateGroup({ dateGroup, name, disabled, control }) {
   const classes = useStyles();
   const { helpText, title: label, permission, dateRange } = dateGroup || {};
 
-  const dateGroupDisabled =
-    disabled ||
-    permission?.readOnlyControl ||
-    dateRange?.permission?.readOnlyControl;
-
   return (
     <Paper className="rounded-lg overflow-hidden h-full mb-5">
       <div className={classNames(classes.header)}>
         <Typography
           color="primary"
-          className={classNames('text-base font-bold mt-[14px] mb-3 mr-3', {
-            'opacity-[0.38]': dateGroupDisabled,
-          })}
+          className={classNames('text-base font-bold mt-[14px] mb-3 mr-3')}
         >
           {label}
         </Typography>
         {helpText && (
           <Tooltip title={helpText} arrow placement="top">
-            <HelpOutline
-              color="primary"
-              className={classNames({
-                [classes.tooltipIconDisabled]: dateGroupDisabled,
-              })}
-              fontSize="small"
-            />
+            <HelpOutline color="primary" fontSize="small" />
           </Tooltip>
         )}
       </div>
       <Grid container className={classes.body}>
-        <DateRangeControl
-          control={control}
-          name={name}
-          disabled={dateGroupDisabled}
-        />
+        <DateRangeControl control={control} name={name} />
       </Grid>
     </Paper>
   );

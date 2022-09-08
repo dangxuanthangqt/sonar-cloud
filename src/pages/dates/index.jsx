@@ -13,6 +13,8 @@ import { useDataSourceSummary } from 'hooks/use-data-source-summary';
 import { STEPS } from 'mocks/requests-view/mockData';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
+import { useMutation } from 'react-query';
+import { createDatesRequest } from 'services/data-request-service';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
@@ -80,9 +82,18 @@ function Dates({ isLoading }) {
 
   const { control, reset, handleSubmit, getValues } = useForm({
     defaultValues: {
-      buildDateGroup: null,
-      incidentDateGroup: null,
-      reportDateGroup: null,
+      buildDateGroup: {
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+      incidentDateGroup: {
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+      reportDateGroup: {
+        startDate: new Date(),
+        endDate: new Date(),
+      },
     },
   });
 
@@ -112,39 +123,29 @@ function Dates({ isLoading }) {
   useEffect(() => {
     if (!isEmpty(datesState) && !isLoading) {
       reset(datesState);
-      return;
     }
-    if (!isEmpty(datesSection)) {
-      const { buildDateGroup, incidentDateGroup, reportDateGroup } =
-        datesSection;
-      reset({
-        buildDateGroup: [
-          {
-            startDate: new Date(buildDateGroup.dateRange.fromDate.date),
-            endDate: new Date(buildDateGroup.dateRange.toDate.date),
-          },
-        ],
-        incidentDateGroup: [
-          {
-            startDate: new Date(incidentDateGroup.dateRange.fromDate.date),
-            endDate: new Date(incidentDateGroup.dateRange.toDate.date),
-          },
-        ],
-        reportDateGroup: [
-          {
-            startDate: new Date(reportDateGroup.dateRange.fromDate.date),
-            endDate: new Date(reportDateGroup.dateRange.toDate.date),
-          },
-        ],
-      });
-    }
-  }, [datesSection, reset]);
+  }, [reset]);
 
   const dateSectionDisabled = useMemo(
     // () => datesSection?.permission?.readOnlyControl,
     () => (param) => param === 'Vehicle build date',
     [datesSection]
   );
+
+  const { mutate: mutateDatesRequest, isLoading: createDatesLoading } =
+    useMutation(['createSaleCodeRequest'], (payload) =>
+      createDatesRequest(payload)
+    );
+
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateDatesRequest(payload, { onSuccess });
+  };
+
+  const formatDataSubmitted = (values) => {
+    return {
+      ...values,
+    };
+  };
 
   const dataSourceSummary = useDataSourceSummary(STEPS.DATES);
 
@@ -153,6 +154,8 @@ function Dates({ isLoading }) {
       isShowSideBarStepper
       handleSubmit={handleSubmit}
       setDataToRecoilStore={setDatesState}
+      mutateCreation={mutateCreation}
+      formatDataSubmitted={formatDataSubmitted}
       step={STEPS.DATES}
       breadcrumbs={{
         trailing: [
@@ -175,7 +178,7 @@ function Dates({ isLoading }) {
         ),
       }}
     >
-      <BackdropLoading open={isLoading} />
+      <BackdropLoading open={isLoading || createDatesLoading} />
       <RequestTitle />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       <StepperInfo step={5} name="Dates" />
@@ -205,22 +208,28 @@ function Dates({ isLoading }) {
           <DateGroup
             control={control}
             name="buildDateGroup"
-            dateGroup={datesSection?.buildDateGroup}
-            disabled={dateSectionDisabled(datesSection?.buildDateGroup?.title)}
+            dateGroup={{
+              helpText: 'The report date',
+              title: 'Vehicle build date',
+            }}
+            // disabled={dateSectionDisabled(datesSection?.buildDateGroup?.title)}
           />
           <DateGroup
             control={control}
             name="incidentDateGroup"
-            dateGroup={datesSection?.incidentDateGroup}
-            disabled={dateSectionDisabled(
-              datesSection?.incidentDateGroup?.title
-            )}
+            dateGroup={{
+              helpText: 'The report incident date',
+              title: 'Incident Date',
+            }}
+            // disabled={dateSectionDisabled(
+            //   datesSection?.incidentDateGroup?.title
+            // )}
           />
           <DateGroup
             control={control}
             name="reportDateGroup"
-            dateGroup={datesSection?.reportDateGroup}
-            disabled={dateSectionDisabled(datesSection?.reportDateGroup?.title)}
+            dateGroup={{ helpText: 'The report date', title: 'Report Date' }}
+            // disabled={dateSectionDisabled(datesSection?.reportDateGroup?.title)}
           />
           <Box className={classes.btnContainer}>
             <Button
@@ -228,10 +237,14 @@ function Dates({ isLoading }) {
                 handleSubmit(() => {
                   if (requestTitleState?.value) {
                     handleErrorRequestTitle('');
-                    setDatesState(getValues());
-                    setActiveStep((prevActiveStep) => {
-                      navigate(steps[activeStep - 1].path);
-                      return prevActiveStep - 1;
+                    mutateDatesRequest(formatDataSubmitted(getValues()), {
+                      onSuccess: () => {
+                        setDatesState(getValues());
+                        setActiveStep((prevActiveStep) => {
+                          navigate(steps[activeStep - 1].path);
+                          return prevActiveStep - 1;
+                        });
+                      },
                     });
                   } else {
                     handleErrorRequestTitle('Request title is required');
@@ -248,11 +261,14 @@ function Dates({ isLoading }) {
               onClick={() => {
                 if (requestTitleState?.value) {
                   handleErrorRequestTitle('');
-
-                  setDatesState(getValues());
-                  setActiveStep((prevActiveStep) => {
-                    navigate(steps[activeStep + 1].path);
-                    return prevActiveStep + 1;
+                  mutateDatesRequest(formatDataSubmitted(getValues()), {
+                    onSuccess: () => {
+                      setDatesState(getValues());
+                      setActiveStep((prevActiveStep) => {
+                        navigate(steps[activeStep + 1].path);
+                        return prevActiveStep + 1;
+                      });
+                    },
                   });
                 } else {
                   handleErrorRequestTitle('Request title is required');

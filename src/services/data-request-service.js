@@ -20,3 +20,6 @@ export const createNewVehicleRequest = (payload) =>
 
 export const createSalesCodeRequest = (payload) =>
   request.post(`api/requests/sales-code`, payload);
+
+export const createDatesRequest = (payload) =>
+  request.post(`api/requests/dates`, payload);

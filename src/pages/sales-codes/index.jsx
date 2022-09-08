@@ -216,7 +216,7 @@ function SalesCodes({ isLoading }) {
         ),
       }}
     >
-      <BackdropLoading open={isLoading} />
+      <BackdropLoading open={isLoading || createSalesCodeRequestLoading} />
       <RequestTitle />
       <DataSourceSummary dataSummary={dataSourceSummary} />
       <StepperInfo step={4} name="Sales Codes" />

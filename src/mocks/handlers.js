@@ -15,6 +15,7 @@ import {
 } from './vehicles/response';
 import { dataSourceHandler } from './data-source/response';
 import { salesCodeHandler } from './sales-code/response';
+import { datesHandler } from './dates/response';
 
 export const handlers = [
   getVehicles,
@@ -31,4 +32,5 @@ export const handlers = [
   ...newVehiclesHandler,
   ...dataSourceHandler,
   ...salesCodeHandler,
+  ...datesHandler,
 ];
