@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@mui/styles';
 import { LoadingButton } from '@mui/lab';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isEmpty } from 'lodash';
+import { isEmpty, omit } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { HelpOutline } from '@mui/icons-material';
@@ -143,7 +143,9 @@ function Dates({ isLoading }) {
 
   const formatDataSubmitted = (values) => {
     return {
-      ...values,
+      buildDateGroup: omit(values?.buildDateGroup, 'key'),
+      incidentDateGroup: omit(values?.incidentDateGroup, 'key'),
+      reportDateGroup: omit(values?.reportDateGroup, 'key'),
     };
   };
 
