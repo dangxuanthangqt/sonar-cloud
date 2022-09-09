@@ -8,13 +8,11 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { updateDataRequest } from 'services/data-request-service';
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import MainLayout from '@/components/main-layout';
 import BackdropLoading from '@/components/backdrop-loading';
 import FormGroup from './components/FormGroup';
@@ -67,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DataSources({ isLoading }) {
+function DataSources() {
   const { t } = useTranslation();
   const classes = useStyles();
   const [isAllSelected, setIsAllSelected] = useState(false);
@@ -82,7 +80,7 @@ function DataSources({ isLoading }) {
     useRecoilState(dataSourceStateAtom);
 
   /** Fetch all data sources master */
-  const { data: dataSourceMaster } = useQuery(
+  const { data: dataSourceMaster, isLoading } = useQuery(
     ['getAllDataSources'],
     () => getAllDataSources(),
     {
@@ -223,7 +221,7 @@ function DataSources({ isLoading }) {
         ),
       }}
     >
-      <BackdropLoading open={isLoading} />
+      <BackdropLoading open={isLoading || createDataSourceLoading} />
       <RequestTitle title="Create New Request" />
       <StepperInfo step={1} name="Data Sources" />
       <Grid container className={classes.body} spacing={3}>

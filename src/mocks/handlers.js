@@ -16,6 +16,7 @@ import {
 import { dataSourceHandler } from './data-source/response';
 import { salesCodeHandler } from './sales-code/response';
 import { datesHandler } from './dates/response';
+import { lopsPartHandler } from './lops-part/response';
 
 export const handlers = [
   getVehicles,
@@ -33,4 +34,5 @@ export const handlers = [
   ...dataSourceHandler,
   ...salesCodeHandler,
   ...datesHandler,
+  ...lopsPartHandler,
 ];

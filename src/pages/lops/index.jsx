@@ -13,8 +13,9 @@ import { STEPS } from 'mocks/requests-view/mockData';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import makeStyles from '@mui/styles/makeStyles';
+import { useMutation } from 'react-query';
+import { createLopsPartRequest } from 'services/data-request-service';
 import MainLayout from '@/components/main-layout';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import PartsGroup from './components/PartsGroup';
 import LopsGroup from './components/LopsGroup';
 import BackdropLoading from '@/components/backdrop-loading';
@@ -111,16 +112,11 @@ const schema = yup.object().shape({
 function Lops({ isLoading }) {
   const classes = useStyles();
   const { t } = useTranslation('lops');
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [lopsAndPartsState, setLopsAndPartsState] = useRecoilState(
     lopsAndPartsStateAtom
   );
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
-
-  const {
-    data: { lopAndPartsSection },
-  } = dataRequestStateValue || {};
 
   const lopsProperties = lopsPartProperties;
 
@@ -165,30 +161,28 @@ function Lops({ isLoading }) {
   useEffect(() => {
     if (!isEmpty(lopsAndPartsState) && !isLoading) {
       reset(lopsAndPartsState);
-      return;
     }
-    if (lopAndPartsSection) {
-      reset({
-        partsGroup: {
-          parts: lopAndPartsSection.partGroup?.parts?.values?.map((v) =>
-            v.toString()
-          ),
-        },
-        lopCriteria: lopAndPartsSection.lopCriteriaGroup?.lopCriteriaList?.map(
-          (v) => ({ failureCode: v.failureCode?.value, lop: v.lop?.value })
-        ),
-      });
-    }
-  }, [lopAndPartsSection]);
-
-  const lopsAndPartsSectionDisabled = useMemo(
-    () => lopAndPartsSection?.permissions?.readOnlyControl,
-    [lopAndPartsSection]
-  );
+  }, []);
 
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log({ data });
+  };
+
+  const { mutate: mutateLopsPartRequest, isLoading: createLopsPartLoading } =
+    useMutation(['createLopsPartRequest'], (payload) =>
+      createLopsPartRequest(payload)
+    );
+
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateLopsPartRequest(payload, { onSuccess });
+  };
+
+  const formatDataSubmitted = (values) => {
+    return {
+      parts: values?.partsGroup?.parts,
+      lops: values?.lopCriteria,
+    };
   };
 
   const dataSourceSummary = useDataSourceSummary(STEPS.LOPS_PARTS);
@@ -197,6 +191,8 @@ function Lops({ isLoading }) {
     <MainLayout
       isShowSideBarStepper
       handleSubmit={handleSubmit}
+      formatDataSubmitted={formatDataSubmitted}
+      mutateCreation={mutateCreation}
       setDataToRecoilStore={setLopsAndPartsState}
       errors={errors}
       trigger={trigger}
@@ -218,7 +214,7 @@ function Lops({ isLoading }) {
         ),
       }}
     >
-      <BackdropLoading open={isLoading} />
+      <BackdropLoading open={isLoading || createLopsPartLoading} />
       <RequestTitle />
       <StepperInfo step={6} name="LOPs Parts" />
       <DataSourceSummary dataSummary={dataSourceSummary} />
@@ -226,29 +222,38 @@ function Lops({ isLoading }) {
         <>
           <PartsGroup
             control={control}
-            partsData={lopAndPartsSection?.partGroup}
+            partsData={{
+              title: 'Parts',
+            }}
             properties={lopsProperties?.lopAndPartsSection?.partGroup || {}}
             setError={setError}
             clearErrors={clearErrors}
-            disabled={lopsAndPartsSectionDisabled}
+            disabled={false}
           />
           <LopsGroup
             control={control}
-            lopsData={lopAndPartsSection?.lopCriteriaGroup}
+            lopsData={{
+              title: 'LOP Information',
+            }}
             properties={
               lopsProperties?.lopAndPartsSection?.lopCriteriaGroup || {}
             }
-            disabled={lopsAndPartsSectionDisabled}
+            disabled={false}
           />
           <Box className={classes.boxPrevious}>
             <Button
               onClick={() => {
-                handleSubmit(() => {
+                handleSubmit((values) => {
                   if (requestTitleState?.value) {
-                    setLopsAndPartsState(getValues());
-                    setActiveStep((prevActiveStep) => {
-                      navigate(steps[activeStep - 1].path);
-                      return prevActiveStep - 1;
+                    handleErrorRequestTitle('');
+                    mutateLopsPartRequest(formatDataSubmitted(values), {
+                      onSuccess: () => {
+                        setLopsAndPartsState(values);
+                        setActiveStep((prevActiveStep) => {
+                          navigate(steps[activeStep - 1].path);
+                          return prevActiveStep - 1;
+                        });
+                      },
                     });
                   } else {
                     handleErrorRequestTitle('Request title is required');
@@ -263,13 +268,17 @@ function Lops({ isLoading }) {
             </Button>
             <Button
               onClick={() => {
-                handleSubmit(() => {
+                handleSubmit((values) => {
                   if (requestTitleState?.value) {
                     handleErrorRequestTitle('');
-                    setLopsAndPartsState(getValues());
-                    setActiveStep((prevActiveStep) => {
-                      navigate(steps[activeStep + 1].path);
-                      return prevActiveStep + 1;
+                    mutateLopsPartRequest(formatDataSubmitted(values), {
+                      onSuccess: () => {
+                        setLopsAndPartsState(values);
+                        setActiveStep((prevActiveStep) => {
+                          navigate(steps[activeStep + 1].path);
+                          return prevActiveStep + 1;
+                        });
+                      },
                     });
                   } else {
                     handleErrorRequestTitle('Request title is required');

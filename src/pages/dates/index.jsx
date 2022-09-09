@@ -17,7 +17,6 @@ import { useMutation } from 'react-query';
 import { createDatesRequest } from 'services/data-request-service';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import DateGroup from './components/DateGroup';
 
 import { formatHint } from '@/common/utils';
@@ -71,14 +70,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Dates({ isLoading }) {
   const classes = useStyles();
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [datesState, setDatesState] = useRecoilState(datesStateAtom);
   const { t } = useTranslation();
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
-  const {
-    data: { datesSection },
-  } = dataRequestStateValue || {};
 
   const { control, reset, handleSubmit, getValues } = useForm({
     defaultValues: {
@@ -126,14 +121,8 @@ function Dates({ isLoading }) {
     }
   }, [reset]);
 
-  const dateSectionDisabled = useMemo(
-    // () => datesSection?.permission?.readOnlyControl,
-    () => (param) => param === 'Vehicle build date',
-    [datesSection]
-  );
-
   const { mutate: mutateDatesRequest, isLoading: createDatesLoading } =
-    useMutation(['createSaleCodeRequest'], (payload) =>
+    useMutation(['createDatesRequest'], (payload) =>
       createDatesRequest(payload)
     );
 
@@ -164,7 +153,7 @@ function Dates({ isLoading }) {
           { label: t('breadcrumbs.create_new_request') },
           { label: 'Dates' },
         ],
-        moreAction: !isLoading && !dateSectionDisabled && (
+        moreAction: !isLoading && (
           <div className={classes.actionContainer}>
             <LoadingButton
               variant="contained"

@@ -18,7 +18,6 @@ import { useMutation } from 'react-query';
 import { createSalesCodeRequest } from 'services/data-request-service';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import { salesCodeStateAtom } from '@/recoil/atom/sales-code-state';
 import SalesCode from './components/SalesCode';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';

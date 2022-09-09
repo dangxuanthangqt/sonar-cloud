@@ -23,3 +23,6 @@ export const createSalesCodeRequest = (payload) =>
 
 export const createDatesRequest = (payload) =>
   request.post(`api/requests/dates`, payload);
+
+export const createLopsPartRequest = (payload) =>
+  request.post(`api/requests/lops-part`, payload);
