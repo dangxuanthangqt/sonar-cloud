@@ -210,7 +210,10 @@ export const createDataSources = rest.post(
   (_, res, ctx) => {
     return res(
       ctx.delay(API_MOCK_DELAY),
-      ctx.json('Create data source successfully')
+      ctx.json({
+        requestId: '9876543210',
+        sectionCompleted: 'DATASOURCES',
+      })
     );
   }
 );

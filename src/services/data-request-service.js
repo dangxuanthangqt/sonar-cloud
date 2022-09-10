@@ -12,8 +12,8 @@ export const updateDataRequest = ({ requestId, data }) =>
 export const updateKeywordRequest = ({ requestId, data }) =>
   request.put(`/api/v1/request/${requestId}`, data);
 
-export const createKeywordRequest = (payload) =>
-  request.post(`api/requests/keywords`, payload);
+export const createKeywordRequest = (id, payload) =>
+  request.post(`api/requests/${id}/keywords`, payload);
 
 export const createNewVehicleRequest = (payload) =>
   request.post(`api/requests/vehicles`, payload);

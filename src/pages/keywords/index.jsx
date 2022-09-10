@@ -36,7 +36,10 @@ import { StepperInfo } from '@/components/stepper-info';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';
 import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
-import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
+import {
+  dataSourceStateAtom,
+  dataSourceResponseStateAtom,
+} from '@/recoil/atom/data-source-state';
 import RequestTitle from '../summary/components/RequestTitle';
 import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
 import { hintKeywords } from './constant';
@@ -149,6 +152,11 @@ function Keywords({ isLoading }) {
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
   );
+
+  const [responseDatasource, setResponseDatasource] = useRecoilState(
+    dataSourceResponseStateAtom
+  );
+
   const handleErrorRequestTitle = (message = '') => {
     setRequestTitleState({
       ...requestTitleState,
@@ -243,7 +251,7 @@ function Keywords({ isLoading }) {
     mutate: mutateKeywordsRequest,
     isLoading: createKeywordRequestLoading,
   } = useMutation(['createKeywordRequest'], (payload) =>
-    createKeywordRequest(payload)
+    createKeywordRequest(responseDatasource?.requestId, payload)
   );
 
   const handleAppendNewRow = () => {
@@ -302,12 +310,12 @@ function Keywords({ isLoading }) {
 
   const formatDataSubmitted = (values = []) => {
     return {
-      selectedKeywordsTemplateId: values?.optionsGroup?.template?.value?.value,
+      selectedTemplateId: values?.optionsGroup?.template?.value?.value || null,
       keywordsCriteria: values?.criteriaGroup.map((item) => {
         return {
           criteria: item?.criteria?.value?.value,
           keywords: item?.keywords?.value,
-          logicalOperator: item?.logicalOperator || '',
+          logicalConnect: item?.logicalOperator,
         };
       }),
     };
