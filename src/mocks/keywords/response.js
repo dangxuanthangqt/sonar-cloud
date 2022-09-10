@@ -216,7 +216,7 @@ export const updateKeywordRequest = rest.put(
 );
 
 export const createKeywordRequest = rest.post(
-  `${API_URL}api/requests/keywords`,
+  `${API_URL}api/requests/:id/keywords`,
   (req, res, ctx) => {
     return res(
       ctx.delay(API_MOCK_DELAY),

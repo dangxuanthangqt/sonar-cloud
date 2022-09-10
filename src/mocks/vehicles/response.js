@@ -65,29 +65,24 @@ export const getVehicles = rest.get(
     )
 );
 
-export const getPlants = rest.get(
-  `${API_URL}api/common_code`,
-  (_, res, ctx) => {
-    return res(
-      ctx.delay(API_MOCK_DELAY),
-      ctx.json({
-        items: Array.from(
-          { length: faker?.datatype?.number({ min: 1, max: 30 }) },
-          () => {
-            const value = faker.company.companyName();
-            return { value, label: value };
-          }
-        ).concat([
-          { value: 'Assembly 2', label: 'Assembly 2' },
-          { value: 'Detroit Assembly Plant', label: 'Detroit Assembly Plant' },
-        ]),
-      })
-    );
-  }
-);
+export const getPlants = rest.get(`${API_URL}api/v1/plants`, (_, res, ctx) => {
+  return res(
+    ctx.delay(API_MOCK_DELAY),
+    ctx.json(
+      Array.from(
+        { length: faker?.datatype?.number({ min: 1, max: 30 }) },
+        () => {
+          const id = faker.database.mongodbObjectId();
+          const title = faker.company.companyName();
+          return { id, title };
+        }
+      )
+    )
+  );
+});
 
 export const createVehicleRequest = rest.post(
-  `${API_URL}api/requests/vehicles`,
+  `${API_URL}api/requests/:id/vehicles`,
   (req, res, ctx) => {
     return res(
       ctx.delay(API_MOCK_DELAY),

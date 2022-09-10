@@ -12,7 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import { dataSourceStateAtom } from '@/recoil/atom/data-source-state';
+import {
+  dataSourceStateAtom,
+  dataSourceResponseStateAtom,
+} from '@/recoil/atom/data-source-state';
 import MainLayout from '@/components/main-layout';
 import BackdropLoading from '@/components/backdrop-loading';
 import FormGroup from './components/FormGroup';
@@ -21,6 +24,7 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import { StepperInfo } from '@/components/stepper-info';
 import RequestTitle from '../summary/components/RequestTitle';
 import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
+
 import {
   createDataSourceRequest,
   getAllDataSources,
@@ -73,6 +77,9 @@ function DataSources() {
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
   );
+  const [responseDatasource, setResponseDatasource] = useRecoilState(
+    dataSourceResponseStateAtom
+  );
 
   const navigate = useNavigate();
 
@@ -121,10 +128,11 @@ function DataSources() {
   }, [dataSourceMaster, dataSourceState]);
 
   const {
+    data: responseDataSources,
     mutate: mutateDataSourceRequest,
     isLoading: createDataSourceLoading,
   } = useMutation(['createDataSources'], (payload) =>
-    createDataSourceRequest(payload)
+    createDataSourceRequest('hererer', payload)
   );
 
   const handleSelectAll = (isAll) => {
@@ -177,6 +185,11 @@ function DataSources() {
     }
     setIsAllSelected(true);
   }, [watchFormGroups]);
+
+  useEffect(() => {
+    setResponseDatasource(responseDataSources?.data);
+  }, [responseDataSources]);
+
   return (
     <MainLayout
       isShowSideBarStepper

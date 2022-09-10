@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isEmpty, omit, last } from 'lodash';
+import { isEmpty, omit, last, isArray } from 'lodash';
 import React, { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ import { steps } from '@/components/horizontal-stepper/constant';
 import DataSourceSummary from '@/components/data-source-summary';
 import RequestTitle from '@/pages/summary/components/RequestTitle';
 import { requestTitleStateAtom } from '@/pages/data-sources/stores/request-title-state';
+import { dataSourceResponseStateAtom } from '@/recoil/atom/data-source-state';
 
 const useStyles = makeStyles((theme) => ({
   btnContainer: {
@@ -66,6 +67,11 @@ function NewVehicle({ isLoading }) {
   const [requestTitleState, setRequestTitleState] = useRecoilState(
     requestTitleStateAtom
   );
+
+  const [responseDatasource, setResponseDatasource] = useRecoilState(
+    dataSourceResponseStateAtom
+  );
+
   const handleErrorRequestTitle = (message = '') => {
     setRequestTitleState({
       ...requestTitleState,
@@ -103,7 +109,7 @@ function NewVehicle({ isLoading }) {
     mutate: mutateNewVehicleRequest,
     isLoading: createKeywordRequestLoading,
   } = useMutation(['createNewVehicleRequest'], (payload) =>
-    createNewVehicleRequest(payload)
+    createNewVehicleRequest(responseDatasource?.requestId, payload)
   );
 
   useEffect(() => {
@@ -180,8 +186,17 @@ function NewVehicle({ isLoading }) {
   };
 
   const formatDataSubmitted = (values) => {
+    const plantsRequestArray = [];
+    if (values?.plantGroup?.plant?.value?.length > 0) {
+      values?.plantGroup?.plant?.value?.forEach((item) =>
+        plantsRequestArray.push({
+          id: item.value,
+        })
+      );
+    }
+
     return {
-      selectedPlants: values?.plantGroup?.plant?.value,
+      selectedPlants: plantsRequestArray,
       vehicles: values.vehicles.map((vehicle) => {
         const {
           fromYear,
@@ -198,7 +213,7 @@ function NewVehicle({ isLoading }) {
           family: family?.value?.value,
           line: line?.value?.value,
           series: series?.value?.value,
-          style: style?.value?.value,
+          styles: style?.value?.value,
           bodyDescription: bodyDescription?.value,
         };
       }),
@@ -236,7 +251,7 @@ function NewVehicle({ isLoading }) {
       <DataSourceSummary dataSummary={dataSourceSummary} />
       <StepperInfo step={3} name="Vehicles" />
       <Plant
-        plant={{ url: '/api/common_code' }}
+        plant={{ url: '/api/v1/plants' }}
         // disabled={plantGroupDisabled}
         title="Plant"
         control={control}
