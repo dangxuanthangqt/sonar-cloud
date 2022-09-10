@@ -31,7 +31,6 @@ import MainLayout from '@/components/main-layout';
 import Criteria from './components/Criteria';
 import OptionsGroup from './components/OptionsGroup';
 import Effective from './components/Effective';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import { keywordsStateAtom } from '@/recoil/atom/keywords-state';
 import { StepperInfo } from '@/components/stepper-info';
 import { activeStepStateAtom } from '@/recoil/atom/layout-state';

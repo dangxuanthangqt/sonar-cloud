@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { Autocomplete, Chip, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { isEmpty, last, omit } from 'lodash';
@@ -53,11 +54,6 @@ function NumberMultipleValueControl({
     fieldState: { error },
   } = useController({ control, name, rules: { required } });
 
-  const isControlDisabled = useMemo(
-    () => disabled || permission?.readOnlyControl,
-    [disabled, permission]
-  );
-
   return (
     <>
       <Autocomplete
@@ -101,16 +97,16 @@ function NumberMultipleValueControl({
             <Chip
               label={option}
               {...getTagProps({ index })}
-              color={!isControlDisabled ? 'primary' : 'secondary'}
+              color={!false ? 'primary' : 'secondary'}
               className="text-sm font-medium mr-1 mt-[3px]"
-              disabled={isControlDisabled}
+              disabled={false}
             />
           ))
         }
         selectOnFocus
         clearOnBlur
         handleHomeEndKeys
-        disabled={isControlDisabled}
+        disabled={false}
         classes={{ inputRoot: classes.inputRoot }}
         renderInput={(params) => (
           <TextField

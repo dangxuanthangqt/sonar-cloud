@@ -20,7 +20,6 @@ import BackdropLoading from '@/components/backdrop-loading';
 import Plant from './components/Plant';
 import VehicleList from './components/VehicleList';
 import { conditions, vehicleSchema } from './validationSchemas';
-import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
 import { vehicleStateAtom } from '@/recoil/atom/vehicle-state';
 import { propertiesVehicle, vehicleDefaultItemValue } from '../constant';
 import { StepperInfo } from '@/components/stepper-info';

@@ -55,11 +55,8 @@ function PartsGroup({
   clearErrors,
 }) {
   const classes = useStyles();
-  const { title, parts, permission } = partsData || {};
-  const partsGroupDisabled = useMemo(
-    () => disabled || permission?.readOnlyControl,
-    [disabled, permission]
-  );
+  const { title } = partsData || {};
+
   return (
     <Paper className="rounded-lg overflow-hidden">
       <div className={classes.header}>
@@ -75,11 +72,10 @@ function PartsGroup({
           minLength={properties?.properties?.parts?.minLength || 10}
           maxLength={properties?.properties?.parts?.maxLength || 10}
           setError={setError}
-          title={parts?.title}
+          title="Part number"
           hideLabel
           clearErrors={clearErrors}
-          defaultValue={parts?.values}
-          disabled={partsGroupDisabled}
+          disabled={false}
         />
       </div>
     </Paper>
