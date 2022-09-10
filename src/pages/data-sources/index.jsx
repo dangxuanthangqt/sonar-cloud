@@ -161,7 +161,7 @@ function DataSources() {
     }, []);
     return {
       title: requestTitleState?.value,
-      dataSourceGroup: dataSourceGroupFormatted,
+      dataSourceGroups: dataSourceGroupFormatted,
     };
   };
 

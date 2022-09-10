@@ -3,12 +3,12 @@
 import { faker } from '@faker-js/faker';
 
 export const STEPS = {
-  KEYWORDS: 'keywords',
-  VEHICLES: 'vehicles',
-  DATES: 'dates',
-  SALE_CODES: 'saleCodes',
-  LOPS_PARTS: 'lopsParts',
-  CUSTOM_FIELDS: 'customFields',
+  KEYWORDS: 'KEYWORDS',
+  VEHICLES: 'VEHICLES',
+  DATES: 'DATES',
+  SALE_CODES: 'SALE_CODES',
+  LOPS_PARTS: 'LOPS_PARTS',
+  CUSTOM_FIELDS: 'CUSTOM_FIELDS',
 };
 
 const arrayA = [STEPS.KEYWORDS, STEPS.SALE_CODES, STEPS.DATES];
