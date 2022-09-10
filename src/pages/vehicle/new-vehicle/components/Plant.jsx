@@ -52,6 +52,20 @@ function Plant({ plant: plantData, disabled, title, control, setValue }) {
     );
   };
 
+  const convertPlantArrayForDropdown = (options) => {
+    const newPlantArray = [];
+    if (options && options.length > 0) {
+      options.forEach((data) =>
+        newPlantArray.push({
+          value: data.id,
+          label: data.title,
+        })
+      );
+    }
+
+    return newPlantArray;
+  };
+
   return (
     <Paper className="rounded-lg overflow-hidden">
       <div className={classes.header}>
@@ -67,7 +81,7 @@ function Plant({ plant: plantData, disabled, title, control, setValue }) {
           }}
           id="plant-select-outlined"
           disabled={disabled}
-          handleOptions={(options) => options?.items}
+          handleOptions={(options) => convertPlantArrayForDropdown(options)}
           {...plantData}
           isHideValue
         />
