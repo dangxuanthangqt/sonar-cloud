@@ -17,3 +17,6 @@ export const createKeywordRequest = (payload) =>
 
 export const createNewVehicleRequest = (payload) =>
   request.post(`api/requests/vehicles`, payload);
+
+export const createSalesCodeRequest = (payload) =>
+  request.post(`api/requests/sales-code`, payload);

@@ -14,6 +14,8 @@ import { STEPS } from 'mocks/requests-view/mockData';
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import makeStyles from '@mui/styles/makeStyles';
+import { useMutation } from 'react-query';
+import { createSalesCodeRequest } from 'services/data-request-service';
 import BackdropLoading from '@/components/backdrop-loading';
 import MainLayout from '@/components/main-layout';
 import { dataRequestStateAtom } from '@/recoil/atom/data-request-state';
@@ -90,12 +92,9 @@ function SalesCodes({ isLoading }) {
   const classes = useStyles();
 
   const { t } = useTranslation('sales-code');
-  const dataRequestStateValue = useRecoilValue(dataRequestStateAtom);
   const [salesCodeStateValue, setSalesCodeStateValue] =
     useRecoilState(salesCodeStateAtom);
-  const {
-    data: { salesCodesSection },
-  } = dataRequestStateValue || {};
+
   const [activeStep, setActiveStep] = useRecoilState(activeStepStateAtom);
   const navigate = useNavigate();
 
@@ -105,7 +104,11 @@ function SalesCodes({ isLoading }) {
   const { control, reset, getValues, handleSubmit, trigger, watch } = useForm({
     defaultValues: {
       matchAllSalesCode: null,
-      salesCode: [],
+      salesCode: [
+        {
+          value: '',
+        },
+      ],
     },
     resolver: yupResolver(schema),
     mode: 'onSubmit',
@@ -135,28 +138,27 @@ function SalesCodes({ isLoading }) {
   useEffect(() => {
     if (!isEmpty(salesCodeStateValue) && !isLoading) {
       reset(salesCodeStateValue);
-      return;
     }
-    if (salesCodesSection) {
-      reset({
-        matchAllSalesCode: {
-          ...salesCodesSection?.salesCodesGroup?.matchAllSalesCode,
-          value:
-            salesCodesSection?.salesCodesGroup?.matchAllSalesCode
-              ?.salesCodeEnum,
-        },
-        salesCode: salesCodesSection?.salesCodesGroup?.salesCode?.map(
-          (saleCode) => ({
-            ...saleCode,
-            value: {
-              value: saleCode.value,
-              label: saleCode.value,
-            },
-          })
-        ),
-      });
-    }
-  }, [salesCodesSection]);
+    // if (salesCodesSection) {
+    //   reset({
+    //     matchAllSalesCode: {
+    //       ...salesCodesSection?.salesCodesGroup?.matchAllSalesCode,
+    //       value:
+    //         salesCodesSection?.salesCodesGroup?.matchAllSalesCode
+    //           ?.salesCodeEnum,
+    //     },
+    //     salesCode: salesCodesSection?.salesCodesGroup?.salesCode?.map(
+    //       (saleCode) => ({
+    //         ...saleCode,
+    //         value: {
+    //           value: saleCode.value,
+    //           label: saleCode.value,
+    //         },
+    //       })
+    //     ),
+    //   });
+    // }
+  }, [salesCodeStateValue]);
 
   const handleAppendNewRow = () => {
     const lastRow = last(fields);
@@ -167,38 +169,33 @@ function SalesCodes({ isLoading }) {
     append({ ...newRow, value: {} });
   };
 
-  const onSubmit = (data) => {
-    // eslint-disable-next-line no-console
-    console.log({ data });
+  const dataSourceSummary = useDataSourceSummary(STEPS.SALE_CODES);
+
+  const {
+    mutate: mutateSalesCodeRequest,
+    isLoading: createSalesCodeRequestLoading,
+  } = useMutation(['createSaleCodeRequest'], (payload) =>
+    createSalesCodeRequest(payload)
+  );
+
+  const mutateCreation = ({ onSuccess, payload }) => {
+    return mutateSalesCodeRequest(payload, { onSuccess });
   };
 
-  const isSalesCodesSectionDisabled = useMemo(
-    () => salesCodesSection?.permission?.readOnlyControl,
-    [salesCodesSection]
-  );
-
-  const isSalesCodesGroupDisabled = useMemo(
-    () =>
-      isSalesCodesSectionDisabled ||
-      salesCodesSection?.salesCodesGroup?.permission?.readOnlyControl,
-    [salesCodesSection, isSalesCodesSectionDisabled]
-  );
-
-  const isMatchAllSalesCodeDisabled = useMemo(
-    () =>
-      isSalesCodesGroupDisabled ||
-      salesCodesSection?.salesCodesGroup?.matchAllSalesCode?.permission
-        ?.readOnlyControl,
-    [salesCodesSection, isSalesCodesGroupDisabled]
-  );
-
-  const dataSourceSummary = useDataSourceSummary(STEPS.SALE_CODES);
+  const formatDataSubmitted = (values) => {
+    return {
+      criteria: values?.matchAllSalesCode?.value || '',
+      salesCode: values?.salesCode?.map((item) => item?.value?.value),
+    };
+  };
 
   return (
     <MainLayout
       isShowSideBarStepper
       trigger={trigger}
       handleSubmit={handleSubmit}
+      mutateCreation={mutateCreation}
+      formatDataSubmitted={formatDataSubmitted}
       errors={errors}
       step={STEPS.SALE_CODES}
       setDataToRecoilStore={setSalesCodeStateValue}
@@ -207,12 +204,12 @@ function SalesCodes({ isLoading }) {
           { label: t('common:breadcrumbs.create_new_request') },
           { label: 'Sale Codes' },
         ],
-        moreAction: !isSalesCodesGroupDisabled && !isLoading && (
+        moreAction: !isLoading && (
           <LoadingButton
             variant="contained"
             color="primary"
             className="save-button"
-            onClick={handleSubmit(onSubmit)}
+            // onClick={handleSubmit(onSubmit)}
           >
             {t('common:buttons.save_parameters')}
           </LoadingButton>
@@ -225,50 +222,32 @@ function SalesCodes({ isLoading }) {
       <StepperInfo step={4} name="Sales Codes" />
       {!isLoading && (
         <>
-          {salesCodesSection?.hints && (
-            <div className="flex justify-end items-center mb-8">
-              <Tooltip
-                title={
-                  <div
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{
-                      __html: salesCodesSection?.hints?.replace(
-                        /\n/gm,
-                        '<br/><br/>'
-                      ),
-                    }}
-                  />
-                }
-              >
-                <HelpOutline color="primary" />
-              </Tooltip>
-              <Typography color="primary" className="text-sm font-semibold">
-                Hints
-              </Typography>
-            </div>
-          )}
           <SalesCode
-            title={salesCodesSection?.salesCodesGroup?.title}
+            title="Sales Code"
             fields={fields}
             append={append}
             control={control}
             getValues={getValues}
             onAddNewRow={handleAppendNewRow}
             remove={remove}
-            disabled={isSalesCodesGroupDisabled}
-            isMatchAllSalesCodeDisabled={isMatchAllSalesCodeDisabled}
+            // disabled={isSalesCodesGroupDisabled}
+            // isMatchAllSalesCodeDisabled={isMatchAllSalesCodeDisabled}
             matches={matches}
           />
           <Box className={classes.btnContainer}>
             <Button
               onClick={() => {
-                handleSubmit(() => {
+                handleSubmit((values) => {
                   if (requestTitleState?.value) {
                     handleErrorRequestTitle('');
-                    setSalesCodeStateValue(getValues());
-                    setActiveStep((prevActiveStep) => {
-                      navigate(steps[activeStep - 1].path);
-                      return prevActiveStep - 1;
+                    mutateSalesCodeRequest(formatDataSubmitted(values), {
+                      onSuccess: () => {
+                        setSalesCodeStateValue(getValues());
+                        setActiveStep((prevActiveStep) => {
+                          navigate(steps[activeStep - 1].path);
+                          return prevActiveStep - 1;
+                        });
+                      },
                     });
                   } else {
                     handleErrorRequestTitle('Request title is required');
@@ -283,13 +262,17 @@ function SalesCodes({ isLoading }) {
             </Button>
             <Button
               onClick={() => {
-                handleSubmit(() => {
+                handleSubmit((values) => {
                   if (requestTitleState?.value) {
                     handleErrorRequestTitle('');
-                    setSalesCodeStateValue(getValues());
-                    setActiveStep((prevActiveStep) => {
-                      navigate(steps[activeStep + 1].path);
-                      return prevActiveStep + 1;
+                    mutateSalesCodeRequest(formatDataSubmitted(values), {
+                      onSuccess: () => {
+                        setSalesCodeStateValue(values);
+                        setActiveStep((prevActiveStep) => {
+                          navigate(steps[activeStep + 1].path);
+                          return prevActiveStep + 1;
+                        });
+                      },
                     });
                   } else {
                     handleErrorRequestTitle('Request title is required');

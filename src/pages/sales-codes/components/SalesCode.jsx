@@ -153,6 +153,7 @@ function SalesCode({
               >
                 <DynamicSingleValueLookup
                   name={`salesCode[${idx}].value`}
+                  url="/api/salesCode"
                   control={control}
                   {...restField}
                   title=""
@@ -175,7 +176,9 @@ function SalesCode({
                     classes.deleteButton
                   )}
                   size="small"
-                  onClick={() => remove(idx)}
+                  onClick={() => {
+                    if (fields.length > 1) remove(idx);
+                  }}
                   disabled={isSaleCodeDisabled}
                 />
               </Grid>
