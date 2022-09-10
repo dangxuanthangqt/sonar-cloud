@@ -105,31 +105,24 @@ export default function DateRangeControl({
 
   const open = Boolean(anchorEl);
   const id = open ? 'date-rang-control' : undefined;
+  const [state, setState] = useState({
+    startDate: field.value?.startDate || null,
+    endDate: field.value?.endDate || null,
+    key: 'selection',
+  });
 
-  const [state, setState] = useState([
-    {
-      startDate: field.value?.[0]?.startDate || null,
-      endDate: field.value?.[0]?.endDate || null,
-      key: 'selection',
-    },
-  ]);
-
-  const previousDataRef = useRef([
-    {
-      startDate: field.value?.[0]?.startDate || null,
-      endDate: field.value?.[0]?.endDate || null,
-      key: 'selection',
-    },
-  ]);
+  const previousDataRef = useRef({
+    startDate: field.value?.startDate || null,
+    endDate: field.value?.endDate || null,
+    key: 'selection',
+  });
 
   useEffect(() => {
-    setState([
-      {
-        startDate: field.value?.[0]?.startDate || null,
-        endDate: field.value?.[0]?.endDate || null,
-        key: 'selection',
-      },
-    ]);
+    setState({
+      startDate: field.value?.startDate || null,
+      endDate: field.value?.endDate || null,
+      key: 'selection',
+    });
   }, [field.value]);
 
   const handleCancel = useCallback(() => {
@@ -157,9 +150,7 @@ export default function DateRangeControl({
           {startLabel || 'From'}
         </FormLabel>
         <TextField
-          value={
-            state[0]?.startDate ? format(state[0]?.startDate, dateFormat) : ''
-          }
+          value={state?.startDate ? format(state?.startDate, dateFormat) : ''}
           inputRef={startInputRef}
           label=""
           hiddenLabel
@@ -203,7 +194,7 @@ export default function DateRangeControl({
           {endLabel || 'To'}
         </FormLabel>
         <TextField
-          value={state[0]?.endDate ? format(state[0]?.endDate, dateFormat) : ''}
+          value={state.endDate ? format(state.endDate, dateFormat) : ''}
           hiddenLabel
           label=""
           inputRef={endInputRef}
@@ -241,13 +232,13 @@ export default function DateRangeControl({
       >
         <DateRangePicker
           onChange={(item) => {
-            setState([item.selection]);
-            field.onChange([item.selection]);
+            setState(item.selection);
+            field.onChange(item.selection);
           }}
           moveRangeOnFirstSelection={false}
           retainEndDateOnFirstSelection={false}
           months={2}
-          ranges={state}
+          ranges={[state]}
           direction="horizontal"
           dateDisplayFormat={dateFormat}
           weekdayDisplayFormat="EEEEE"

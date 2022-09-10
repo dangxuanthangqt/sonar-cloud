@@ -54,11 +54,7 @@ const useLogGroupStyles = makeStyles((theme) => ({
 
 function LopsGroup({ lopsData, control, disabled, properties }) {
   const classes = useLogGroupStyles();
-  const { title, lopCriteriaList, permission } = lopsData || {};
-  const lopsGroupDisabled = useMemo(
-    () => disabled || permission?.readOnlyControl,
-    [disabled, permission]
-  );
+  const { title } = lopsData || {};
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -84,21 +80,16 @@ function LopsGroup({ lopsData, control, disabled, properties }) {
       <div className={classes.body}>
         <Grid container spacing={5}>
           <Grid item xs={5}>
-            <Typography className="text-xs font-medium">
-              {lopCriteriaList?.[0]?.lop?.title}
-            </Typography>
+            <Typography className="text-xs font-medium">LOPs</Typography>
           </Grid>
           <Grid item xs={5}>
             <Typography className="text-xs font-medium">
-              {lopCriteriaList?.[0]?.failureCode?.title}
+              Failure code
             </Typography>
           </Grid>
         </Grid>
         <Divider className="mt-[10px] mb-4" />
         {fields.map((field, index) => {
-          const rowDisabled =
-            lopsGroupDisabled ||
-            lopCriteriaList[index]?.permission?.readOnlyControl;
           return (
             <Grid
               container
@@ -116,8 +107,8 @@ function LopsGroup({ lopsData, control, disabled, properties }) {
                   } digit LOP, i.e. ${Array(lopProperties?.minLength || 6)
                     .fill(0)
                     .join('')}`}
-                  disabled={rowDisabled}
-                  permission={lopCriteriaList[index]?.lop?.permission}
+                  disabled={false}
+                  // permission={lopCriteriaList[index]?.lop?.permission}
                 />
               </Grid>
               <Grid item xs={5} className="pt-0">
@@ -129,8 +120,7 @@ function LopsGroup({ lopsData, control, disabled, properties }) {
                   )
                     .fill('A')
                     .join('')}`}
-                  disabled={rowDisabled}
-                  permission={lopCriteriaList[index]?.failureCode?.permission}
+                  disabled={false}
                 />
               </Grid>
               <Grid item xs={2} className="relative">
@@ -142,8 +132,10 @@ function LopsGroup({ lopsData, control, disabled, properties }) {
                     classes.deleteButton
                   )}
                   size="small"
-                  onClick={() => remove(index)}
-                  disabled={rowDisabled}
+                  onClick={() => {
+                    if (fields.length > 1) remove(index);
+                  }}
+                  disabled={false}
                 />
               </Grid>
             </Grid>
@@ -157,7 +149,7 @@ function LopsGroup({ lopsData, control, disabled, properties }) {
           size="large"
           onClick={() => append({ lop: '', failureCode: '' })}
           className="pl-0 hover:bg-transparent capitalize font-[700] mt-1"
-          disabled={lopsGroupDisabled}
+          disabled={false}
         >
           Add New Row
         </Button>
