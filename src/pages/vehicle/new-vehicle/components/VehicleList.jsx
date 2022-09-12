@@ -55,7 +55,7 @@ function FieldRendering({ type, isVehicleStep, ...props }) {
     return (
       <DynamicSingleValueLookup
         {...props}
-        getOptionLabel={(o) => `${o.value} - ${o.label}`}
+        getOptionLabel={(o) => `${o.value} - ${o.title}`}
         handleOptions={(options) => options?.data || []}
       />
     );

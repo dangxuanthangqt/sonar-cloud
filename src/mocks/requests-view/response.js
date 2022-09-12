@@ -582,77 +582,74 @@ const getRequestViewDataGrid = rest.get(
 const mockFamily = [
   {
     value: 'AA',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 1,
   },
   {
     value: 'BB',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 2,
   },
   {
     value: 'CC',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 3,
   },
   {
     value: 'DD',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 4,
   },
   {
     value: 'EE',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 5,
   },
   {
     value: 'FF',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 6,
   },
   {
     value: 'GG',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 7,
   },
   {
     value: 'HH',
-    label: faker.random.words(),
-    url: `${API_URL}api/familyCode`,
+    title: faker.random.words(),
+    id: 8,
   },
 ];
 
-const getFamilyByCode = rest.get(
-  `${API_URL}api/familyCode`,
-  (req, res, ctx) => {
-    const q = req.url.searchParams.get('q')?.toLowerCase();
-    return res(
-      ctx.delay(API_MOCK_DELAY),
-      ctx.json({
-        data: q
-          ? mockFamily.filter(
-              (el) =>
-                new RegExp(q, 'i').test(el.value) ||
-                new RegExp(q, 'i').test(el.label)
-            )
-          : mockFamily,
-      })
-    );
-  }
-);
+const getFamilyByCode = rest.get(`${API_URL}api/families`, (req, res, ctx) => {
+  const q = req.url.searchParams.get('searchKey')?.toLowerCase();
+  return res(
+    ctx.delay(API_MOCK_DELAY),
+    ctx.json({
+      data: q
+        ? mockFamily.filter(
+            (el) =>
+              new RegExp(q, 'i').test(el.value) ||
+              new RegExp(q, 'i').test(el.title)
+          )
+        : mockFamily,
+    })
+  );
+});
 
 const mockLine = [
-  { value: 'AA', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'BB', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'CC', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'DD', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'EE', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'FF', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'GG', label: faker.random.words(), url: `${API_URL}api/lineCode` },
-  { value: 'HH', label: faker.random.words(), url: `${API_URL}api/lineCode` },
+  { value: 'AA', title: faker.random.words(), id: 1 },
+  { value: 'BB', title: faker.random.words(), id: 2 },
+  { value: 'CC', title: faker.random.words(), id: 3 },
+  { value: 'DD', title: faker.random.words(), id: 4 },
+  { value: 'EE', title: faker.random.words(), id: 5 },
+  { value: 'FF', title: faker.random.words(), id: 6 },
+  { value: 'GG', title: faker.random.words(), id: 7 },
+  { value: 'HH', title: faker.random.words(), id: 8 },
 ];
-const getLineByCode = rest.get(`${API_URL}api/lineCode`, (req, res, ctx) => {
-  const q = req.url.searchParams.get('q')?.toLowerCase();
+const getLineByCode = rest.get(`${API_URL}api/lines`, (req, res, ctx) => {
+  const q = req.url.searchParams.get('searchKey')?.toLowerCase();
   return res(
     ctx.delay(API_MOCK_DELAY),
     ctx.json({
@@ -660,7 +657,7 @@ const getLineByCode = rest.get(`${API_URL}api/lineCode`, (req, res, ctx) => {
         ? mockLine.filter(
             (el) =>
               new RegExp(q, 'i').test(el.value) ||
-              new RegExp(q, 'i').test(el.label)
+              new RegExp(q, 'i').test(el.title)
           )
         : mockLine,
     })
@@ -670,102 +667,99 @@ const getLineByCode = rest.get(`${API_URL}api/lineCode`, (req, res, ctx) => {
 const mockSeries = [
   {
     value: 'AA',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 1,
   },
   {
     value: 'BB',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 2,
   },
   {
     value: 'CC',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 3,
   },
   {
     value: 'DD',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 4,
   },
   {
     value: 'EE',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 5,
   },
   {
     value: 'FF',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 6,
   },
   {
     value: 'GG',
-    label: faker.random.words(),
-    url: `${API_URL}api/seriesCode`,
+    title: faker.random.words(),
+    id: 7,
   },
 ];
-const getSeriesByCode = rest.get(
-  `${API_URL}api/seriesCode`,
-  (req, res, ctx) => {
-    const q = req.url.searchParams.get('q')?.toLowerCase();
-    return res(
-      ctx.delay(API_MOCK_DELAY),
-      ctx.json({
-        data: q
-          ? mockSeries.filter(
-              (el) =>
-                new RegExp(q, 'i').test(el.value) ||
-                new RegExp(q, 'i').test(el.label)
-            )
-          : mockSeries,
-      })
-    );
-  }
-);
+const getSeriesByCode = rest.get(`${API_URL}api/series`, (req, res, ctx) => {
+  const q = req.url.searchParams.get('searchKey')?.toLowerCase();
+  return res(
+    ctx.delay(API_MOCK_DELAY),
+    ctx.json({
+      data: q
+        ? mockSeries.filter(
+            (el) =>
+              new RegExp(q, 'i').test(el.value) ||
+              new RegExp(q, 'i').test(el.title)
+          )
+        : mockSeries,
+    })
+  );
+});
 const mockStyles = [
   {
     value: 'AA',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 1,
   },
   {
     value: 'BB',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 2,
   },
   {
     value: 'CC',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 3,
   },
   {
     value: 'DD',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 4,
   },
   {
     value: 'EE',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 5,
   },
   {
     value: 'FF',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 6,
   },
   {
     value: 'GG',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 7,
   },
   {
     value: 'HH',
-    label: faker.random.words(),
-    url: `${API_URL}api/styleCode`,
+    title: faker.random.words(),
+    id: 8,
   },
 ];
-const getStyleByCode = rest.get(`${API_URL}api/styleCode`, (req, res, ctx) => {
-  const q = req.url.searchParams.get('q')?.toLowerCase();
+const getStyleByCode = rest.get(`${API_URL}api/styles`, (req, res, ctx) => {
+  const q = req.url.searchParams.get('searchKey')?.toLowerCase();
   return res(
     ctx.delay(API_MOCK_DELAY),
     ctx.json({
@@ -773,7 +767,7 @@ const getStyleByCode = rest.get(`${API_URL}api/styleCode`, (req, res, ctx) => {
         ? mockStyles.filter(
             (el) =>
               new RegExp(q, 'i').test(el.value) ||
-              new RegExp(q, 'i').test(el.label)
+              new RegExp(q, 'i').test(el.title)
           )
         : mockStyles,
     })

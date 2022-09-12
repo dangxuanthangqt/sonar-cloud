@@ -52,7 +52,7 @@ function DynamicSingleValueLookup({
 
   const { isFetching } = useQuery(
     ['getDataByCode', url, search, name],
-    () => getDataByCode({ q: search }, url),
+    () => getDataByCode({ searchKey: search }, url),
     {
       enabled: open,
       select: (res) => res.data,
@@ -83,7 +83,7 @@ function DynamicSingleValueLookup({
         setOptions([]);
       }}
       getOptionLabel={(option) =>
-        getOptionLabel ? getOptionLabel(option) : option?.label || ''
+        getOptionLabel ? getOptionLabel(option) : option?.title || ''
       }
       isOptionEqualToValue={(option, value) => {
         return option?.value === value?.value;
