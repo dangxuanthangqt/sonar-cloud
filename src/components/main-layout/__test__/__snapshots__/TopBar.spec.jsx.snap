@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render top bar snapshot 1`] = `
-Array [
+<div
+  className="header-wrapper"
+>
   <div
     className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular makeStyles-header-2 css-129dask-MuiToolbar-root"
   >
@@ -95,7 +97,7 @@ Array [
         </svg>
       </div>
     </div>
-  </div>,
+  </div>
   <div
     className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular makeStyles-tabToolbar-4 css-129dask-MuiToolbar-root"
   >
@@ -304,6 +306,6 @@ Array [
         />
       </svg>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;

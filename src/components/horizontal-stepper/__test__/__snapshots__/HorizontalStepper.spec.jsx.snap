@@ -36,7 +36,7 @@ exports[`Horizontal stepper should match snapshot 1`] = `
       </p>
     </div>
     <div
-      class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-10 css-m5vj9m-MuiStepper-root"
+      class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-10 step-form-wrapper css-m5vj9m-MuiStepper-root"
     >
       <div
         class="MuiStep-root MuiStep-horizontal makeStyles-step-11 css-1bw0nnu-MuiStep-root"

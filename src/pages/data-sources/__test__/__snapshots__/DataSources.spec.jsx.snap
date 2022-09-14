@@ -37,7 +37,7 @@ exports[`Data source should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-20 css-m5vj9m-MuiStepper-root"
+        class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-20 step-form-wrapper css-m5vj9m-MuiStepper-root"
       >
         <div
           class="MuiStep-root MuiStep-horizontal makeStyles-step-21 css-1bw0nnu-MuiStep-root"
@@ -416,7 +416,7 @@ exports[`Data source should match snapshot 1`] = `
           aria-hidden="true"
           class="MuiBackdrop-root css-1ji7omv-MuiBackdrop-root"
           role="loading"
-          style="opacity: 0; visibility: hidden;"
+          style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
         >
           <span
             class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorInherit css-62e83j-MuiCircularProgress-root"
@@ -455,39 +455,29 @@ exports[`Data source should match snapshot 1`] = `
               pattern="[0-9]*"
               placeholder="Request title"
               type="text"
-              value="This is request title This is request title"
+              value=""
             />
           </div>
         </div>
         <div
-          class="makeStyles-container-41 MuiBox-root css-0"
+          class="makeStyles-container-42 MuiBox-root css-0"
         >
           <div
             class="MuiBox-root css-0"
           >
             <p
-              class="MuiTypography-root MuiTypography-body1 makeStyles-stepTitle-42 css-16w2zvr-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepTitle-43 css-16w2zvr-MuiTypography-root"
             >
               Step 
               1
                :
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 makeStyles-stepName-43 css-16w2zvr-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepName-44 css-16w2zvr-MuiTypography-root"
             >
               Data Sources
             </p>
           </div>
-          <button
-            class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root  css-1i3jxbp-MuiButtonBase-root-MuiButton-root"
-            tabindex="0"
-            type="button"
-          >
-            Review
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
-          </button>
         </div>
         <div
           class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-zow5z4-MuiGrid-root"

@@ -37,7 +37,7 @@ exports[`Data source should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-20 css-m5vj9m-MuiStepper-root"
+        class="MuiStepper-root MuiStepper-horizontal makeStyles-stepper-20 step-form-wrapper css-m5vj9m-MuiStepper-root"
       >
         <div
           class="MuiStep-root MuiStep-horizontal makeStyles-step-21 css-1bw0nnu-MuiStep-root"
@@ -455,12 +455,12 @@ exports[`Data source should match snapshot 1`] = `
               pattern="[0-9]*"
               placeholder="Request title"
               type="text"
-              value="This is request title This is request title"
+              value=""
             />
           </div>
         </div>
         <div
-          class="makeStyles-container-41 MuiBox-root css-0"
+          class="makeStyles-container-42 MuiBox-root css-0"
         >
           <div
             class="MuiListItemButton-root MuiListItemButton-gutters MuiButtonBase-root css-1jni0wj-MuiButtonBase-root-MuiListItemButton-root"
@@ -469,7 +469,7 @@ exports[`Data source should match snapshot 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium makeStyles-customIcon-42 css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium makeStyles-customIcon-43 css-i4bv87-MuiSvgIcon-root"
               data-testid="ExpandLessRoundedIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -550,50 +550,55 @@ exports[`Data source should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="makeStyles-container-47 MuiBox-root css-0"
+          class="makeStyles-container-48 MuiBox-root css-0"
         >
           <div
             class="MuiBox-root css-0"
           >
             <p
-              class="MuiTypography-root MuiTypography-body1 makeStyles-stepTitle-48 css-16w2zvr-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepTitle-49 css-16w2zvr-MuiTypography-root"
             >
               Step 
               5
                :
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 makeStyles-stepName-49 css-16w2zvr-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 makeStyles-stepName-50 css-16w2zvr-MuiTypography-root"
             >
               Dates
             </p>
           </div>
-          <button
-            class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButtonBase-root  css-1i3jxbp-MuiButtonBase-root-MuiButton-root"
-            tabindex="0"
-            type="button"
-          >
-            Review
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
-          </button>
         </div>
         <div
           class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden h-full mb-5 css-1ps6pg7-MuiPaper-root"
         >
           <div
-            class="makeStyles-header-50"
+            class="makeStyles-header-51"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 text-base font-bold mt-[14px] mb-3 mr-3 css-2jnvcn-MuiTypography-root"
-            />
+            >
+              Vehicle build date
+            </p>
+            <svg
+              aria-hidden="true"
+              aria-label="The report date"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-14zjw3a-MuiSvgIcon-root"
+              data-mui-internal-clone-element="true"
+              data-testid="HelpOutlineIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
+              />
+            </svg>
           </div>
           <div
-            class="MuiGrid-root MuiGrid-container makeStyles-body-51 css-11lq3yg-MuiGrid-root"
+            class="MuiGrid-root MuiGrid-container makeStyles-body-52 css-11lq3yg-MuiGrid-root"
           >
             <div
-              class="items-start flex makeStyles-container-54"
+              class="items-start flex makeStyles-container-55"
             >
               <div
                 class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -602,74 +607,6 @@ exports[`Data source should match snapshot 1`] = `
                   class="MuiFormLabel-root MuiFormLabel-colorPrimary text-base text-[#12293E] mb-[6px] css-b5vsem-MuiFormLabel-root"
                 >
                   From
-                </label>
-                <div
-                  class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-                >
-                  <div
-                    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd MuiInputBase-hiddenLabel css-4sam44-MuiInputBase-root-MuiOutlinedInput-root"
-                  >
-                    <input
-                      aria-invalid="false"
-                      class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputHiddenLabel MuiInputBase-inputAdornedEnd text-sm font-medium py-[14px] pl-[9px] css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r0:"
-                      placeholder="Enter date"
-                      type="text"
-                      value=""
-                    />
-                    <div
-                      class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
-                    >
-                      <button
-                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
-                          data-testid="CalendarTodayOutlinedIcon"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"
-                          />
-                        </svg>
-                        <span
-                          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                        />
-                      </button>
-                    </div>
-                    <fieldset
-                      aria-hidden="true"
-                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                    >
-                      <legend
-                        class="css-hdw1oc"
-                      >
-                        <span
-                          class="notranslate"
-                        >
-                          ​
-                        </span>
-                      </legend>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="MuiBox-root css-pl08fh"
-              >
-                ⚊
-              </div>
-              <div
-                class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
-              >
-                <label
-                  class="MuiFormLabel-root MuiFormLabel-colorPrimary text-base text-[#12293E] mb-[6px] css-b5vsem-MuiFormLabel-root"
-                >
-                  To
                 </label>
                 <div
                   class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -683,89 +620,7 @@ exports[`Data source should match snapshot 1`] = `
                       id=":r1:"
                       placeholder="Enter date"
                       type="text"
-                      value=""
-                    />
-                    <div
-                      class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
-                    >
-                      <button
-                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
-                          data-testid="CalendarTodayOutlinedIcon"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"
-                          />
-                        </svg>
-                        <span
-                          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                        />
-                      </button>
-                    </div>
-                    <fieldset
-                      aria-hidden="true"
-                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-                    >
-                      <legend
-                        class="css-hdw1oc"
-                      >
-                        <span
-                          class="notranslate"
-                        >
-                          ​
-                        </span>
-                      </legend>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden h-full mb-5 css-1ps6pg7-MuiPaper-root"
-        >
-          <div
-            class="makeStyles-header-50"
-          >
-            <p
-              class="MuiTypography-root MuiTypography-body1 text-base font-bold mt-[14px] mb-3 mr-3 css-2jnvcn-MuiTypography-root"
-            />
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-container makeStyles-body-51 css-11lq3yg-MuiGrid-root"
-          >
-            <div
-              class="items-start flex makeStyles-container-54"
-            >
-              <div
-                class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
-              >
-                <label
-                  class="MuiFormLabel-root MuiFormLabel-colorPrimary text-base text-[#12293E] mb-[6px] css-b5vsem-MuiFormLabel-root"
-                >
-                  From
-                </label>
-                <div
-                  class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-                >
-                  <div
-                    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd MuiInputBase-hiddenLabel css-4sam44-MuiInputBase-root-MuiOutlinedInput-root"
-                  >
-                    <input
-                      aria-invalid="false"
-                      class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputHiddenLabel MuiInputBase-inputAdornedEnd text-sm font-medium py-[14px] pl-[9px] css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r2:"
-                      placeholder="Enter date"
-                      type="text"
-                      value=""
+                      value="09/14/2022"
                     />
                     <div
                       class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
@@ -830,10 +685,10 @@ exports[`Data source should match snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputHiddenLabel MuiInputBase-inputAdornedEnd text-sm font-medium py-[14px] pl-[9px] css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r3:"
+                      id=":r2:"
                       placeholder="Enter date"
                       type="text"
-                      value=""
+                      value="09/14/2022"
                     />
                     <div
                       class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
@@ -883,17 +738,32 @@ exports[`Data source should match snapshot 1`] = `
           class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden h-full mb-5 css-1ps6pg7-MuiPaper-root"
         >
           <div
-            class="makeStyles-header-50"
+            class="makeStyles-header-51"
           >
             <p
               class="MuiTypography-root MuiTypography-body1 text-base font-bold mt-[14px] mb-3 mr-3 css-2jnvcn-MuiTypography-root"
-            />
+            >
+              Incident Date
+            </p>
+            <svg
+              aria-hidden="true"
+              aria-label="The report incident date"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-14zjw3a-MuiSvgIcon-root"
+              data-mui-internal-clone-element="true"
+              data-testid="HelpOutlineIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
+              />
+            </svg>
           </div>
           <div
-            class="MuiGrid-root MuiGrid-container makeStyles-body-51 css-11lq3yg-MuiGrid-root"
+            class="MuiGrid-root MuiGrid-container makeStyles-body-52 css-11lq3yg-MuiGrid-root"
           >
             <div
-              class="items-start flex makeStyles-container-54"
+              class="items-start flex makeStyles-container-55"
             >
               <div
                 class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -915,7 +785,7 @@ exports[`Data source should match snapshot 1`] = `
                       id=":r4:"
                       placeholder="Enter date"
                       type="text"
-                      value=""
+                      value="09/14/2022"
                     />
                     <div
                       class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
@@ -983,7 +853,172 @@ exports[`Data source should match snapshot 1`] = `
                       id=":r5:"
                       placeholder="Enter date"
                       type="text"
-                      value=""
+                      value="09/14/2022"
+                    />
+                    <div
+                      class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+                    >
+                      <button
+                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                          data-testid="CalendarTodayOutlinedIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"
+                          />
+                        </svg>
+                        <span
+                          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                        />
+                      </button>
+                    </div>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-hdw1oc"
+                      >
+                        <span
+                          class="notranslate"
+                        >
+                          ​
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 rounded-lg overflow-hidden h-full mb-5 css-1ps6pg7-MuiPaper-root"
+        >
+          <div
+            class="makeStyles-header-51"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 text-base font-bold mt-[14px] mb-3 mr-3 css-2jnvcn-MuiTypography-root"
+            >
+              Report Date
+            </p>
+            <svg
+              aria-hidden="true"
+              aria-label="The report date"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-14zjw3a-MuiSvgIcon-root"
+              data-mui-internal-clone-element="true"
+              data-testid="HelpOutlineIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-container makeStyles-body-52 css-11lq3yg-MuiGrid-root"
+          >
+            <div
+              class="items-start flex makeStyles-container-55"
+            >
+              <div
+                class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiFormLabel-colorPrimary text-base text-[#12293E] mb-[6px] css-b5vsem-MuiFormLabel-root"
+                >
+                  From
+                </label>
+                <div
+                  class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                >
+                  <div
+                    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd MuiInputBase-hiddenLabel css-4sam44-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-invalid="false"
+                      class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputHiddenLabel MuiInputBase-inputAdornedEnd text-sm font-medium py-[14px] pl-[9px] css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":r7:"
+                      placeholder="Enter date"
+                      type="text"
+                      value="09/14/2022"
+                    />
+                    <div
+                      class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
+                    >
+                      <button
+                        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+                          data-testid="CalendarTodayOutlinedIcon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"
+                          />
+                        </svg>
+                        <span
+                          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                        />
+                      </button>
+                    </div>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-hdw1oc"
+                      >
+                        <span
+                          class="notranslate"
+                        >
+                          ​
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiBox-root css-pl08fh"
+              >
+                ⚊
+              </div>
+              <div
+                class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiFormLabel-colorPrimary text-base text-[#12293E] mb-[6px] css-b5vsem-MuiFormLabel-root"
+                >
+                  To
+                </label>
+                <div
+                  class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                >
+                  <div
+                    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd MuiInputBase-hiddenLabel css-4sam44-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-invalid="false"
+                      class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputHiddenLabel MuiInputBase-inputAdornedEnd text-sm font-medium py-[14px] pl-[9px] css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":r8:"
+                      placeholder="Enter date"
+                      type="text"
+                      value="09/14/2022"
                     />
                     <div
                       class="MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-hiddenLabel MuiInputAdornment-sizeMedium css-1laqsz7-MuiInputAdornment-root"
