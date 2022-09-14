@@ -15,7 +15,7 @@ definitions:
         script:
           - npx yarn install
           - npx yarn lint 
-          - npx yarn test            # Build your project and run
+          # - npx yarn test            # Build your project and run
           - pipe: sonarsource/sonarcloud-scan:1.4.0
     - step: &check-quality-gate-sonarcloud
         name: Check the Quality Gate on SonarCloud
