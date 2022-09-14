@@ -1,4 +1,4 @@
-image: feeni/node-chrome:latest # Choose an image matching your project needs
+image: node:16 # Choose an image matching your project needs
 
 clone:
   depth: full              # SonarCloud scanner needs the full history to assign issues properly
