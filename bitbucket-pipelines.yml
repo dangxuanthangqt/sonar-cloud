@@ -13,6 +13,7 @@ definitions:
           - node          # See https://confluence.atlassian.com/bitbucket/caching-dependencies-895552876.html
           - sonar
         script:
+          - npx yarn install
           - npx yarn lint 
           - npx yarn test            # Build your project and run
           - pipe: sonarsource/sonarcloud-scan:1.4.0
